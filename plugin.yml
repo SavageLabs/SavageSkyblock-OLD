@@ -1,0 +1,8 @@
+name: EpicSkyblock
+version: 1.0
+main: com.peaches.epicskyblock.EpicSkyBlock
+author: Peaches_MLG
+depend: [WorldEdit]
+commands:
+  Island:
+    aliases: [is]

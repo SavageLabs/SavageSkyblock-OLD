@@ -1,0 +1,40 @@
+<component name="libraryTable">
+  <library name="1.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.10.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.11.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.12.2.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.12.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.3.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.6.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.9.4.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.9.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.5.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.13.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/Support/worldedit-bukkit-6.1.7.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.10.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.11.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.12.2.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.12.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.3.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.6.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.9.4.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.9.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.5.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.7.8.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Plugins/1.13.jar!/" />
+    </SOURCES>
+  </library>
+</component>
