@@ -16,9 +16,29 @@ class IslandManager {
 
     private static Direction direction;
 
+    public static void setNextloc(Location nextloc) {
+        IslandManager.nextloc = nextloc;
+    }
+
+    public static void setDirection(Direction direction) {
+        IslandManager.direction = direction;
+    }
+
+    public static Location getNextloc() {
+        return nextloc;
+    }
+
+    public static Direction getDirection() {
+        return direction;
+    }
+
+    public static void addIsland(Island island) {
+        Islands.add(island);
+    }
+
     public static void createIsland(Player player) {
         for (Island island : Islands) {
-            if (island.getowner() == null) {
+            if (island.getowner().equals("")) {
                 island.setowner(player);
                 island.loadSchematic(player);
                 User.getbyPlayer(player).setIsland(island);
@@ -28,7 +48,7 @@ class IslandManager {
         }
         if (direction == null) {
             direction = Direction.NORTH;
-            Island island = new Island(player, nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100));
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -40,7 +60,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(0, 0, 200).getBlock()) == null) {
                 direction = Direction.EAST;
             }
-            Island island = new Island(player, nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100));
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -52,7 +72,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(-200, 0, 0).getBlock()) == null) {
                 direction = Direction.SOUTH;
             }
-            Island island = new Island(player, nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100));
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -64,7 +84,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(0, 0, -200).getBlock()) == null) {
                 direction = Direction.WEST;
             }
-            Island island = new Island(player, nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100));
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -76,7 +96,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(200, 0, 0).getBlock()) == null) {
                 direction = Direction.NORTH;
             }
-            Island island = new Island(player, nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100));
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -90,10 +110,14 @@ class IslandManager {
 
     public static void deleteIsland(Player player) {
         if (User.getbyPlayer(player).getIsland() != null) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + player.getName());
-            User.getbyPlayer(player).getIsland().delete();
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland deleted"));
-            player.getInventory().clear();
+            if (User.getbyPlayer(player).getIsland().getowner().equals(player)) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + player.getName());
+                User.getbyPlayer(player).getIsland().delete();
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland deleted"));
+                player.getInventory().clear();
+            } else {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eOnly the Island owner can do this"));
+            }
         } else {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island"));
         }

@@ -1,5 +1,6 @@
 package com.peaches.epicskyblock;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -7,17 +8,35 @@ import java.util.ArrayList;
 public class User {
 
     static ArrayList<User> users = new ArrayList<>();
-    private Player player;
+    private String player;
     private Island island;
-    private ArrayList<String> invites;
+    private Boolean chat = false;
+    private ArrayList<String> invites = new ArrayList<>();
 
-    public User(Player player) {
+    public User(String player) {
         this.player = player;
+    }
+
+    public Boolean getChat() {
+        return chat;
+    }
+
+    public void setChat(Boolean chat) {
+        this.chat = chat;
     }
 
     public static User getbyPlayer(Player player) {
         for (User user : users) {
-            if (user.getPlayer().equals(player)) {
+            if (user.getPlayer().getName().equals(player.getName())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public static User getbyPlayer(String player) {
+        for (User user : users) {
+            if (user.getPlayerName().equals(player)) {
                 return user;
             }
         }
@@ -25,6 +44,10 @@ public class User {
     }
 
     private Player getPlayer() {
+        return Bukkit.getPlayer(player);
+    }
+
+    private String getPlayerName() {
         return player;
     }
 
