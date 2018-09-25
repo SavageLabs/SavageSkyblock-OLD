@@ -22,8 +22,8 @@ public class Island {
 
     public Location pos1; // Bottom left corner
     public Location pos2; // Bottom right corner
-    final Location maxpos1; // Bottom left corner
-    final Location maxpos2; // Bottom right corner
+    private final Location maxpos1; // Bottom left corner
+    private final Location maxpos2; // Bottom right corner
     private String owner;
     private Location home;
     private Boolean SpawnerBoosterActive = false;
@@ -37,6 +37,16 @@ public class Island {
     private Integer Fly = 0;
     private Integer MobCoins = 0;
     private Integer SpawnerCode;
+    private Integer FarmingCode;
+    private Integer XPCode;
+    private Integer FlyCode;
+    private Integer MobcoinsCode;
+    private Integer Mission1;
+    private Integer Mission2;
+    private Integer Mission3;
+    private Integer Size;
+    private Integer MemberCount;
+    private Integer WarpCount;
     private ArrayList<String> players = new ArrayList<>();
 
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
@@ -46,6 +56,9 @@ public class Island {
         this.pos2 = pos2;
         this.maxpos1 = mpos1;
         this.maxpos2 = mpos2;
+        this.Size = 1;
+        this.MemberCount = 1;
+        this.WarpCount = 1;
         players.add(owner);
 
         if (User.getbyPlayer(owner) == null) {
@@ -54,6 +67,55 @@ public class Island {
         User.getbyPlayer(owner).setIsland(this);
         //Loads island.schematic
         if (schem) loadSchematic(Bukkit.getPlayer(owner));
+        EpicSkyBlock.getSkyblock.addMissions(this);
+    }
+
+    public Integer getSize() {
+        return Size;
+    }
+
+    public void setSize(Integer size) {
+        Size = size;
+    }
+
+    public Integer getMemberCount() {
+        return MemberCount;
+    }
+
+    public void setMemberCount(Integer memberCount) {
+        MemberCount = memberCount;
+    }
+
+    public Integer getWarpCount() {
+        return WarpCount;
+    }
+
+    public void setWarpCount(Integer warpCount) {
+        WarpCount = warpCount;
+    }
+
+    public Integer getMission1() {
+        return Mission1;
+    }
+
+    public void setMission1(Integer mission1) {
+        Mission1 = mission1;
+    }
+
+    public Integer getMission2() {
+        return Mission2;
+    }
+
+    public void setMission2(Integer mission2) {
+        Mission2 = mission2;
+    }
+
+    public Integer getMission3() {
+        return Mission3;
+    }
+
+    public void setMission3(Integer mission3) {
+        Mission3 = mission3;
     }
 
     public Integer getSpawner() {
@@ -86,9 +148,56 @@ public class Island {
             if (spawner <= 0) {
                 Bukkit.getScheduler().cancelTask(SpawnerCode);
                 SpawnerBoosterActive = false;
-                return;
             } else {
                 this.spawner--;
+            }
+        }, 20L, 20L);
+    }
+
+    public void startfarmingcountdown(int i) {
+        Farming = i;
+        FarmingCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
+            if (Farming <= 0) {
+                Bukkit.getScheduler().cancelTask(FarmingCode);
+                FarmingBoosterActive = false;
+            } else {
+                this.Farming--;
+            }
+        }, 20L, 20L);
+    }
+
+    public void startxpcountdown(int i) {
+        Xp = i;
+        XPCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
+            if (Xp <= 0) {
+                Bukkit.getScheduler().cancelTask(XPCode);
+                XPBoosterActive = false;
+            } else {
+                this.Xp--;
+            }
+        }, 20L, 20L);
+    }
+
+    public void startflycountdown(int i) {
+        Fly = i;
+        FlyCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
+            if (Fly <= 0) {
+                Bukkit.getScheduler().cancelTask(FlyCode);
+                FlyBoosterActive = false;
+            } else {
+                this.Fly--;
+            }
+        }, 20L, 20L);
+    }
+
+    public void startmobcoinscountdown(int i) {
+        MobCoins = i;
+        MobcoinsCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
+            if (MobCoins <= 0) {
+                Bukkit.getScheduler().cancelTask(MobcoinsCode);
+                MobCoinsBoosterActive = false;
+            } else {
+                this.MobCoins--;
             }
         }, 20L, 20L);
     }
@@ -113,7 +222,7 @@ public class Island {
                 for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
                     Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
                     if (b.getType() != Material.AIR) {
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock.plugin, () -> b.setType(Material.AIR), 5);
+                        b.setType(Material.AIR);
                     }
                 }
             }
@@ -125,7 +234,13 @@ public class Island {
                 User.getbyPlayer(player).setIsland(null);
             }
         }
+        this.players.clear();
         this.owner = "";
+        this.MobCoinsBoosterActive = false;
+        this.SpawnerBoosterActive = false;
+        this.FlyBoosterActive = false;
+        this.FarmingBoosterActive = false;
+        this.XPBoosterActive = false;
     }
 
     public boolean canbuild(Player player) {

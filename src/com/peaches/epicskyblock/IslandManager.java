@@ -38,10 +38,10 @@ class IslandManager {
 
     public static void createIsland(Player player) {
         for (Island island : Islands) {
-            if (island.getowner().equals("")) {
+            if (island.getownername().equals("")) {
                 island.setowner(player);
                 island.loadSchematic(player);
-                User.getbyPlayer(player).setIsland(island);
+                island.addUser(player.getName());
                 player.teleport(User.getbyPlayer(player).getIsland().gethome());
                 return;
             }
@@ -100,7 +100,6 @@ class IslandManager {
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
-            return;
         }
     }
 
@@ -110,11 +109,12 @@ class IslandManager {
 
     public static void deleteIsland(Player player) {
         if (User.getbyPlayer(player).getIsland() != null) {
-            if (User.getbyPlayer(player).getIsland().getowner().equals(player)) {
+            if (User.getbyPlayer(player).getIsland().getownername().equals(player.getName())) {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + player.getName());
                 User.getbyPlayer(player).getIsland().delete();
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland deleted"));
                 player.getInventory().clear();
+                User.getbyPlayer(player).setIsland(null);
             } else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eOnly the Island owner can do this"));
             }

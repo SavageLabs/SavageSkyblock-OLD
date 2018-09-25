@@ -1,3 +1,17 @@
+Options:
+  HelpGUI: false
+  SpawnerMultiplier: 4
+  XpMultiplier: 4
+  MobCoinsMultiplier: 4
+Upgrades:
+  Members:
+    1: 9
+    2: 18
+    3: 27
+  Warps:
+    1: 1
+    2: 3
+    3: 5
 help:
 - '&7&m-----------------------------------------------------'
 - '%centered%&6&lIsland Help'
@@ -16,7 +30,7 @@ help:
 - '&e/is warp &8- &7Opens the warp menu.'
 - '&e/is setwarp &8- &7Set a warp.'
 - '&e/is upgrades &8- &7Upgrade your island.'
-- '&e/is missions &8- &7Displays your daily Island Missions.'
+- '&e/is missions &8- &7Displays your daily Island MissionsGUI.'
 - '&e/is boosters &8- &7Boost your island using xp.'
 - '&e/is version &8- &7Display current Island version.'
 - '&7&m-----------------------------------------------------'

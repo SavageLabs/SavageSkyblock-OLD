@@ -11,15 +11,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-public class Missions implements Listener {
+public class UpgradesGUI implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&e&lIsland Missions"));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&e&lIsland Upgrades"));
+        if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
             inv.setItem(i + 9, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
             inv.setItem(i + 18, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
+        inv.setItem(10, EpicSkyBlock.getSkyblock.makeItem(Material.GRASS, 1, 0, "&a&lIsland Size"));
+        inv.setItem(13, EpicSkyBlock.getSkyblock.makeItem(Material.ARMOR_STAND, 1, 0, "&a&lMember Count"));
+        inv.setItem(16, EpicSkyBlock.getSkyblock.makeItem(Material.ENDER_PORTAL_FRAME, 1, 0, "&a&lIsland Warps"));
         return inv;
     }
 
