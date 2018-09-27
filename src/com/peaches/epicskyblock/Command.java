@@ -30,6 +30,20 @@ class Command implements Listener, CommandExecutor {
                 }
                 return true;
             }
+            if (args[0].equalsIgnoreCase("bypass")) {
+                if (p.hasPermission("EpicSkyblock.bypass")) {
+                    if (User.getbyPlayer(p) == null) {
+                        User.users.add(new User(p.getName()));
+                    }
+                    User.getbyPlayer(p).setBypass(!User.getbyPlayer(p).getBypass());
+                    if (User.getbyPlayer(p).getBypass()) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eBypass Mode Enabled"));
+                    } else {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eBypass Mode Disabled"));
+                    }
+                    return true;
+                }
+            }
             if (args[0].equalsIgnoreCase("fly")) {
                 if (User.getbyPlayer(p) == null) {
                     User.users.add(new User(p.getName()));

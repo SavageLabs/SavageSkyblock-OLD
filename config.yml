@@ -30,7 +30,7 @@ help:
 - '&e/is warp &8- &7Opens the warp menu.'
 - '&e/is setwarp &8- &7Set a warp.'
 - '&e/is upgrades &8- &7Upgrade your island.'
-- '&e/is missions &8- &7Displays your daily Island MissionsGUI.'
+- '&e/is missions &8- &7Displays your daily Island Missions.'
 - '&e/is boosters &8- &7Boost your island using xp.'
 - '&e/is version &8- &7Display current Island version.'
 - '&7&m-----------------------------------------------------'

@@ -7,11 +7,20 @@ import java.util.ArrayList;
 
 public class User {
 
-    static ArrayList<User> users = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
     private String player;
     private Island island;
     private Boolean chat = false;
+    private Boolean bypass = false;
     private ArrayList<String> invites = new ArrayList<>();
+
+    public Boolean getBypass() {
+        return bypass;
+    }
+
+    public void setBypass(Boolean bypass) {
+        this.bypass = bypass;
+    }
 
     public User(String player) {
         this.player = player;

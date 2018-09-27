@@ -44,9 +44,14 @@ public class Island {
     private Integer Mission1;
     private Integer Mission2;
     private Integer Mission3;
+    private Integer Mission1Data;
+    private Integer Mission2Data;
+    private Integer Mission3Data;
     private Integer Size;
     private Integer MemberCount;
     private Integer WarpCount;
+    private Integer Money;
+    private Integer crystals;
     private ArrayList<String> players = new ArrayList<>();
 
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
@@ -59,6 +64,8 @@ public class Island {
         this.Size = 1;
         this.MemberCount = 1;
         this.WarpCount = 1;
+        this.Money = 0;
+        this.crystals = 0;
         players.add(owner);
 
         if (User.getbyPlayer(owner) == null) {
@@ -70,6 +77,62 @@ public class Island {
         EpicSkyBlock.getSkyblock.addMissions(this);
     }
 
+    public Integer getMission1Data() {
+        return Mission1Data;
+    }
+
+    public void setMission1Data(Integer mission1Data) {
+        Mission1Data = mission1Data;
+    }
+
+    public Integer getMission2Data() {
+        return Mission2Data;
+    }
+
+    public void setMission2Data(Integer mission2Data) {
+        Mission2Data = mission2Data;
+    }
+
+    public Integer getMission3Data() {
+        return Mission3Data;
+    }
+
+    public void setMission3Data(Integer mission3Data) {
+        Mission3Data = mission3Data;
+    }
+
+    public Integer getCrystals() {
+        return crystals;
+    }
+
+    public void setCrystals(Integer crystals) {
+        this.crystals = crystals;
+    }
+
+    public void addCrystals(Integer crystals) {
+        this.crystals += crystals;
+    }
+
+    public void removeCrystals(Integer crystals) {
+        this.crystals -= crystals;
+    }
+
+    public Integer getMoney() {
+        return Money;
+    }
+
+    public void setMoney(Integer money) {
+        Money = money;
+    }
+
+    public void addMoney(Integer money) {
+        Money += money;
+    }
+
+
+    public void removeMoney(Integer money) {
+        Money -= money;
+    }
     public Integer getSize() {
         return Size;
     }

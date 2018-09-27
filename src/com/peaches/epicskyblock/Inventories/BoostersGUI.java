@@ -69,30 +69,50 @@ public class BoostersGUI implements Listener {
         if (e.getInventory().getTitle().equals(inv(island).getTitle())) {
             e.setCancelled(true);
             if (e.getSlot() == 9) {
+                if (island.getSpawnerBoosterActive()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
+                    return;
+                }
                 //Spawner Booster
                 island.setSpawnerBoosterActive(true);
                 island.startspawnercountdown(60 * 60);
                 p.closeInventory();
             }
             if (e.getSlot() == 11) {
+                if (island.getFarmingBoosterActive()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
+                    return;
+                }
                 //Farming Booster
                 island.setFarmingBoosterActive(true);
                 island.startfarmingcountdown(60 * 60);
                 p.closeInventory();
             }
             if (e.getSlot() == 13) {
+                if (island.getXPBoosterActive()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
+                    return;
+                }
                 //Xp Booster
                 island.setXPBoosterActive(true);
                 island.startxpcountdown(60 * 60);
                 p.closeInventory();
             }
             if (e.getSlot() == 15) {
+                if (island.getFlyBoosterActive()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
+                    return;
+                }
                 //Fly Booster
                 island.setFlyBoosterActive(true);
                 island.startflycountdown(60 * 60);
                 p.closeInventory();
             }
             if (e.getSlot() == 17) {
+                if (island.getMobCoinsBoosterActive()) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
+                    return;
+                }
                 //MobCoins Booster
                 island.setMobCoinsBoosterActive(true);
                 island.startmobcoinscountdown(60 * 60);

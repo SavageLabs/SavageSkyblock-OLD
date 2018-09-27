@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 public class EpicSkyBlock extends JavaPlugin implements Listener {
     private final static int CENTER_PX = 154;
     public static EpicSkyBlock getSkyblock;
-    public Plugin plugin;
     private World world;
 
     //TODO:
@@ -40,6 +39,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     //IsWarp
 
     //Disable Nether
+    // Do TNT stuff
 
     public EpicSkyBlock() {
     }
@@ -50,9 +50,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         makeworld();
         getCommand("Island").setExecutor(new Command(this));
         getSkyblock = this;
-        plugin = this;
-        new Missions();
-        Missions.getInstance.put();
+        new Missions().put();
         load();
         startCounting(this);
         new Metrics(this);
@@ -78,13 +76,18 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new UpgradesGUI(), this);
         pm.registerEvents(new MissionsGUI(), this);
         pm.registerEvents(new BoostersGUI(), this);
+        pm.registerEvents(new Missions(), this);
     }
 
     public void addMissions(Island island) {
         Random r = new Random();
         island.setMission1(r.nextInt(Missions.getInstance.missions1.size()));
-        island.setMission2(r.nextInt(Missions.getInstance.missions2.size()));
+//        island.setMission2(r.nextInt(Missions.getInstance.missions2.size()));
         island.setMission3(r.nextInt(Missions.getInstance.missions3.size()));
+        island.setMission2(1);
+        island.setMission1Data(0);
+        island.setMission2Data(0);
+        island.setMission3Data(0);
     }
 
     private void startCounting(Plugin plugin) {
@@ -220,9 +223,13 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         for (char c : message.toCharArray()) {
             if (c == '§') {
                 previousCode = true;
+                continue;
             } else if (previousCode) {
                 previousCode = false;
-                isBold = c == 'l' || c == 'L';
+                if (c == 'l' || c == 'L') {
+                    isBold = true;
+                    continue;
+                } else isBold = false;
             } else {
                 DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
                 messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
@@ -242,6 +249,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         player.sendMessage(sb.toString() + message);
     }
 
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (User.getbyPlayer(e.getPlayer()) == null) {
@@ -258,6 +266,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
             if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
                 if (!IslandManager.getislandviablock(e.getBlock()).getownername().equalsIgnoreCase(e.getPlayer().getName())) {
+                    if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
                 }
             }
@@ -268,6 +277,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     public void onplace(BlockPlaceEvent e) {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
             if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                 e.setCancelled(true);
             }
         }
@@ -278,6 +288,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         if (e.getClickedBlock() == null) return;
         if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
             if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                 e.setCancelled(true);
             }
         }
@@ -327,6 +338,8 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             try {
                 file.createNewFile();
                 config.set("Members", island.getPlayers());
+                config.set("Money", island.getMoney());
+                config.set("Crystals", island.getCrystals());
                 config.set("Home", island.gethome().getWorld().getName() + "," + island.gethome().getX() + "," + island.gethome().getY() + "," + island.gethome().getZ());
                 config.set("Pos1", island.getPos1().getWorld().getName() + "," + island.getPos1().getX() + "," + island.getPos1().getY() + "," + island.getPos1().getZ());
                 config.set("Pos2", island.getPos2().getWorld().getName() + "," + island.getPos2().getX() + "," + island.getPos2().getY() + "," + island.getPos2().getZ());
@@ -371,6 +384,8 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                 Location maxpos1 = new Location(Bukkit.getWorld(Maxpos1[0]), Double.parseDouble(Maxpos1[1]), Double.parseDouble(Maxpos1[2]), Double.parseDouble(Maxpos1[3]));
                 Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
                 Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, false);
+                island.setMoney(config.getInt("Money"));
+                island.setCrystals(config.getInt("Crystals"));
                 for (String member : config.getStringList("Members")) {
                     if (!member.equals(owner)) {
                         island.addUser(member);
