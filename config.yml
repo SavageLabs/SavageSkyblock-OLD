@@ -12,6 +12,20 @@ Upgrades:
     1: 1
     2: 3
     3: 5
+OreGen:
+# List of Material Names https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+- COBBLESTONE:30
+- IRON_ORE:30
+- COAL_ORE:30
+- DIAMOND_ORE:10
+IsTop:
+  Blocks:
+    DIAMOND_BLOCK: 100
+    IRON_BLOCK: 50
+    HOPPER: 10
+  Spawners:
+    PIG: 1000
+    VILLAGER_GOLEM: 10000
 help:
 - '&7&m-----------------------------------------------------'
 - '%centered%&6&lIsland Help'

@@ -69,6 +69,10 @@ public class BoostersGUI implements Listener {
         if (e.getInventory().getTitle().equals(inv(island).getTitle())) {
             e.setCancelled(true);
             if (e.getSlot() == 9) {
+                if (island.getCrystals() < 3) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                    return;
+                }
                 if (island.getSpawnerBoosterActive()) {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
                     return;
@@ -76,9 +80,15 @@ public class BoostersGUI implements Listener {
                 //Spawner Booster
                 island.setSpawnerBoosterActive(true);
                 island.startspawnercountdown(60 * 60);
+                island.removeCrystals(3);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eSpawner Booster Activated"));
                 p.closeInventory();
             }
             if (e.getSlot() == 11) {
+                if (island.getCrystals() < 3) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                    return;
+                }
                 if (island.getFarmingBoosterActive()) {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
                     return;
@@ -86,9 +96,15 @@ public class BoostersGUI implements Listener {
                 //Farming Booster
                 island.setFarmingBoosterActive(true);
                 island.startfarmingcountdown(60 * 60);
+                island.removeCrystals(3);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFarming Booster Activated"));
                 p.closeInventory();
             }
             if (e.getSlot() == 13) {
+                if (island.getCrystals() < 3) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                    return;
+                }
                 if (island.getXPBoosterActive()) {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
                     return;
@@ -96,9 +112,15 @@ public class BoostersGUI implements Listener {
                 //Xp Booster
                 island.setXPBoosterActive(true);
                 island.startxpcountdown(60 * 60);
+                island.removeCrystals(3);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eXP Booster Activated"));
                 p.closeInventory();
             }
             if (e.getSlot() == 15) {
+                if (island.getCrystals() < 3) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                    return;
+                }
                 if (island.getFlyBoosterActive()) {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
                     return;
@@ -106,9 +128,15 @@ public class BoostersGUI implements Listener {
                 //Fly Booster
                 island.setFlyBoosterActive(true);
                 island.startflycountdown(60 * 60);
+                island.removeCrystals(3);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFlight Booster Activated"));
                 p.closeInventory();
             }
             if (e.getSlot() == 17) {
+                if (island.getCrystals() < 3) {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                    return;
+                }
                 if (island.getMobCoinsBoosterActive()) {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis booster is already activated"));
                     return;
@@ -116,6 +144,8 @@ public class BoostersGUI implements Listener {
                 //MobCoins Booster
                 island.setMobCoinsBoosterActive(true);
                 island.startmobcoinscountdown(60 * 60);
+                island.removeCrystals(3);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMobCoins Booster Activated"));
                 p.closeInventory();
             }
         }

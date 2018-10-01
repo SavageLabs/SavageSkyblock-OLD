@@ -16,20 +16,20 @@ class IslandManager {
 
     private static Direction direction;
 
-    public static void setNextloc(Location nextloc) {
-        IslandManager.nextloc = nextloc;
-    }
-
-    public static void setDirection(Direction direction) {
-        IslandManager.direction = direction;
-    }
-
     public static Location getNextloc() {
         return nextloc;
     }
 
+    public static void setNextloc(Location nextloc) {
+        IslandManager.nextloc = nextloc;
+    }
+
     public static Direction getDirection() {
         return direction;
+    }
+
+    public static void setDirection(Direction direction) {
+        IslandManager.direction = direction;
     }
 
     public static void addIsland(Island island) {
@@ -40,7 +40,7 @@ class IslandManager {
         for (Island island : Islands) {
             if (island.getownername().equals("")) {
                 island.setowner(player);
-                island.loadSchematic(player);
+                island.loadSchematic();
                 island.addUser(player.getName());
                 player.teleport(User.getbyPlayer(player).getIsland().gethome());
                 return;

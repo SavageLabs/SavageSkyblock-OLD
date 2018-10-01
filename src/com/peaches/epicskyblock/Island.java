@@ -1,12 +1,11 @@
 package com.peaches.epicskyblock;
 
-import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
+import com.sk89q.worldedit.schematic.SchematicFormat;
 import com.sk89q.worldedit.world.DataException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,20 +16,22 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Island {
 
-    public Location pos1; // Bottom left corner
-    public Location pos2; // Bottom right corner
     private final Location maxpos1; // Bottom left corner
     private final Location maxpos2; // Bottom right corner
+    public Location pos1; // Bottom left corner
+    public Location pos2; // Bottom right corner
     private String owner;
     private Location home;
-    private Boolean SpawnerBoosterActive = false;
-    private Boolean FarmingBoosterActive = false;
-    private Boolean XPBoosterActive = false;
-    private Boolean FlyBoosterActive = false;
-    private Boolean MobCoinsBoosterActive = false;
+    private Boolean SpawnerBoosterActive;
+    private Boolean FarmingBoosterActive;
+    private Boolean XPBoosterActive;
+    private Boolean FlyBoosterActive;
+    private Boolean MobCoinsBoosterActive;
     private Integer spawner = 0;
     private Integer Farming = 0;
     private Integer Xp = 0;
@@ -47,11 +48,22 @@ public class Island {
     private Integer Mission1Data;
     private Integer Mission2Data;
     private Integer Mission3Data;
+    private Boolean Mission1Complete;
+    private Boolean Mission2Complete;
+    private Boolean Mission3Complete;
     private Integer Size;
     private Integer MemberCount;
     private Integer WarpCount;
-    private Integer Money;
     private Integer crystals;
+
+    private Location warp1;
+    private Location warp2;
+    private Location warp3;
+    private Location warp4;
+    private Location warp5;
+
+    private Integer level = 0;
+    private Integer levelcode;
     private ArrayList<String> players = new ArrayList<>();
 
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
@@ -64,17 +76,113 @@ public class Island {
         this.Size = 1;
         this.MemberCount = 1;
         this.WarpCount = 1;
-        this.Money = 0;
         this.crystals = 0;
-        players.add(owner);
 
-        if (User.getbyPlayer(owner) == null) {
-            User.users.add(new User(owner));
-        }
-        User.getbyPlayer(owner).setIsland(this);
+        this.SpawnerBoosterActive = false;
+        this.FarmingBoosterActive = false;
+        this.XPBoosterActive = false;
+        this.FlyBoosterActive = false;
+        this.MobCoinsBoosterActive = false;
+
+        this.Mission1Complete = false;
+        this.Mission2Complete = false;
+        this.Mission3Complete = false;
+
+        addUser(owner);
+
         //Loads island.schematic
-        if (schem) loadSchematic(Bukkit.getPlayer(owner));
+        if (schem) {
+
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                        if (b.getType() != Material.AIR) {
+                            b.setType(Material.AIR);
+                        }
+                    }
+                }
+            }
+            loadSchematic();
+        }
         EpicSkyBlock.getSkyblock.addMissions(this);
+        calculateworth();
+    }
+
+    public void regen() {
+
+        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+            for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                    Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                    if (b.getType() != Material.AIR) {
+                        b.setType(Material.AIR);
+                    }
+                }
+            }
+        }
+        loadSchematic();
+    }
+
+
+    public void calculateworth() {
+        final Timer timer = new Timer(true); // We use a timer cause the Bukkit scheduler is affected by server lags
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (!EpicSkyBlock.getSkyblock.isEnabled()) { // Plugin was disabled
+                    timer.cancel();
+                    return;
+                }
+                // Nevertheless we want our code to run in the Bukkit main thread, so we have to use the Bukkit scheduler
+                Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
+                    int level = 0;
+                    for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                        for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                            for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                                Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                                if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
+                                    level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
+                                }
+                            }
+                        }
+                    }
+                    setLevel(level);
+                });
+            }
+        }, 0, 20 * 60 * 30);
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Boolean getMission1Complete() {
+        return Mission1Complete;
+    }
+
+    public void setMission1Complete(Boolean mission1Complete) {
+        Mission1Complete = mission1Complete;
+    }
+
+    public Boolean getMission2Complete() {
+        return Mission2Complete;
+    }
+
+    public void setMission2Complete(Boolean mission2Complete) {
+        Mission2Complete = mission2Complete;
+    }
+
+    public Boolean getMission3Complete() {
+        return Mission3Complete;
+    }
+
+    public void setMission3Complete(Boolean mission3Complete) {
+        Mission3Complete = mission3Complete;
     }
 
     public Integer getMission1Data() {
@@ -117,22 +225,6 @@ public class Island {
         this.crystals -= crystals;
     }
 
-    public Integer getMoney() {
-        return Money;
-    }
-
-    public void setMoney(Integer money) {
-        Money = money;
-    }
-
-    public void addMoney(Integer money) {
-        Money += money;
-    }
-
-
-    public void removeMoney(Integer money) {
-        Money -= money;
-    }
     public Integer getSize() {
         return Size;
     }
@@ -265,14 +357,16 @@ public class Island {
         }, 20L, 20L);
     }
 
-    public void loadSchematic(Player player) {
+    public void loadSchematic() {
         Location location = this.home;
         WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
         File schematic = ConfigManager.getInstance().getSchematicFile();
-        EditSession session = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(location.getWorld()), 10000);
+        EditSession editSession = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(location.getWorld()), 10000);
         try {
-            CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
-            clipboard.paste(session, new Vector(location.getX(), location.getY(), location.getZ()), false);
+            SchematicFormat.getFormat(schematic).load(schematic).paste(editSession, new Vector(location.getX(), location.getY(), location.getZ()), true, false);
+            editSession.flushQueue();
+//            CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
+//            clipboard.paste(session, new Vector(location.getX(), location.getY(), location.getZ()), false);
         } catch (MaxChangedBlocksException | DataException | IOException e) {
             e.printStackTrace();
         }
@@ -289,7 +383,6 @@ public class Island {
                     }
                 }
             }
-
         }
 
         for (String player : players) {
@@ -297,6 +390,13 @@ public class Island {
                 User.getbyPlayer(player).setIsland(null);
             }
         }
+        if (this.MobcoinsCode != null) Bukkit.getScheduler().cancelTask(this.MobcoinsCode);
+        if (this.FarmingCode != null) Bukkit.getScheduler().cancelTask(this.FarmingCode);
+        if (this.XPCode != null) Bukkit.getScheduler().cancelTask(this.XPCode);
+        if (this.SpawnerCode != null) Bukkit.getScheduler().cancelTask(this.SpawnerCode);
+        if (this.FlyCode != null) Bukkit.getScheduler().cancelTask(this.FlyCode);
+        if (this.levelcode != null) Bukkit.getScheduler().cancelTask(this.levelcode);
+        this.level = 0;
         this.players.clear();
         this.owner = "";
         this.MobCoinsBoosterActive = false;
@@ -307,7 +407,15 @@ public class Island {
     }
 
     public boolean canbuild(Player player) {
-        return players.contains(player.getName());
+        if (User.getbyPlayer(player.getName()) == null) {
+            User.users.add(new User(player.getName()));
+        }
+        User u = User.getbyPlayer(player.getName());
+        if (u.getBypass()) return true;
+        if (u.getIsland() != null) {
+            if (u.getIsland().equals(this)) return true;
+        }
+        return false;
     }
 
     public Boolean getSpawnerBoosterActive() {
@@ -354,10 +462,6 @@ public class Island {
         return owner;
     }
 
-    public Player getowner() {
-        return Bukkit.getPlayer(owner);
-    }
-
     public void setowner(Player owner) {
         this.owner = owner.getName();
     }
@@ -384,6 +488,14 @@ public class Island {
             User.users.add(new User(player));
         }
         User.getbyPlayer(player).setIsland(this);
+    }
+
+    public void removeUser(String player) {
+        players.remove(player);
+        if (User.getbyPlayer(player) == null) {
+            User.users.add(new User(player));
+        }
+        User.getbyPlayer(player).setIsland(null);
     }
 
     public Location getPos1() {

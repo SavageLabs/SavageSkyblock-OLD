@@ -33,7 +33,9 @@ public class ConfigManager {
         this.configfile = new File(p.getDataFolder(), "config.yml");
 
         if (p.getResource("config.yml") != null) {
-            p.saveResource("config.yml", false);
+            if (!this.configfile.exists()) {
+                p.saveResource("config.yml", false);
+            }
         }
 
         File schematicFolder = new File(p.getDataFolder(), "schematics");

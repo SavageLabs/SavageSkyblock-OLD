@@ -14,29 +14,13 @@ public class User {
     private Boolean bypass = false;
     private ArrayList<String> invites = new ArrayList<>();
 
-    public Boolean getBypass() {
-        return bypass;
-    }
-
-    public void setBypass(Boolean bypass) {
-        this.bypass = bypass;
-    }
-
     public User(String player) {
         this.player = player;
     }
 
-    public Boolean getChat() {
-        return chat;
-    }
-
-    public void setChat(Boolean chat) {
-        this.chat = chat;
-    }
-
     public static User getbyPlayer(Player player) {
         for (User user : users) {
-            if (user.getPlayer().getName().equals(player.getName())) {
+            if (user.getPlayerName().equals(player.getName())) {
                 return user;
             }
         }
@@ -50,6 +34,22 @@ public class User {
             }
         }
         return null;
+    }
+
+    public Boolean getBypass() {
+        return bypass;
+    }
+
+    public void setBypass(Boolean bypass) {
+        this.bypass = bypass;
+    }
+
+    public Boolean getChat() {
+        return chat;
+    }
+
+    public void setChat(Boolean chat) {
+        this.chat = chat;
     }
 
     private Player getPlayer() {

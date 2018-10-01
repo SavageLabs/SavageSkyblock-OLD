@@ -17,15 +17,15 @@ import java.util.HashMap;
 
 public class Missions implements Listener {
 
-    public Missions() {
-        getInstance = this;
-    }
-
     public static Missions getInstance;
     public ArrayList<ItemStack> missions1 = new ArrayList<>();
     public ArrayList<ItemStack> missions2 = new ArrayList<>();
     public ArrayList<ItemStack> missions3 = new ArrayList<>();
     public HashMap<ItemStack, Integer> missions = new HashMap<>();
+
+    public Missions() {
+        getInstance = this;
+    }
 
     public void put() {
 
@@ -35,7 +35,7 @@ public class Missions implements Listener {
         lore.add(ChatColor.YELLOW + "Harvest 5000 Sugar Cane");
         lore.add("");
         lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "$50,000");
+        lore.add(ChatColor.YELLOW + "1 Island Crystal");
         missions1.add(EpicSkyBlock.getSkyblock.makeItem(Material.SUGAR_CANE, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Farmer", lore));
         missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.SUGAR_CANE, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Farmer", lore), 5000);
 
@@ -65,7 +65,7 @@ public class Missions implements Listener {
         lore.add(ChatColor.YELLOW + "Kill 1000 Mobs");
         lore.add("");
         lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "1 Island Crystal");
+        lore.add(ChatColor.YELLOW + "2 Island Crystals");
         missions2.add(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Mob Hunter", lore));
         missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Mob Hunter", lore), 1000);
 
@@ -75,7 +75,7 @@ public class Missions implements Listener {
         lore.add(ChatColor.YELLOW + "Win 30 Duels");
         lore.add("");
         lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "3 Island Crystal");
+        lore.add(ChatColor.YELLOW + "3 Island Crystals");
         missions2.add(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Dueler", lore));
         missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Dueler", lore), 50);
 
@@ -133,6 +133,11 @@ public class Missions implements Listener {
                 if (island.getMission2() == 1) {
                     if (island.getMission2Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions2.get(island.getMission2()))) {
                         island.setMission2Data(island.getMission2Data() + 1);
+                    } else {
+                        if (!island.getMission2Complete()) {
+                            island.addCrystals(2);
+                            island.setMission2Complete(true);
+                        }
                     }
                 }
             }
@@ -151,6 +156,11 @@ public class Missions implements Listener {
                 if (island.getMission2() == 0) {
                     if (island.getMission2Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions2.get(island.getMission2()))) {
                         island.setMission2Data(island.getMission2Data() + 1);
+                    } else {
+                        if (!island.getMission2Complete()) {
+                            island.addCrystals(1);
+                            island.setMission2Complete(true);
+                        }
                     }
                 }
             }
@@ -169,6 +179,11 @@ public class Missions implements Listener {
             if (island.getMission3() == 0) {
                 if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
                     island.setMission3Data(island.getMission3Data() + e.getAmount());
+                } else {
+                    if (!island.getMission3Complete()) {
+                        island.addCrystals(5);
+                        island.setMission3Complete(true);
+                    }
                 }
             }
         }
@@ -186,6 +201,11 @@ public class Missions implements Listener {
                 if (island.getMission3() == 2) {
                     if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
                         island.setMission3Data(island.getMission3Data() + 1);
+                    } else {
+                        if (!island.getMission3Complete()) {
+                            island.addCrystals(5);
+                            island.setMission3Complete(true);
+                        }
                     }
                 }
             }
@@ -204,6 +224,11 @@ public class Missions implements Listener {
                 if (e.getBlock().getType().equals(Material.SUGAR_CANE_BLOCK)) {
                     if (island.getMission1Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions1.get(island.getMission1()))) {
                         island.setMission1Data(island.getMission1Data() + 1);
+                    } else {
+                        if (!island.getMission1Complete()) {
+                            island.addCrystals(1);
+                            island.setMission1Complete(true);
+                        }
                     }
                 }
             }
@@ -211,6 +236,11 @@ public class Missions implements Listener {
                 if (e.getBlock().getType().name().endsWith("ORE")) {
                     if (island.getMission1Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions1.get(island.getMission1()))) {
                         island.setMission1Data(island.getMission1Data() + 1);
+                    } else {
+                        if (!island.getMission1Complete()) {
+                            island.addCrystals(1);
+                            island.setMission1Complete(true);
+                        }
                     }
                 }
             }
@@ -228,6 +258,11 @@ public class Missions implements Listener {
             if (island.getMission3() == 1) {
                 if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
                     island.setMission3Data(island.getMission3Data() + 1);
+                } else {
+                    if (!island.getMission3Complete()) {
+                        island.addCrystals(3);
+                        island.setMission3Complete(true);
+                    }
                 }
             }
         }

@@ -1,19 +1,21 @@
 package com.peaches.epicskyblock;
 
-import com.peaches.epicskyblock.Inventories.BoostersGUI;
-import com.peaches.epicskyblock.Inventories.MissionsGUI;
-import com.peaches.epicskyblock.Inventories.UpgradesGUI;
+import com.peaches.epicskyblock.Inventories.*;
 import com.peaches.mobcoins.MobCoinsGiveEvent;
 import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -35,11 +37,8 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     private World world;
 
     //TODO:
-    //IsTOP
     //IsWarp
-
-    //Disable Nether
-    // Do TNT stuff
+    //IsUpgrades
 
     public EpicSkyBlock() {
     }
@@ -61,6 +60,11 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         System.out.print("-------------------------------");
     }
 
+    @EventHandler
+    public void onexplode(EntityExplodeEvent e) {
+        e.setCancelled(true);
+    }
+
     public void onDisable() {
         save();
         System.out.print("-------------------------------");
@@ -77,14 +81,16 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new MissionsGUI(), this);
         pm.registerEvents(new BoostersGUI(), this);
         pm.registerEvents(new Missions(), this);
+        pm.registerEvents(new WarpGUI(), this);
+        pm.registerEvents(new Members(), this);
     }
+
 
     public void addMissions(Island island) {
         Random r = new Random();
         island.setMission1(r.nextInt(Missions.getInstance.missions1.size()));
-//        island.setMission2(r.nextInt(Missions.getInstance.missions2.size()));
+        island.setMission2(r.nextInt(Missions.getInstance.missions2.size()));
         island.setMission3(r.nextInt(Missions.getInstance.missions3.size()));
-        island.setMission2(1);
         island.setMission1Data(0);
         island.setMission2Data(0);
         island.setMission3Data(0);
@@ -184,6 +190,21 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         }
     }
 
+    public ItemStack makeItem(String type, int amount, String name) {
+        int ty = 0;
+        if (type.contains(":")) {
+            String[] b = type.split(":");
+            type = b[0];
+            ty = Integer.parseInt(b[1]);
+        }
+        Material m = Material.matchMaterial(type);
+        ItemStack item = new ItemStack(m, amount, (short) ty);
+        ItemMeta me = item.getItemMeta();
+        me.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        item.setItemMeta(me);
+        return item;
+    }
+
     public ItemStack makeItem(Material material, int amount, int type, String name) {
         ItemStack item = new ItemStack(material, amount, (short) type);
         ItemMeta m = item.getItemMeta();
@@ -210,6 +231,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             Bukkit.getServer().createWorld(wc);
         }
         this.world = Bukkit.getWorld(worldname);
+        new WorldCreator(world.getName()).generator(new SkyblockGenerator());
     }
 
     public void sendCenteredMessage(Player player, String message) {
@@ -264,22 +286,22 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     @EventHandler
     public void onbreak(BlockBreakEvent e) {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                if (!IslandManager.getislandviablock(e.getBlock()).getownername().equalsIgnoreCase(e.getPlayer().getName())) {
-                    if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
-                    e.setCancelled(true);
-                }
+            if (!IslandManager.getislandviablock(e.getBlock()).canbuild(e.getPlayer())) {
+                e.setCancelled(true);
             }
+        } else {
+            e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onplace(BlockPlaceEvent e) {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+            if (!IslandManager.getislandviablock(e.getBlock()).canbuild(e.getPlayer())) {
                 e.setCancelled(true);
             }
+        } else {
+            e.setCancelled(true);
         }
     }
 
@@ -287,10 +309,11 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     public void oninteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() == null) return;
         if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+            if (!IslandManager.getislandviablock(e.getClickedBlock()).canbuild(e.getPlayer())) {
                 e.setCancelled(true);
             }
+        } else {
+            e.setCancelled(true);
         }
     }
 
@@ -338,7 +361,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             try {
                 file.createNewFile();
                 config.set("Members", island.getPlayers());
-                config.set("Money", island.getMoney());
                 config.set("Crystals", island.getCrystals());
                 config.set("Home", island.gethome().getWorld().getName() + "," + island.gethome().getX() + "," + island.gethome().getY() + "," + island.gethome().getZ());
                 config.set("Pos1", island.getPos1().getWorld().getName() + "," + island.getPos1().getX() + "," + island.getPos1().getY() + "," + island.getPos1().getZ());
@@ -353,7 +375,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     }
 
     private void load() {
-
         File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
         if (im.exists()) {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(im);
@@ -384,8 +405,8 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                 Location maxpos1 = new Location(Bukkit.getWorld(Maxpos1[0]), Double.parseDouble(Maxpos1[1]), Double.parseDouble(Maxpos1[2]), Double.parseDouble(Maxpos1[3]));
                 Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
                 Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, false);
-                island.setMoney(config.getInt("Money"));
                 island.setCrystals(config.getInt("Crystals"));
+                island.addUser(island.getownername());
                 for (String member : config.getStringList("Members")) {
                     if (!member.equals(owner)) {
                         island.addUser(member);
@@ -395,5 +416,50 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                 file.delete();
             }
         }
+    }
+
+    @EventHandler
+    public void onFromTo(BlockFromToEvent e) {
+        if (e.getFace() != BlockFace.DOWN) {
+            Block b = e.getToBlock();
+            Location fromLoc = b.getLocation();
+            Bukkit.getScheduler().runTask(this, () -> {
+                if (b.getType().equals(Material.COBBLESTONE) || b.getType().equals(Material.STONE)) {
+                    if (!isSurroundedByWater(fromLoc)) {
+                        return;
+                    }
+
+                    Random r = new Random();
+                    ArrayList<String> items = new ArrayList<>();
+                    for (String item : getConfig().getStringList("OreGen")) {
+                        Integer i1 = Integer.parseInt(item.split(":")[1]);
+                        for (int i = 0; i <= i1; i++) {
+                            items.add(item.split(":")[0]);
+                        }
+                    }
+                    String item = items.get(r.nextInt(items.size()));
+                    if (Material.getMaterial(item) == null) return;
+                    e.setCancelled(true);
+                    b.setType(Material.getMaterial(item));
+                    b.getState().update(true);
+                }
+            });
+        }
+    }
+
+    public boolean isSurroundedByWater(Location fromLoc) {
+        Block[] blocks = {
+                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX() + 1, fromLoc.getBlockY(), fromLoc.getBlockZ()),
+                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX() - 1, fromLoc.getBlockY(), fromLoc.getBlockZ()),
+                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() + 1),
+                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() - 1)};
+
+        for (Block b : blocks) {
+            if (b.getType().toString().contains("WATER")) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }
