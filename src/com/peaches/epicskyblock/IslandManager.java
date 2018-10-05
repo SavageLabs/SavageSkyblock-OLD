@@ -48,7 +48,7 @@ class IslandManager {
         }
         if (direction == null) {
             direction = Direction.NORTH;
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -60,7 +60,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(0, 0, 200).getBlock()) == null) {
                 direction = Direction.EAST;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -72,7 +72,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(-200, 0, 0).getBlock()) == null) {
                 direction = Direction.SOUTH;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -84,7 +84,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(0, 0, -200).getBlock()) == null) {
                 direction = Direction.WEST;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -96,7 +96,7 @@ class IslandManager {
             if (getislandviablock(nextloc.clone().add(200, 0, 0).getBlock()) == null) {
                 direction = Direction.NORTH;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-100, -120, -100), nextloc.clone().add(100, 100, 100), true);
+            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
             Islands.add(island);
             User.getbyPlayer(player).setIsland(island);
             player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -110,7 +110,9 @@ class IslandManager {
     public static void deleteIsland(Player player) {
         if (User.getbyPlayer(player).getIsland() != null) {
             if (User.getbyPlayer(player).getIsland().getownername().equals(player.getName())) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + player.getName());
+                for (String players : User.getbyPlayer(player).getIsland().getPlayers()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + players);
+                }
                 User.getbyPlayer(player).getIsland().delete();
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland deleted"));
                 player.getInventory().clear();

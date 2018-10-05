@@ -20,6 +20,7 @@ import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -53,11 +54,20 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         load();
         startCounting(this);
         new Metrics(this);
+        save();
+        saveint();
         System.out.print("-------------------------------");
         System.out.print("");
         System.out.print(getDescription().getName() + " Enabled!");
         System.out.print("");
         System.out.print("-------------------------------");
+    }
+
+    public void saveint() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            //AutoSaves Island every 10 mins
+            save();
+        }, 0, 20 * 60 * getConfig().getInt("Options.SaveInt"));
     }
 
     @EventHandler
@@ -286,20 +296,23 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     @EventHandler
     public void onbreak(BlockBreakEvent e) {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlock()).canbuild(e.getPlayer())) {
+            if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                 e.setCancelled(true);
             }
+            return;
         } else {
             e.setCancelled(true);
         }
     }
 
-    @EventHandler
     public void onplace(BlockPlaceEvent e) {
         if (IslandManager.getislandviablock(e.getBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlock()).canbuild(e.getPlayer())) {
+            if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                 e.setCancelled(true);
             }
+            return;
         } else {
             e.setCancelled(true);
         }
@@ -309,11 +322,24 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     public void oninteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() == null) return;
         if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getClickedBlock()).canbuild(e.getPlayer())) {
+            if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                 e.setCancelled(true);
+                for (String player : IslandManager.getislandviablock(e.getClickedBlock()).getPlayers()) {
+                    System.out.print(player);
+                }
             }
+            return;
         } else {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onmove(PlayerMoveEvent e) {
+        if (e.getTo().getY() <= 0) {
+            //Send to spawn
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + e.getPlayer().getName());
         }
     }
 
@@ -326,6 +352,10 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             if (u == null) {
                 User.users.add(new User(p.getName()));
             }
+            if (IslandManager.getislandviablock(e.getEntity().getLocation().getBlock()) != null) {
+                e.setCancelled(true);
+                return;
+            }
             if (u.getIsland() == null) return;
             if (u.getIsland().getPlayers().contains(dmg.getName())) e.setCancelled(true);
         }
@@ -333,14 +363,15 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     }
 
 
-    private void save() {
+    public void save() {
         File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
-        if (!im.exists()) {
-            try {
-                im.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (im.exists()) {
+            im.delete();
+        }
+        try {
+            im.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         YamlConfiguration config1 = YamlConfiguration.loadConfiguration(im);
         config1.set("Direction", IslandManager.getDirection().name());
@@ -406,7 +437,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                 Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
                 Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, false);
                 island.setCrystals(config.getInt("Crystals"));
-                island.addUser(island.getownername());
                 for (String member : config.getStringList("Members")) {
                     if (!member.equals(owner)) {
                         island.addUser(member);

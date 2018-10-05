@@ -39,6 +39,36 @@ public class UpgradesGUI implements Listener {
         Island island = User.getbyPlayer(p).getIsland();
         if (e.getInventory().getTitle().equals(inv(null).getTitle())) {
             e.setCancelled(true);
+            if (e.getSlot() == 10) {
+                if (island.getSize() == 1) {
+                    if (island.getCrystals() < 15) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        return;
+                    } else {
+                        island.removeCrystals(15);
+                        island.setSize(2);
+                        island.setPos1(island.getPos1().add(-25, 0, -25));
+                        island.setPos2(island.getPos2().add(25, 0, 25));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the island size."));
+                        return;
+                    }
+                }
+                if (island.getSize() == 2) {
+                    if (island.getCrystals() < 15) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        return;
+                    } else {
+                        island.removeCrystals(15);
+                        island.setSize(3);
+                        island.setPos1(island.getMaxpos1());
+                        island.setPos2(island.getMaxpos2());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the island size."));
+                        return;
+                    }
+                }
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMaximum Upgrade reached."));
+                p.closeInventory();
+            }
             if (e.getSlot() == 13) {
                 if (island.getMemberCount() == 1) {
                     if (island.getCrystals() < 15) {
@@ -48,6 +78,7 @@ public class UpgradesGUI implements Listener {
                         island.removeCrystals(15);
                         island.setMemberCount(2);
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        return;
                     }
                 } else if (island.getMemberCount() == 2) {
                     if (island.getCrystals() < 15) {
@@ -57,6 +88,7 @@ public class UpgradesGUI implements Listener {
                         island.removeCrystals(15);
                         island.setMemberCount(3);
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        return;
                     }
                 } else {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMaximum Upgrade reached."));

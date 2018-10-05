@@ -69,8 +69,8 @@ public class Island {
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
         this.owner = owner;
         this.home = home;
-        this.pos1 = pos1;
-        this.pos2 = pos2;
+        this.pos1 = pos1; //-50, -50
+        this.pos2 = pos2; //+50, +50
         this.maxpos1 = mpos1;
         this.maxpos2 = mpos2;
         this.Size = 1;
@@ -89,7 +89,6 @@ public class Island {
         this.Mission3Complete = false;
 
         addUser(owner);
-
         //Loads island.schematic
         if (schem) {
 
@@ -107,6 +106,15 @@ public class Island {
         }
         EpicSkyBlock.getSkyblock.addMissions(this);
         calculateworth();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.save(), 0);
+    }
+
+    public void setPos1(Location pos1) {
+        this.pos1 = pos1;
+    }
+
+    public void setPos2(Location pos2) {
+        this.pos2 = pos2;
     }
 
     public void regen() {
@@ -126,31 +134,35 @@ public class Island {
 
 
     public void calculateworth() {
-        final Timer timer = new Timer(true); // We use a timer cause the Bukkit scheduler is affected by server lags
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (!EpicSkyBlock.getSkyblock.isEnabled()) { // Plugin was disabled
-                    timer.cancel();
-                    return;
-                }
-                // Nevertheless we want our code to run in the Bukkit main thread, so we have to use the Bukkit scheduler
-                Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
-                    int level = 0;
-                    for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-                        for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                            for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                                Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
-                                if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
-                                    level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
+        if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
+            final Timer timer = new Timer(true); // We use a timer cause the Bukkit scheduler is affected by server lags
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!EpicSkyBlock.getSkyblock.isEnabled()) { // Plugin was disabled
+                        timer.cancel();
+                        return;
+                    }
+
+                    if (!ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) timer.cancel();
+                    // Nevertheless we want our code to run in the Bukkit main thread, so we have to use the Bukkit scheduler
+                    Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
+                        int level = 0;
+                        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                            for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                                for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                                    Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                                    if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
+                                        level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
+                                    }
                                 }
                             }
                         }
-                    }
-                    setLevel(level);
-                });
-            }
-        }, 0, 20 * 60 * 30);
+                        setLevel(level);
+                    });
+                }
+            }, 0, 20 * 60 * 30);
+        }
     }
 
     public Integer getLevel() {
@@ -412,10 +424,7 @@ public class Island {
         }
         User u = User.getbyPlayer(player.getName());
         if (u.getBypass()) return true;
-        if (u.getIsland() != null) {
-            if (u.getIsland().equals(this)) return true;
-        }
-        return false;
+        return players.contains(player.getName());
     }
 
     public Boolean getSpawnerBoosterActive() {
