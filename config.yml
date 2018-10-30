@@ -4,7 +4,6 @@ Options:
   XpMultiplier: 4
   MobCoinsMultiplier: 4
   EnableIsTop: true
-  SaveInt: 10
 Upgrades:
   Members:
     1: 9

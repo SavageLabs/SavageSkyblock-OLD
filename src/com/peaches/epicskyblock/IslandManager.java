@@ -14,6 +14,8 @@ class IslandManager {
 
     private static Location nextloc = new Location(EpicSkyBlock.getSkyblock.getWorld(), 0, 72, 0);
 
+    private static Integer nextid = 1;
+
     private static Direction direction;
 
     public static Location getNextloc() {
@@ -46,60 +48,76 @@ class IslandManager {
                 return;
             }
         }
-        if (direction == null) {
-            direction = Direction.NORTH;
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
-            Islands.add(island);
-            User.getbyPlayer(player).setIsland(island);
-            player.teleport(User.getbyPlayer(player).getIsland().gethome());
-            return;
-        }
-        if (direction == Direction.NORTH) {
-            nextloc.add(200, 0, 0);
-            // Check if an island is available in east
-            if (getislandviablock(nextloc.clone().add(0, 0, 200).getBlock()) == null) {
-                direction = Direction.EAST;
+        Boolean i = true;
+        while (i) {
+            if (getislandviablock(nextloc.getBlock()) == null) {
+                i = false;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
-            Islands.add(island);
-            User.getbyPlayer(player).setIsland(island);
-            player.teleport(User.getbyPlayer(player).getIsland().gethome());
-            return;
-        }
-        if (direction == Direction.EAST) {
-            nextloc.add(0, 0, 200);
-            // Check if an island is available in east
-            if (getislandviablock(nextloc.clone().add(-200, 0, 0).getBlock()) == null) {
-                direction = Direction.SOUTH;
-            }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
-            Islands.add(island);
-            User.getbyPlayer(player).setIsland(island);
-            player.teleport(User.getbyPlayer(player).getIsland().gethome());
-            return;
-        }
-        if (direction == Direction.SOUTH) {
-            nextloc.add(-200, 0, 0);
-            // Check if an island is available in east
-            if (getislandviablock(nextloc.clone().add(0, 0, -200).getBlock()) == null) {
-                direction = Direction.WEST;
-            }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
-            Islands.add(island);
-            User.getbyPlayer(player).setIsland(island);
-            player.teleport(User.getbyPlayer(player).getIsland().gethome());
-            return;
-        }
-        if (direction == Direction.WEST) {
-            nextloc.add(0, 0, -200);
-            // Check if an island is available in east
-            if (getislandviablock(nextloc.clone().add(200, 0, 0).getBlock()) == null) {
+            if (direction == null) {
                 direction = Direction.NORTH;
+                if (!i) {
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                }
+                return;
             }
-            Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
-            Islands.add(island);
-            User.getbyPlayer(player).setIsland(island);
-            player.teleport(User.getbyPlayer(player).getIsland().gethome());
+            if (direction == Direction.NORTH) {
+                nextloc.add(200, 0, 0);
+                if (!i) {
+                    // Check if an island is available in east
+                    if (getislandviablock(nextloc.clone().add(0, 0, 200).getBlock()) == null) {
+                        direction = Direction.EAST;
+                    }
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                }
+                return;
+            }
+            if (direction == Direction.EAST) {
+                nextloc.add(0, 0, 200);
+                if (!i) {
+                    // Check if an island is available in east
+                    if (getislandviablock(nextloc.clone().add(-200, 0, 0).getBlock()) == null) {
+                        direction = Direction.SOUTH;
+                    }
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                }
+                return;
+            }
+            if (direction == Direction.SOUTH) {
+                nextloc.add(-200, 0, 0);
+                if (!i) {
+                    // Check if an island is available in east
+                    if (getislandviablock(nextloc.clone().add(0, 0, -200).getBlock()) == null) {
+                        direction = Direction.WEST;
+                    }
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                }
+                return;
+            }
+            if (direction == Direction.WEST) {
+                nextloc.add(0, 0, -200);
+                if (!i) {
+                    // Check if an island is available in east
+                    if (getislandviablock(nextloc.clone().add(200, 0, 0).getBlock()) == null) {
+                        direction = Direction.NORTH;
+                    }
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                }
+            }
         }
     }
 
@@ -142,5 +160,13 @@ class IslandManager {
 
     public static ArrayList<Island> getIslands() {
         return Islands;
+    }
+
+    public static Integer getNextid() {
+        return nextid;
+    }
+
+    public static void setNextid(Integer nextid) {
+        IslandManager.nextid = nextid;
     }
 }

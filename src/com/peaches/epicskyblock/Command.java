@@ -22,6 +22,7 @@ class Command implements Listener, CommandExecutor {
         plugin = pl;
     }
 
+    // Complete redo
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length == 0) {
             for (String message : ConfigManager.getInstance().getConfig().getStringList("help")) {

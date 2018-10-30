@@ -16,8 +16,6 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Island {
 
@@ -56,6 +54,8 @@ public class Island {
     private Integer WarpCount;
     private Integer crystals;
 
+    private Integer id;
+
     private Location warp1;
     private Location warp2;
     private Location warp3;
@@ -63,7 +63,6 @@ public class Island {
     private Location warp5;
 
     private Integer level = 0;
-    private Integer levelcode;
     private ArrayList<String> players = new ArrayList<>();
 
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
@@ -78,7 +77,11 @@ public class Island {
         this.WarpCount = 1;
         this.crystals = 0;
 
+        this.id = IslandManager.getNextid();
+        IslandManager.setNextid(id + 1);
+
         this.SpawnerBoosterActive = false;
+        this.FarmingBoosterActive = false;
         this.FarmingBoosterActive = false;
         this.XPBoosterActive = false;
         this.FlyBoosterActive = false;
@@ -107,6 +110,7 @@ public class Island {
         EpicSkyBlock.getSkyblock.addMissions(this);
         calculateworth();
         Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.save(), 0);
+        EpicSkyBlock.getSkyblock.saveisland(this);
     }
 
     public void setPos1(Location pos1) {
@@ -135,33 +139,20 @@ public class Island {
 
     public void calculateworth() {
         if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
-            final Timer timer = new Timer(true); // We use a timer cause the Bukkit scheduler is affected by server lags
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    if (!EpicSkyBlock.getSkyblock.isEnabled()) { // Plugin was disabled
-                        timer.cancel();
-                        return;
-                    }
-
-                    if (!ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) timer.cancel();
-                    // Nevertheless we want our code to run in the Bukkit main thread, so we have to use the Bukkit scheduler
-                    Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
-                        int level = 0;
-                        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-                            for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                                for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                                    Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
-                                    if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
-                                        level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
-                                    }
-                                }
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
+                int level = 0;
+                for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                    for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                        for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                            if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." +
+                                    EpicSkyBlock.getSkyblock.getWorld().getBlockAt((int) X, (int) Y, (int) Z).getType().name())) {
+                                level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + EpicSkyBlock.getSkyblock.getWorld().getBlockAt((int) X, (int) Y, (int) Z).getType().name());
                             }
                         }
-                        setLevel(level);
-                    });
+                    }
                 }
-            }, 0, 20 * 60 * 30);
+                setLevel(level);
+            }), 0, 20 * 60 * 30);
         }
     }
 
@@ -309,6 +300,10 @@ public class Island {
         return SpawnerCode;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void startspawnercountdown(int i) {
         spawner = i;
         SpawnerCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
@@ -407,7 +402,6 @@ public class Island {
         if (this.XPCode != null) Bukkit.getScheduler().cancelTask(this.XPCode);
         if (this.SpawnerCode != null) Bukkit.getScheduler().cancelTask(this.SpawnerCode);
         if (this.FlyCode != null) Bukkit.getScheduler().cancelTask(this.FlyCode);
-        if (this.levelcode != null) Bukkit.getScheduler().cancelTask(this.levelcode);
         this.level = 0;
         this.players.clear();
         this.owner = "";
@@ -416,6 +410,7 @@ public class Island {
         this.FlyBoosterActive = false;
         this.FarmingBoosterActive = false;
         this.XPBoosterActive = false;
+        EpicSkyBlock.getSkyblock.save();
     }
 
     public boolean canbuild(Player player) {
