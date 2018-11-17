@@ -5,6 +5,7 @@ import com.peaches.mobcoins.MobCoinsGiveEvent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -232,7 +233,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         new WorldCreator(world.getName()).generator(new SkyblockGenerator());
     }
 
-    public void sendCenteredMessage(Player player, String message) {
+    public void sendCenteredMessage(CommandSender player, String message) {
         if (message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 
@@ -352,13 +353,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
 
     public void save() {
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            File DIR = new File("plugins//" + getDescription().getName() + "//Islands");
-            if (DIR.exists()) {
-                File[] files = DIR.listFiles();
-                for (File file : files) {
-                    file.delete();
-                }
-            }
             File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
             if (im.exists()) {
                 im.delete();

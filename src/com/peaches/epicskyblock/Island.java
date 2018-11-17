@@ -109,8 +109,47 @@ public class Island {
         }
         EpicSkyBlock.getSkyblock.addMissions(this);
         calculateworth();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.save(), 0);
-        EpicSkyBlock.getSkyblock.saveisland(this);
+        Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.saveisland(this));
+    }
+
+    public Location getWarp1() {
+        return warp1;
+    }
+
+    public void setWarp1(Location warp1) {
+        this.warp1 = warp1;
+    }
+
+    public Location getWarp2() {
+        return warp2;
+    }
+
+    public void setWarp2(Location warp2) {
+        this.warp2 = warp2;
+    }
+
+    public Location getWarp3() {
+        return warp3;
+    }
+
+    public void setWarp3(Location warp3) {
+        this.warp3 = warp3;
+    }
+
+    public Location getWarp4() {
+        return warp4;
+    }
+
+    public void setWarp4(Location warp4) {
+        this.warp4 = warp4;
+    }
+
+    public Location getWarp5() {
+        return warp5;
+    }
+
+    public void setWarp5(Location warp5) {
+        this.warp5 = warp5;
     }
 
     public void setPos1(Location pos1) {
@@ -139,21 +178,23 @@ public class Island {
 
     public void calculateworth() {
         if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> {
+            //Change to Async
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(EpicSkyBlock.getSkyblock, () -> {
                 int level = 0;
                 for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
                     for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
                         for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                            if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." +
-                                    EpicSkyBlock.getSkyblock.getWorld().getBlockAt((int) X, (int) Y, (int) Z).getType().name())) {
-                                level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + EpicSkyBlock.getSkyblock.getWorld().getBlockAt((int) X, (int) Y, (int) Z).getType().name());
+                            String b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock().getType().name();
+                            if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b)) {
+                                level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b);
                             }
                         }
                     }
                 }
                 setLevel(level);
-            }), 0, 20 * 60 * 30);
+            }, 0, 20 * 60 * 30);
         }
+
     }
 
     public Integer getLevel() {
@@ -372,8 +413,6 @@ public class Island {
         try {
             SchematicFormat.getFormat(schematic).load(schematic).paste(editSession, new Vector(location.getX(), location.getY(), location.getZ()), true, false);
             editSession.flushQueue();
-//            CuboidClipboard clipboard = MCEditSchematicFormat.getFormat(schematic).load(schematic);
-//            clipboard.paste(session, new Vector(location.getX(), location.getY(), location.getZ()), false);
         } catch (MaxChangedBlocksException | DataException | IOException e) {
             e.printStackTrace();
         }

@@ -26,7 +26,11 @@ class Command implements Listener, CommandExecutor {
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length == 0) {
             for (String message : ConfigManager.getInstance().getConfig().getStringList("help")) {
-                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                if (message.contains("%centered%")) {
+                    plugin.sendCenteredMessage(cs, ChatColor.translateAlternateColorCodes('&', message.replace("%centered%", "")));
+                } else {
+                    cs.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                }
             }
             return true;
         }
@@ -89,6 +93,40 @@ class Command implements Listener, CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("setwarp")) {
+                if (User.getbyPlayer(p) == null) {
+                    User.users.add(new User(p.getName()));
+                }
+                if (User.getbyPlayer(p).getIsland() != null) {
+                    Island is = User.getbyPlayer(p).getIsland();
+                    if (is.getWarp1() == null) {
+                        is.setWarp1(p.getLocation());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        return true;
+                    }
+                    if (is.getWarp2() == null && is.getWarpCount() > 1) {
+                        is.setWarp2(p.getLocation());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        return true;
+                    }
+                    if (is.getWarp3() == null && is.getWarpCount() > 1) {
+                        is.setWarp3(p.getLocation());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        return true;
+                    }
+                    if (is.getWarp4() == null && is.getWarpCount() > 2) {
+                        is.setWarp4(p.getLocation());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        return true;
+                    }
+                    if (is.getWarp5() == null && is.getWarpCount() > 2) {
+                        is.setWarp5(p.getLocation());
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        return true;
+                    }
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have no warps left, do /is upgrade to get more."));
+                    return true;
+                }
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou dont have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("crystals")) {
