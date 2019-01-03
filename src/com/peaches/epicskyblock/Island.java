@@ -23,6 +23,7 @@ public class Island {
     private final Location maxpos2; // Bottom right corner
     public Location pos1; // Bottom left corner
     public Location pos2; // Bottom right corner
+    private Location center;
     private String owner;
     private Location home;
     private Boolean SpawnerBoosterActive;
@@ -65,13 +66,14 @@ public class Island {
     private Integer level = 0;
     private ArrayList<String> players = new ArrayList<>();
 
-    public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Boolean schem) {
+    public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, Boolean schem) {
         this.owner = owner;
         this.home = home;
         this.pos1 = pos1; //-50, -50
         this.pos2 = pos2; //+50, +50
         this.maxpos1 = mpos1;
         this.maxpos2 = mpos2;
+        this.center = center;
         this.Size = 1;
         this.MemberCount = 1;
         this.WarpCount = 1;
@@ -157,6 +159,10 @@ public class Island {
 
     public void setPos2(Location pos2) {
         this.pos2 = pos2;
+    }
+
+    public Location getCenter() {
+        return center;
     }
 
     public void regen() {

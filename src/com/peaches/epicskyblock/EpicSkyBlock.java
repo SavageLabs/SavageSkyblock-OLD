@@ -1,27 +1,13 @@
 package com.peaches.epicskyblock;
 
 import com.peaches.epicskyblock.Inventories.*;
-import com.peaches.mobcoins.MobCoinsGiveEvent;
+import com.peaches.epicskyblock.NMS.*;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockGrowEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.SpawnerSpawnEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
@@ -61,9 +47,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     }
 
     public void saveint() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            save();
-        }, 0, 20 * 60);
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> save(), 0, 20 * 60);
     }
 
 
@@ -76,189 +60,32 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         System.out.print("-------------------------------");
     }
 
+    private void registerEvents() {
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        pm.registerEvents(this, this);
+        pm.registerEvents(new UpgradesGUI(), this);
+        pm.registerEvents(new MissionsGUI(), this);
+        pm.registerEvents(new BoostersGUI(), this);
+        pm.registerEvents(new Missions(), this);
+        pm.registerEvents(new WarpGUI(), this);
+        pm.registerEvents(new Members(), this);
+        pm.registerEvents(new Events(), this);
+    }
+
+    public void sendBorder(Player p, double x, double z, double radius) {
+        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius);
+        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius);
+    }
+
     public void calculateworth() {
         for (Island is : IslandManager.getIslands()) {
             Bukkit.getScheduler().runTaskAsynchronously(this, () -> is.calculateworth());
-        }
-    }
-
-    @EventHandler
-    public void onexplode(EntityExplodeEvent e) {
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void ontalk(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
-        if (User.getbyPlayer(p) == null) {
-            User.users.add(new User(p.getName()));
-        }
-        if (User.getbyPlayer(p).getIsland() != null) {
-            if (User.getbyPlayer(p).getChat()) {
-                e.setCancelled(true);
-                for (String player : User.getbyPlayer(p).getIsland().getPlayers()) {
-                    Player member = Bukkit.getPlayer(player);
-                    if (member != null) {
-                        member.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&l" + p.getName() + " &8» &e" + e.getMessage()));
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void oncoin(MobCoinsGiveEvent e) {
-        User u = User.getbyPlayer(e.getPlayer());
-        if (u.getIsland() != null) {
-            if (u.getIsland().getMobCoinsBoosterActive()) {
-                e.setAmount(ConfigManager.getInstance().getConfig().getInt("Options.MobCoinsMultiplier"));
-            }
-
-        }
-    }
-
-    @EventHandler
-    public void onCropGrow(BlockGrowEvent e) {
-        Island island = IslandManager.getislandviablock(e.getBlock());
-        if (island != null) {
-            if (island.getFarmingBoosterActive()) {
-                e.getBlock().setData((byte) (e.getBlock().getData() + 1));
-            }
-        }
-    }
-
-    @EventHandler
-    public void onkill(EntityDeathEvent e) {
-        Player p = e.getEntity().getKiller();
-        if (p == null) return;
-        if (User.getbyPlayer(p) == null) {
-            User.users.add(new User(p.getName()));
-        }
-        User u = User.getbyPlayer(p);
-        if (u.getIsland() != null) {
-            if (u.getIsland().getXPBoosterActive()) {
-                e.setDroppedExp(e.getDroppedExp() * ConfigManager.getInstance().getConfig().getInt("Options.XpMultiplier"));
-            }
-        }
-    }
-
-    @EventHandler
-    public void onspawn(SpawnerSpawnEvent e) {
-        if (IslandManager.getislandviablock(e.getSpawner().getLocation().getBlock()) == null) return;
-        if (IslandManager.getislandviablock(e.getSpawner().getLocation().getBlock()).getSpawnerBoosterActive()) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock, () -> e.getSpawner().setDelay(e.getSpawner().getDelay() / ConfigManager.getInstance().getConfig().getInt("Options.SpawnerMultiplier")), 0);
-        }
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        if (User.getbyPlayer(e.getPlayer()) == null) {
-            User.users.add(new User(e.getPlayer().getName()));
-        }
-    }
-
-    @EventHandler
-    public void onbreak(BlockBreakEvent e) {
-        if (IslandManager.getislandviablock(e.getBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
-                e.setCancelled(true);
-            }
-            return;
-        } else {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onplace(BlockPlaceEvent e) {
-        if (IslandManager.getislandviablock(e.getBlockPlaced()) != null) {
-            if (!IslandManager.getislandviablock(e.getBlockPlaced()).getPlayers().contains(e.getPlayer().getName())) {
-                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
-                e.setCancelled(true);
-            }
-            return;
-        } else {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void oninteract(PlayerInteractEvent e) {
-        if (e.getClickedBlock() == null) return;
-        if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
-            if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
-                e.setCancelled(true);
-                for (String player : IslandManager.getislandviablock(e.getClickedBlock()).getPlayers()) {
-                    System.out.print(player);
-                }
-            }
-            return;
-        } else {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onmove(PlayerMoveEvent e) {
-        if (e.getTo().getY() <= 0) {
-            //Send to island home
-            Player p = e.getPlayer();
-            if (User.getbyPlayer(p) == null) {
-                User.users.add(new User(p.getName()));
-            }
-            if (User.getbyPlayer(p).getIsland() != null) {
-                p.teleport(User.getbyPlayer(p).getIsland().gethome());
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eTeleporting to island..."));
-            }
-        }
-    }
-
-    @EventHandler
-    public void ondmg(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
-            Player p = (Player) e.getEntity();
-            Player dmg = (Player) e.getDamager();
-            User u = User.getbyPlayer(p);
-            if (u == null) {
-                User.users.add(new User(p.getName()));
-            }
-            if (IslandManager.getislandviablock(e.getEntity().getLocation().getBlock()) != null) {
-                e.setCancelled(true);
-                return;
-            }
-            if (u.getIsland() == null) return;
-            if (u.getIsland().getPlayers().contains(dmg.getName())) e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onFromTo(BlockFromToEvent e) {
-        if (e.getFace() != BlockFace.DOWN) {
-            Block b = e.getToBlock();
-            Location fromLoc = b.getLocation();
-            Bukkit.getScheduler().runTask(EpicSkyBlock.getSkyblock, () -> {
-                if (b.getType().equals(Material.COBBLESTONE) || b.getType().equals(Material.STONE)) {
-                    if (!isSurroundedByWater(fromLoc)) {
-                        return;
-                    }
-
-                    Random r = new Random();
-                    ArrayList<String> items = new ArrayList<>();
-                    for (String item : EpicSkyBlock.getSkyblock.getConfig().getStringList("OreGen")) {
-                        Integer i1 = Integer.parseInt(item.split(":")[1]);
-                        for (int i = 0; i <= i1; i++) {
-                            items.add(item.split(":")[0]);
-                        }
-                    }
-                    String item = items.get(r.nextInt(items.size()));
-                    if (Material.getMaterial(item) == null) return;
-                    e.setCancelled(true);
-                    b.setType(Material.getMaterial(item));
-                    b.getState().update(true);
-                }
-            });
         }
     }
 
@@ -277,18 +104,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         return false;
 
     }
-
-    private void registerEvents() {
-        PluginManager pm = Bukkit.getServer().getPluginManager();
-        pm.registerEvents(this, this);
-        pm.registerEvents(new UpgradesGUI(), this);
-        pm.registerEvents(new MissionsGUI(), this);
-        pm.registerEvents(new BoostersGUI(), this);
-        pm.registerEvents(new Missions(), this);
-        pm.registerEvents(new WarpGUI(), this);
-        pm.registerEvents(new Members(), this);
-    }
-
 
     public void addMissions(Island island) {
         Random r = new Random();
@@ -406,35 +221,33 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     }
 
     public void save() {
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
-            if (im.exists()) {
-                im.delete();
-            }
-            try {
-                im.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            YamlConfiguration config1 = YamlConfiguration.loadConfiguration(im);
-            config1.set("NextID", IslandManager.getNextid());
-            if (IslandManager.getDirection() != null) {
-                config1.set("Direction", IslandManager.getDirection().name());
-            }
-            config1.set("NextLocation", IslandManager.getNextloc().getWorld().getName() + "," + IslandManager.getNextloc().getX() + "," + IslandManager.getNextloc().getY() + "," + IslandManager.getNextloc().getZ());
-            try {
-                config1.save(im);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            File dir = new File("plugins//" + getDescription().getName() + "//Islands");
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
-            for (Island island : IslandManager.getIslands()) {
-                saveisland(island);
-            }
-        });
+        File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
+        if (im.exists()) {
+            im.delete();
+        }
+        try {
+            im.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        YamlConfiguration config1 = YamlConfiguration.loadConfiguration(im);
+        config1.set("NextID", IslandManager.getNextid());
+        if (IslandManager.getDirection() != null) {
+            config1.set("Direction", IslandManager.getDirection().name());
+        }
+        config1.set("NextLocation", IslandManager.getNextloc().getWorld().getName() + "," + IslandManager.getNextloc().getX() + "," + IslandManager.getNextloc().getY() + "," + IslandManager.getNextloc().getZ());
+        try {
+            config1.save(im);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File dir = new File("plugins//" + getDescription().getName() + "//Islands");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        for (Island island : IslandManager.getIslands()) {
+            saveisland(island);
+        }
     }
 
     public void saveisland(Island island) {
@@ -451,6 +264,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             config.set("Pos2", island.getPos2().getWorld().getName() + "," + island.getPos2().getX() + "," + island.getPos2().getY() + "," + island.getPos2().getZ());
             config.set("Maxpos1", island.getMaxpos1().getWorld().getName() + "," + island.getMaxpos1().getX() + "," + island.getMaxpos1().getY() + "," + island.getMaxpos1().getZ());
             config.set("Maxpos2", island.getMaxpos2().getWorld().getName() + "," + island.getMaxpos2().getX() + "," + island.getMaxpos2().getY() + "," + island.getMaxpos2().getZ());
+            config.set("Center", island.getCenter().getWorld().getName() + "," + island.getCenter().getX() + "," + island.getCenter().getY() + "," + island.getCenter().getZ());
             config.save(file);
         } catch (Exception ignored) {
 
@@ -486,12 +300,14 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                     String[] Pos2 = config.getString("Pos2").split(",");
                     String[] Maxpos1 = config.getString("Maxpos1").split(",");
                     String[] Maxpos2 = config.getString("Maxpos2").split(",");
+                    String[] Center = config.getString("Center").split(",");
                     Location home = new Location(Bukkit.getWorld(Home[0]), Double.parseDouble(Home[1]), Double.parseDouble(Home[2]), Double.parseDouble(Home[3]));
                     Location pos1 = new Location(Bukkit.getWorld(Pos1[0]), Double.parseDouble(Pos1[1]), Double.parseDouble(Pos1[2]), Double.parseDouble(Pos1[3]));
                     Location pos2 = new Location(Bukkit.getWorld(Pos2[0]), Double.parseDouble(Pos2[1]), Double.parseDouble(Pos2[2]), Double.parseDouble(Pos2[3]));
                     Location maxpos1 = new Location(Bukkit.getWorld(Maxpos1[0]), Double.parseDouble(Maxpos1[1]), Double.parseDouble(Maxpos1[2]), Double.parseDouble(Maxpos1[3]));
                     Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
-                    Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, false);
+                    Location center = new Location(Bukkit.getWorld(Center[0]), Double.parseDouble(Center[1]), Double.parseDouble(Center[2]), Double.parseDouble(Center[3]));
+                    Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, center, false);
                     island.setCrystals(config.getInt("Crystals"));
                     for (String member : config.getStringList("Members")) {
                         if (!member.equals(owner)) {

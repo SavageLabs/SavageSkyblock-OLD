@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
-class Command implements Listener, CommandExecutor {
+class Command implements CommandExecutor {
     private static EpicSkyBlock plugin;
 
     public Command(EpicSkyBlock pl) {

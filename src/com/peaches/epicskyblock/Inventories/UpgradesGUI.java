@@ -2,6 +2,7 @@ package com.peaches.epicskyblock.Inventories;
 
 import com.peaches.epicskyblock.EpicSkyBlock;
 import com.peaches.epicskyblock.Island;
+import com.peaches.epicskyblock.IslandManager;
 import com.peaches.epicskyblock.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,8 +48,8 @@ public class UpgradesGUI implements Listener {
                     } else {
                         island.removeCrystals(15);
                         island.setSize(2);
-                        island.setPos1(island.getPos1().add(-25, 0, -25));
-                        island.setPos2(island.getPos2().add(25, 0, 25));
+                        island.setPos1(island.getPos1().add(-(IslandManager.level2radius - IslandManager.level1radius), 0, -(IslandManager.level2radius - IslandManager.level1radius)));
+                        island.setPos2(island.getPos2().add(IslandManager.level2radius - IslandManager.level1radius, 0, IslandManager.level2radius - IslandManager.level1radius));
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the island size."));
                         return;
                     }

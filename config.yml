@@ -2,8 +2,10 @@ Options:
   HelpGUI: false
   SpawnerMultiplier: 4
   XpMultiplier: 4
-  MobCoinsMultiplier: 4
   EnableIsTop: true
+  Level1Size: 25
+  Level2Size: 50
+  Level3Size: 75
 Inventories:
   Boosters: "&e&lIsland Boosters"
   Missions: "&e&lIsland Missions"

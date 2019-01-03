@@ -18,6 +18,10 @@ public class IslandManager {
 
     private static Direction direction = Direction.UNDIFINED;
 
+    public static Integer level1radius = EpicSkyBlock.getSkyblock.getConfig().getInt("Options.Level1Size");
+    public static Integer level2radius = EpicSkyBlock.getSkyblock.getConfig().getInt("Options.Level2Size");
+    public static Integer level3radius = EpicSkyBlock.getSkyblock.getConfig().getInt("Options.Level3Size");
+
     public static Location getNextloc() {
         return nextloc;
     }
@@ -56,7 +60,7 @@ public class IslandManager {
             if (direction == Direction.UNDIFINED) {
                 direction = Direction.NORTH;
                 if (!i) {
-                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -64,13 +68,13 @@ public class IslandManager {
                 return;
             }
             if (direction == Direction.NORTH) {
-                nextloc.add(200, 0, 0);
+                nextloc.add(level3radius * 2, 0, 0);
                 if (!i) {
                     // Check if an island is available in east
-                    if (getislandviablock(nextloc.clone().add(0, 0, 200).getBlock()) == null) {
+                    if (getislandviablock(nextloc.clone().add(0, 0, level3radius * 2).getBlock()) == null) {
                         direction = Direction.EAST;
                     }
-                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -78,13 +82,13 @@ public class IslandManager {
                 return;
             }
             if (direction == Direction.EAST) {
-                nextloc.add(0, 0, 200);
+                nextloc.add(0, 0, level3radius * 2);
                 if (!i) {
                     // Check if an island is available in east
-                    if (getislandviablock(nextloc.clone().add(-200, 0, 0).getBlock()) == null) {
+                    if (getislandviablock(nextloc.clone().add(-level3radius * 2, 0, 0).getBlock()) == null) {
                         direction = Direction.SOUTH;
                     }
-                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -92,13 +96,13 @@ public class IslandManager {
                 return;
             }
             if (direction == Direction.SOUTH) {
-                nextloc.add(-200, 0, 0);
+                nextloc.add(-level3radius * 2, 0, 0);
                 if (!i) {
                     // Check if an island is available in east
-                    if (getislandviablock(nextloc.clone().add(0, 0, -200).getBlock()) == null) {
+                    if (getislandviablock(nextloc.clone().add(0, 0, -level3radius * 2).getBlock()) == null) {
                         direction = Direction.WEST;
                     }
-                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
@@ -106,13 +110,13 @@ public class IslandManager {
                 return;
             }
             if (direction == Direction.WEST) {
-                nextloc.add(0, 0, -200);
+                nextloc.add(0, 0, -level3radius * 2);
                 if (!i) {
                     // Check if an island is available in east
-                    if (getislandviablock(nextloc.clone().add(200, 0, 0).getBlock()) == null) {
+                    if (getislandviablock(nextloc.clone().add(level3radius * 2, 0, 0).getBlock()) == null) {
                         direction = Direction.NORTH;
                     }
-                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);
+                    Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
