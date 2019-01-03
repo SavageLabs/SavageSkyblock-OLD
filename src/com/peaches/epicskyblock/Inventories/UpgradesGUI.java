@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class UpgradesGUI implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&e&lIsland Upgrades"));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Inventories.Upgrades")));
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
@@ -97,5 +97,4 @@ public class UpgradesGUI implements Listener {
             }
         }
     }
-
 }

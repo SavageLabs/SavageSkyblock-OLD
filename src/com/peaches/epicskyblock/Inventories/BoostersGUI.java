@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class BoostersGUI implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&e&lIsland Boosters"));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Inventories.Boosters")));
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));

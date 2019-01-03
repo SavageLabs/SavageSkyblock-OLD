@@ -4,6 +4,12 @@ Options:
   XpMultiplier: 4
   MobCoinsMultiplier: 4
   EnableIsTop: true
+Inventories:
+  Boosters: "&e&lIsland Boosters"
+  Missions: "&e&lIsland Missions"
+  Upgrades: "&e&lIsland Upgrades"
+  Warp: "&e&lIsland Warps"
+  Members: "&7&lIsland Members"
 Upgrades:
   Members:
     1: 9

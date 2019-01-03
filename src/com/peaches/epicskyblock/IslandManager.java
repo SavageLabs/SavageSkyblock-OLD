@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-class IslandManager {
+public class IslandManager {
 
     private static ArrayList<Island> Islands = new ArrayList<>();
 
@@ -16,7 +16,7 @@ class IslandManager {
 
     private static Integer nextid = 1;
 
-    private static Direction direction;
+    private static Direction direction = Direction.UNDIFINED;
 
     public static Location getNextloc() {
         return nextloc;
@@ -53,7 +53,7 @@ class IslandManager {
             if (getislandviablock(nextloc.getBlock()) == null) {
                 i = false;
             }
-            if (direction == null) {
+            if (direction == Direction.UNDIFINED) {
                 direction = Direction.NORTH;
                 if (!i) {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-50, -120, -50), nextloc.clone().add(50, 100, 50), nextloc.clone().add(-99, -120, -99), nextloc.clone().add(99, 100, 99), true);

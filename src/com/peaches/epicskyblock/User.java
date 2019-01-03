@@ -52,11 +52,11 @@ public class User {
         this.chat = chat;
     }
 
-    private Player getPlayer() {
+    public Player getPlayer() {
         return Bukkit.getPlayer(player);
     }
 
-    private String getPlayerName() {
+    public String getPlayerName() {
         return player;
     }
 

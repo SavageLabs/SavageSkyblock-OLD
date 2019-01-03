@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class Members implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&7&lIsland Members"));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Inventories.Members")));
         if (island == null) return inv;
         for (String player : island.getPlayers()) {
             if (!(player == null || player.equalsIgnoreCase(""))) {
