@@ -24,34 +24,69 @@ public class BoostersGUI implements Listener {
             inv.setItem(i + 9, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
             inv.setItem(i + 18, EpicSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
-        ArrayList<String> spawnerlore = new ArrayList<>();
-        if (island.getSpawner() != 0) {
-            spawnerlore.add(ChatColor.translateAlternateColorCodes('&', "&6&lTime: &e&l" + island.getSpawner() / 60 + "m " + island.getSpawner() % 60 + "s"));
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Increase the rate at which mobs spawn"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lTime Remaining:"));
+        if (island.getSpawnerBoosterActive()) {
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &7" + island.getSpawner() + "s"));
         } else {
-            spawnerlore.add(ChatColor.translateAlternateColorCodes('&', "&6&lClick to activate"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&4&lUnactivated"));
         }
-        ArrayList<String> farminglore = new ArrayList<>();
-        if (island.getFarming() != 0) {
-            farminglore.add(ChatColor.translateAlternateColorCodes('&', "&6&lTime: &e&l" + island.getFarming() / 60 + "m " + island.getFarming() % 60 + "s"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lCost:"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &715 Island Crystals"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lClick to &nActivate"));
+        inv.setItem(10, EpicSkyBlock.getSkyblock.makeItem(Material.MOB_SPAWNER, 1, 0, "&e&lSpawner Booster", lore));
+        lore.clear();
+
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Increase the rate at which crops grow"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lActive:"));
+        if (island.getFarmingBoosterActive()) {
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &7" + island.getFarming() + "s"));
         } else {
-            farminglore.add(ChatColor.translateAlternateColorCodes('&', "&6&lClick to activate"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&4&lUnactivated"));
         }
-        ArrayList<String> xplore = new ArrayList<>();
-        if (island.getXp() != 0) {
-            xplore.add(ChatColor.translateAlternateColorCodes('&', "&6&lTime: &e&l" + island.getXp() / 60 + "m " + island.getXp() % 60 + "s"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lCost:"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &715 Island Crystals"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lClick to &nActivate"));
+        inv.setItem(12, EpicSkyBlock.getSkyblock.makeItem(Material.WHEAT, 1, 0, "&e&lFarming Booster", lore));
+        lore.clear();
+
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Double the amount of xp recieved"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lActive:"));
+        if (island.getXPBoosterActive()) {
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &7" + island.getXp() + "s"));
         } else {
-            xplore.add(ChatColor.translateAlternateColorCodes('&', "&6&lClick to activate"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&4&lUnactivated"));
         }
-        ArrayList<String> flylore = new ArrayList<>();
-        if (island.getFly() != 0) {
-            flylore.add(ChatColor.translateAlternateColorCodes('&', "&6&lTime: &e&l" + island.getFly() / 60 + "m " + island.getFly() % 60 + "s"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lCost:"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &715 Island Crystals"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lClick to &nActivate"));
+        inv.setItem(14, EpicSkyBlock.getSkyblock.makeItem(Material.EXP_BOTTLE, 1, 0, "&e&lXp Booster", lore));
+        lore.clear();
+
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Grant all island members with the ability to fligh"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lActive:"));
+        if (island.getFlyBoosterActive()) {
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &7" + island.getFly() + "s"));
         } else {
-            flylore.add(ChatColor.translateAlternateColorCodes('&', "&6&lClick to activate"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&4&lUnactivated"));
         }
-        inv.setItem(10, EpicSkyBlock.getSkyblock.makeItem(Material.MOB_SPAWNER, 1, 0, "&e&lSpawner Booster", spawnerlore));
-        inv.setItem(12, EpicSkyBlock.getSkyblock.makeItem(Material.WHEAT, 1, 0, "&e&lFarming Booster", farminglore));
-        inv.setItem(14, EpicSkyBlock.getSkyblock.makeItem(Material.EXP_BOTTLE, 1, 0, "&e&lXp Booster", xplore));
-        inv.setItem(16, EpicSkyBlock.getSkyblock.makeItem(Material.FEATHER, 1, 0, "&e&lFly Booster", flylore));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lCost:"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&f&l* &715 Island Crystals"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&e&lClick to &nActivate"));
+        inv.setItem(16, EpicSkyBlock.getSkyblock.makeItem(Material.FEATHER, 1, 0, "&e&lFly Booster", lore));
         return inv;
     }
 
@@ -60,6 +95,7 @@ public class BoostersGUI implements Listener {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (e.getInventory().getTitle().equals(inv(island).getTitle())) {
+
             e.setCancelled(true);
             if (e.getSlot() == 10) {
                 if (island.getCrystals() < 3) {
@@ -75,7 +111,6 @@ public class BoostersGUI implements Listener {
                 island.startspawnercountdown(60 * 60);
                 island.removeCrystals(3);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eSpawner Booster Activated"));
-                p.closeInventory();
             }
             if (e.getSlot() == 12) {
                 if (island.getCrystals() < 3) {
@@ -91,7 +126,6 @@ public class BoostersGUI implements Listener {
                 island.startfarmingcountdown(60 * 60);
                 island.removeCrystals(3);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFarming Booster Activated"));
-                p.closeInventory();
             }
             if (e.getSlot() == 14) {
                 if (island.getCrystals() < 3) {
@@ -107,7 +141,6 @@ public class BoostersGUI implements Listener {
                 island.startxpcountdown(60 * 60);
                 island.removeCrystals(3);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eXP Booster Activated"));
-                p.closeInventory();
             }
             if (e.getSlot() == 16) {
                 if (island.getCrystals() < 3) {
@@ -123,8 +156,8 @@ public class BoostersGUI implements Listener {
                 island.startflycountdown(60 * 60);
                 island.removeCrystals(3);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFlight Booster Activated"));
-                p.closeInventory();
             }
+            p.openInventory(inv(island));
         }
     }
 }

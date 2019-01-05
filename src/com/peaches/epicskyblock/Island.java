@@ -50,9 +50,9 @@ public class Island {
     private Boolean Mission1Complete;
     private Boolean Mission2Complete;
     private Boolean Mission3Complete;
-    private Integer Size;
-    private Integer MemberCount;
-    private Integer WarpCount;
+    private Integer Size = 1;
+    private Integer MemberCount = 1;
+    private Integer WarpCount = 1;
     private Integer crystals;
 
     private Integer id;
@@ -74,9 +74,6 @@ public class Island {
         this.maxpos1 = mpos1;
         this.maxpos2 = mpos2;
         this.center = center;
-        this.Size = 1;
-        this.MemberCount = 1;
-        this.WarpCount = 1;
         this.crystals = 0;
 
         this.id = IslandManager.getNextid();
@@ -172,7 +169,7 @@ public class Island {
                 for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
                     Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
                     if (b.getType() != Material.AIR) {
-                        b.setType(Material.AIR);
+                        b.setType(Material.AIR, false);
                     }
                 }
             }
@@ -427,7 +424,7 @@ public class Island {
                 for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
                     Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
                     if (b.getType() != Material.AIR) {
-                        b.setType(Material.AIR);
+                        b.setType(Material.AIR, false);
                     }
                 }
             }
@@ -451,6 +448,9 @@ public class Island {
         this.FlyBoosterActive = false;
         this.FarmingBoosterActive = false;
         this.XPBoosterActive = false;
+        setSize(1);
+        setWarpCount(1);
+        setMemberCount(1);
         EpicSkyBlock.getSkyblock.save();
     }
 

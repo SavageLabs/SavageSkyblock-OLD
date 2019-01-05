@@ -1,5 +1,7 @@
 package com.peaches.epicskyblock;
 
+import com.peaches.epicskyblock.API.IslandMissionCompleteEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -15,15 +17,15 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Missions implements Listener {
+public class Mission implements Listener {
 
-    public static Missions getInstance;
+    public static Mission getInstance;
     public ArrayList<ItemStack> missions1 = new ArrayList<>();
     public ArrayList<ItemStack> missions2 = new ArrayList<>();
     public ArrayList<ItemStack> missions3 = new ArrayList<>();
     public HashMap<ItemStack, Integer> missions = new HashMap<>();
 
-    public Missions() {
+    public Mission() {
         getInstance = this;
     }
 
@@ -72,16 +74,6 @@ public class Missions implements Listener {
         lore.clear();
         lore.add("");
         lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Requirements:");
-        lore.add(ChatColor.YELLOW + "Win 30 Duels");
-        lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "3 Island Crystals");
-        missions2.add(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Dueler", lore));
-        missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.DIAMOND_SWORD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Dueler", lore), 50);
-
-        lore.clear();
-        lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Requirements:");
         lore.add(ChatColor.YELLOW + "Gather 10,000 XP");
         lore.add("");
         lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
@@ -108,16 +100,6 @@ public class Missions implements Listener {
         lore.add(ChatColor.YELLOW + "5 Island Crystals");
         missions3.add(EpicSkyBlock.getSkyblock.makeItem(Material.FISHING_ROD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Fisherman", lore));
         missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.FISHING_ROD, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Fisherman", lore), 500);
-
-        lore.clear();
-        lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Requirements:");
-        lore.add(ChatColor.YELLOW + "Win a Koth");
-        lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "5 Island Crystals");
-        missions3.add(EpicSkyBlock.getSkyblock.makeItem(Material.ENDER_PORTAL_FRAME, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "KoTH", lore));
-        missions.put(EpicSkyBlock.getSkyblock.makeItem(Material.ENDER_PORTAL_FRAME, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "KoTH", lore), 1);
     }
 
 
@@ -131,12 +113,13 @@ public class Missions implements Listener {
             if (u.getIsland() != null) {
                 Island island = u.getIsland();
                 if (island.getMission2() == 1) {
-                    if (island.getMission2Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions2.get(island.getMission2()))) {
+                    if (island.getMission2Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions2.get(island.getMission2()))) {
                         island.setMission2Data(island.getMission2Data() + 1);
                     } else {
                         if (!island.getMission2Complete()) {
                             island.addCrystals(2);
                             island.setMission2Complete(true);
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 2, "Mob Hunter"));
                         }
                     }
                 }
@@ -154,12 +137,13 @@ public class Missions implements Listener {
             if (u.getIsland() != null) {
                 Island island = u.getIsland();
                 if (island.getMission2() == 0) {
-                    if (island.getMission2Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions2.get(island.getMission2()))) {
+                    if (island.getMission2Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions2.get(island.getMission2()))) {
                         island.setMission2Data(island.getMission2Data() + 1);
                     } else {
                         if (!island.getMission2Complete()) {
                             island.addCrystals(1);
                             island.setMission2Complete(true);
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 1, "Soldier"));
                         }
                     }
                 }
@@ -177,12 +161,13 @@ public class Missions implements Listener {
         if (u.getIsland() != null) {
             Island island = u.getIsland();
             if (island.getMission3() == 0) {
-                if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
+                if (island.getMission3Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions3.get(island.getMission3()))) {
                     island.setMission3Data(island.getMission3Data() + e.getAmount());
                 } else {
                     if (!island.getMission3Complete()) {
                         island.addCrystals(5);
                         island.setMission3Complete(true);
+                        Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 5, "Treasure Hunter"));
                     }
                 }
             }
@@ -199,12 +184,13 @@ public class Missions implements Listener {
             if (u.getIsland() != null) {
                 Island island = u.getIsland();
                 if (island.getMission3() == 2) {
-                    if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
+                    if (island.getMission3Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions3.get(island.getMission3()))) {
                         island.setMission3Data(island.getMission3Data() + 1);
                     } else {
                         if (!island.getMission3Complete()) {
                             island.addCrystals(5);
                             island.setMission3Complete(true);
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 5, "Fisherman"));
                         }
                     }
                 }
@@ -222,24 +208,26 @@ public class Missions implements Listener {
             Island island = u.getIsland();
             if (island.getMission1() == 0) {
                 if (e.getBlock().getType().equals(Material.SUGAR_CANE_BLOCK)) {
-                    if (island.getMission1Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions1.get(island.getMission1()))) {
+                    if (island.getMission1Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions1.get(island.getMission1()))) {
                         island.setMission1Data(island.getMission1Data() + 1);
                     } else {
                         if (!island.getMission1Complete()) {
                             island.addCrystals(1);
                             island.setMission1Complete(true);
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 1, "Farmer"));
                         }
                     }
                 }
             }
             if (island.getMission1() == 1) {
                 if (e.getBlock().getType().name().endsWith("ORE")) {
-                    if (island.getMission1Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions1.get(island.getMission1()))) {
+                    if (island.getMission1Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions1.get(island.getMission1()))) {
                         island.setMission1Data(island.getMission1Data() + 1);
                     } else {
                         if (!island.getMission1Complete()) {
                             island.addCrystals(1);
                             island.setMission1Complete(true);
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 1, "Miner"));
                         }
                     }
                 }
@@ -256,12 +244,13 @@ public class Missions implements Listener {
         if (u.getIsland() != null) {
             Island island = u.getIsland();
             if (island.getMission3() == 1) {
-                if (island.getMission3Data() <= Missions.getInstance.missions.get(Missions.getInstance.missions3.get(island.getMission3()))) {
+                if (island.getMission3Data() <= Mission.getInstance.missions.get(Mission.getInstance.missions3.get(island.getMission3()))) {
                     island.setMission3Data(island.getMission3Data() + 1);
                 } else {
                     if (!island.getMission3Complete()) {
                         island.addCrystals(3);
                         island.setMission3Complete(true);
+                        Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(island, 3, "Enchantress"));
                     }
                 }
             }

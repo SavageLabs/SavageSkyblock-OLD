@@ -1,5 +1,7 @@
 package com.peaches.epicskyblock;
 
+import com.peaches.epicskyblock.API.IslandMissionCompleteEvent;
+import com.peaches.epicskyblock.NMS.ColorType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -13,14 +15,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.SpawnerSpawnEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.entity.*;
+import org.bukkit.event.player.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -135,9 +131,23 @@ public class Events implements Listener {
     }
 
     @EventHandler
+    public void onteleport(PlayerTeleportEvent e) {
+        if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
+            Island island = IslandManager.getislandviablock(e.getTo().getBlock());
+            if (IslandManager.getislandviablock(e.getFrom().getBlock()) != null) {
+                if (!island.equals(IslandManager.getislandviablock(e.getFrom().getBlock()))) {
+                    EpicSkyBlock.getSkyblock.sendTitle(e.getPlayer(), "&e&l" + island.getownername() + "'s Island", 20, 40, 20);
+                }
+            } else {
+                EpicSkyBlock.getSkyblock.sendTitle(e.getPlayer(), "&e&l" + island.getownername() + "'s Island", 20, 40, 20);
+            }
+        }
+    }
+
+    @EventHandler
     public void onmove(PlayerMoveEvent e) {
-        if (IslandManager.getislandviablock(e.getPlayer().getLocation().getBlock()) != null) {
-            Island island = IslandManager.getislandviablock(e.getPlayer().getLocation().getBlock());
+        if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
+            Island island = IslandManager.getislandviablock(e.getTo().getBlock());
             int radius = 0;
             if (island.getSize() == 1) {
                 radius = IslandManager.level1radius;
@@ -148,7 +158,7 @@ public class Events implements Listener {
             if (island.getSize() == 3) {
                 radius = IslandManager.level3radius;
             }
-            EpicSkyBlock.getSkyblock.sendBorder(e.getPlayer(), island.getCenter().getX(), island.getCenter().getZ(), radius - 1);
+            EpicSkyBlock.getSkyblock.sendBorder(e.getPlayer(), island.getCenter().getX(), island.getCenter().getZ(), radius - 1, ColorType.BLUE);
         }
         if (e.getTo().getY() <= 0) {
             //Send to island home
@@ -207,6 +217,39 @@ public class Events implements Listener {
                     b.getState().update(true);
                 }
             });
+        }
+    }
+
+    @EventHandler
+    public void ondmg(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player p = (Player) e.getEntity();
+            if (e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
+                User u = User.getbyPlayer(p);
+                if (u != null) {
+                    Island island = u.getIsland();
+                    if (island != null) {
+                        if (p.getLocation().equals(island.gethome())) {
+                            e.setCancelled(true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onmission(IslandMissionCompleteEvent e) {
+        for (String player : e.getIsland().getPlayers()) {
+            Player p = Bukkit.getPlayer(player);
+            if (p != null) {
+                EpicSkyBlock.getSkyblock.sendTitle(p, "&e&lCompleted Mission: " + e.getName(), 20, 40, 20);
+                if (e.getReward() > 1) {
+                    EpicSkyBlock.getSkyblock.sendsubTitle(p, "&eReward: &7" + e.getReward() + " Crystals", 20, 40, 20);
+                } else {
+                    EpicSkyBlock.getSkyblock.sendsubTitle(p, "&eReward: &7" + e.getReward() + " Crystal", 20, 40, 20);
+                }
+            }
         }
     }
 }

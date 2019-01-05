@@ -8,7 +8,7 @@ Options:
   Level3Size: 75
 Inventories:
   Boosters: "&e&lIsland Boosters"
-  Missions: "&e&lIsland Missions"
+  Missions: "&e&lIsland Mission"
   Upgrades: "&e&lIsland Upgrades"
   Warp: "&e&lIsland Warps"
   Members: "&7&lIsland Members"
@@ -53,7 +53,7 @@ help:
 - '&e/is warp &8- &7Opens the warp menu.'
 - '&e/is setwarp &8- &7Set a warp.'
 - '&e/is upgrades &8- &7Upgrade your island.'
-- '&e/is missions &8- &7Displays your daily Island Missions.'
+- '&e/is missions &8- &7Displays your daily Island Mission.'
 - '&e/is boosters &8- &7Boost your island using xp.'
 - '&e/is version &8- &7Display current Island version.'
 - '&7&m-----------------------------------------------------'

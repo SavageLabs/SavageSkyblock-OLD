@@ -24,17 +24,25 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     private final static int CENTER_PX = 154;
     public static EpicSkyBlock getSkyblock;
     private World world;
+    public ArrayList<Mission> missions1 = new ArrayList<>();
+    public ArrayList<Mission> missions2 = new ArrayList<>();
+    public ArrayList<Mission> missions3 = new ArrayList<>();
 
     public EpicSkyBlock() {
     }
 
+    //BUGS
+    //Have to do /is create twice
+    //Warp upgrade doesnt work
+    //Update is missions
+
     public void onEnable() {
         registerEvents();
+        getSkyblock = this;
+        Mission.getInstance.put();
         ConfigManager.getInstance().setup(this);
         makeworld();
         getCommand("Island").setExecutor(new Command(this));
-        getSkyblock = this;
-        new Missions().put();
         load();
         startCounting();
         saveint();
@@ -66,21 +74,43 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new UpgradesGUI(), this);
         pm.registerEvents(new MissionsGUI(), this);
         pm.registerEvents(new BoostersGUI(), this);
-        pm.registerEvents(new Missions(), this);
+        pm.registerEvents(new Mission(), this);
         pm.registerEvents(new WarpGUI(), this);
         pm.registerEvents(new Members(), this);
         pm.registerEvents(new Events(), this);
     }
 
-    public void sendBorder(Player p, double x, double z, double radius) {
-        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius);
-        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius);
+    public void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {
+        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
+    }
+
+    public void sendTitle(Player p, String text, int in, int stay, int out) {
+        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "TITLE");
+    }
+
+    public void sendsubTitle(Player p, String text, int in, int stay, int out) {
+        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
     }
 
     public void calculateworth() {
@@ -107,9 +137,9 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
 
     public void addMissions(Island island) {
         Random r = new Random();
-        island.setMission1(r.nextInt(Missions.getInstance.missions1.size()));
-        island.setMission2(r.nextInt(Missions.getInstance.missions2.size()));
-        island.setMission3(r.nextInt(Missions.getInstance.missions3.size()));
+        island.setMission1(r.nextInt(Mission.getInstance.missions1.size()));
+        island.setMission2(r.nextInt(Mission.getInstance.missions2.size()));
+        island.setMission3(r.nextInt(Mission.getInstance.missions3.size()));
         island.setMission1Data(0);
         island.setMission2Data(0);
         island.setMission3Data(0);
@@ -265,6 +295,9 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             config.set("Maxpos1", island.getMaxpos1().getWorld().getName() + "," + island.getMaxpos1().getX() + "," + island.getMaxpos1().getY() + "," + island.getMaxpos1().getZ());
             config.set("Maxpos2", island.getMaxpos2().getWorld().getName() + "," + island.getMaxpos2().getX() + "," + island.getMaxpos2().getY() + "," + island.getMaxpos2().getZ());
             config.set("Center", island.getCenter().getWorld().getName() + "," + island.getCenter().getX() + "," + island.getCenter().getY() + "," + island.getCenter().getZ());
+            config.set("SizeLevel", island.getSize());
+            config.set("MemberLevel", island.getMemberCount());
+            config.set("WarpsLevel", island.getWarpCount());
             config.save(file);
         } catch (Exception ignored) {
 
@@ -314,6 +347,9 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                             island.addUser(member);
                         }
                     }
+                    island.setSize(config.getInt("SizeLevel"));
+                    island.setMemberCount(config.getInt("MemberLevel"));
+                    island.setWarpCount(config.getInt("WarpLevel"));
                     IslandManager.addIsland(island);
                     file.delete();
                 }
