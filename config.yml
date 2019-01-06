@@ -1,4 +1,5 @@
 Options:
+  Prefix: EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")+"  "
   HelpGUI: false
   SpawnerMultiplier: 4
   XpMultiplier: 4
@@ -55,5 +56,7 @@ help:
 - '&e/is upgrades &8- &7Upgrade your island.'
 - '&e/is missions &8- &7Displays your daily Island Mission.'
 - '&e/is boosters &8- &7Boost your island using xp.'
+- '&e/is givecrystals <playername> <amount> &8- &7Give the specified player island crystals.'
+- '&e/is bypass &8- &7Bypass island restrictions.'
 - '&e/is version &8- &7Display current Island version.'
 - '&7&m-----------------------------------------------------'

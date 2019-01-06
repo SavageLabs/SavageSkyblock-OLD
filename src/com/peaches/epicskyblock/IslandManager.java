@@ -136,14 +136,14 @@ public class IslandManager {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + players);
                 }
                 User.getbyPlayer(player).getIsland().delete();
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland deleted"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland deleted"));
                 player.getInventory().clear();
                 User.getbyPlayer(player).setIsland(null);
             } else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eOnly the Island owner can do this"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eOnly the Island owner can do this"));
             }
         } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island"));
         }
     }
 

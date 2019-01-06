@@ -21,12 +21,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class EpicSkyBlock extends JavaPlugin implements Listener {
+
     private final static int CENTER_PX = 154;
     public static EpicSkyBlock getSkyblock;
     private World world;
-    public ArrayList<Mission> missions1 = new ArrayList<>();
-    public ArrayList<Mission> missions2 = new ArrayList<>();
-    public ArrayList<Mission> missions3 = new ArrayList<>();
 
     public EpicSkyBlock() {
     }
@@ -35,6 +33,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     //Have to do /is create twice
     //Warp upgrade doesnt work
     //Update is missions
+    //Update Command.java
 
     public void onEnable() {
         registerEvents();
@@ -47,6 +46,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         startCounting();
         saveint();
         calculateworth();
+        new Metrics(this);
         System.out.print("-------------------------------");
         System.out.print("");
         System.out.print(getDescription().getName() + " Enabled!");

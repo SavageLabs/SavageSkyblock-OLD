@@ -41,8 +41,10 @@ public class Members implements Listener {
     @EventHandler
     public void onclick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (e.getClickedInventory().getTitle().equals(inv(null).getTitle())) {
-            e.setCancelled(true);
+        if (e.getClickedInventory() != null) {
+            if (e.getClickedInventory().getTitle().equals(inv(null).getTitle())) {
+                e.setCancelled(true);
+            }
         }
     }
 

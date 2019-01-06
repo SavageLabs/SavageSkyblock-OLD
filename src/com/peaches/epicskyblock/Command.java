@@ -40,17 +40,18 @@ class Command implements CommandExecutor {
                     User.users.add(new User(p.getName()));
                 }
                 User u = User.getbyPlayer(p);
+                EpicSkyBlock.getSkyblock.sendTitle(p, "&e&lYou have recieved " + args[2] + " Island Crystals.", 20, 40, 20);
                 if (u.getIsland() != null) {
                     Island island = u.getIsland();
                     island.addCrystals(Integer.parseInt(args[2]));
-                    cs.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou gave " + p.getName() + " " + args[2] + " Island Crystals."));
+                    cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "&eYou gave " + p.getName() + " " + args[2] + " Island Crystals."));
                     return true;
                 }
-                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e" + p.getName() + " Does not have an island."));
+                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e" + p.getName() + " Does not have an island."));
                 return true;
             }
         } catch (Exception e) {
-            cs.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is givecrystals <Playername> <Amount>."));
+            cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is givecrystals <Playername> <Amount>."));
             e.printStackTrace();
             return true;
         }
@@ -81,10 +82,10 @@ class Command implements CommandExecutor {
                 }
                 if (User.getbyPlayer(p).getIsland() != null) {
                     User.getbyPlayer(p).getIsland().regen();
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eRegenerating Island..."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eRegenerating Island..."));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("warps") || args[0].equalsIgnoreCase("warp")) {
@@ -99,33 +100,33 @@ class Command implements CommandExecutor {
                     Island is = User.getbyPlayer(p).getIsland();
                     if (is.getWarp1() == null) {
                         is.setWarp1(p.getLocation());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eWarp Set."));
                         return true;
                     }
                     if (is.getWarp2() == null && is.getWarpCount() > 1) {
                         is.setWarp2(p.getLocation());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eWarp Set."));
                         return true;
                     }
                     if (is.getWarp3() == null && is.getWarpCount() > 1) {
                         is.setWarp3(p.getLocation());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eWarp Set."));
                         return true;
                     }
                     if (is.getWarp4() == null && is.getWarpCount() > 2) {
                         is.setWarp4(p.getLocation());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eWarp Set."));
                         return true;
                     }
                     if (is.getWarp5() == null && is.getWarpCount() > 2) {
                         is.setWarp5(p.getLocation());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eWarp Set."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eWarp Set."));
                         return true;
                     }
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have no warps left, do /is upgrade to get more."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have no warps left, do /is upgrade to get more."));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou dont have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou dont have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("crystals")) {
@@ -134,7 +135,7 @@ class Command implements CommandExecutor {
                 }
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have " + u.getIsland().getCrystals() + " Island Crystals."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have " + u.getIsland().getCrystals() + " Island Crystals."));
                     return true;
                 }
             }
@@ -146,9 +147,9 @@ class Command implements CommandExecutor {
                     }
                     User.getbyPlayer(p).setBypass(!User.getbyPlayer(p).getBypass());
                     if (User.getbyPlayer(p).getBypass()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eBypass Mode Enabled."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eBypass Mode Enabled."));
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eBypass Mode Disabled."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eBypass Mode Disabled."));
                     }
                     return true;
                 }
@@ -162,17 +163,17 @@ class Command implements CommandExecutor {
                         if (p.getAllowFlight()) {
                             p.setAllowFlight(false);
                             p.setFlying(false);
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFly disabled."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFly disabled."));
                         } else {
                             p.setAllowFlight(true);
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eFly enabled."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFly enabled."));
                         }
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have permissions."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have permissions."));
                     }
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("chat")) {
@@ -182,12 +183,12 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p).getIsland() != null) {
                     User.getbyPlayer(p).setChat(!User.getbyPlayer(p).getChat());
                     if (User.getbyPlayer(p).getChat()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland chat has been enabled."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland chat has been enabled."));
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland chat has been disabled."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland chat has been disabled."));
                     }
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 }
                 return true;
             }
@@ -199,7 +200,7 @@ class Command implements CommandExecutor {
                     p.openInventory(UpgradesGUI.inv(User.getbyPlayer(p).getIsland()));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("boosters") || args[0].equalsIgnoreCase("booster")) {
@@ -210,7 +211,7 @@ class Command implements CommandExecutor {
                     p.openInventory(BoostersGUI.inv(User.getbyPlayer(p).getIsland()));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("missions") || args[0].equalsIgnoreCase("mission")) {
@@ -221,7 +222,7 @@ class Command implements CommandExecutor {
                     p.openInventory(MissionsGUI.inv(User.getbyPlayer(p).getIsland()));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("leave")) {
@@ -230,14 +231,14 @@ class Command implements CommandExecutor {
                 }
                 if (User.getbyPlayer(p).getIsland() != null) {
                     if (User.getbyPlayer(p).getIsland().getownername().equals(p.getName())) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eTo leave your island you must transfer ownership to another player.."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eTo leave your island you must transfer ownership to another player.."));
                         return true;
                     }
                     User.getbyPlayer(p).getIsland().removeUser(p.getName());
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have left your island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have left your island."));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("sethome")) {
@@ -248,16 +249,16 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p).getIsland().getownername().equals(p.getName())) {
                         if (IslandManager.getislandviablock(p.getLocation().getBlock()) == User.getbyPlayer(p).getIsland()) {
                             User.getbyPlayer(p).getIsland().setHome(p.getLocation());
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland home set at your location.."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland home set at your location.."));
                             return true;
                         }
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou must be on your island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou must be on your island."));
                         return true;
                     }
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eOnly the island owner can do this."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eOnly the island owner can do this."));
                     return true;
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                 return true;
             }
             if (args[0].equalsIgnoreCase("delete")) {
@@ -272,11 +273,11 @@ class Command implements CommandExecutor {
                     User.users.add(new User(p.getName()));
                 }
                 if (User.getbyPlayer(p).getIsland() == null) {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                     return true;
                 } else {
                     p.teleport(User.getbyPlayer(p).getIsland().gethome());
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eTeleporting to island..."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eTeleporting to island..."));
                     return true;
                 }
             }
@@ -289,7 +290,7 @@ class Command implements CommandExecutor {
                     p.openInventory(Members.inv(user.getIsland()));
                     return true;
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                     return true;
                 }
             }
@@ -299,10 +300,10 @@ class Command implements CommandExecutor {
                 }
                 if (User.getbyPlayer(p).getIsland() == null) {
                     IslandManager.createIsland(p);
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eIsland Created."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland Created."));
                     return true;
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou already have an island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou already have an island."));
                     return true;
                 }
             }
@@ -315,7 +316,7 @@ class Command implements CommandExecutor {
             if (args[0].equalsIgnoreCase("reload")) {
                 ConfigManager.getInstance().reloadConfig();
                 EpicSkyBlock.getSkyblock.reloadConfig();
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &ePlugin Reloaded."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlugin Reloaded."));
                 return true;
             }
             try {
@@ -328,43 +329,43 @@ class Command implements CommandExecutor {
                         User.users.add(new User(player.getName()));
                     }
                     if (player == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &ePlayer not found."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlayer not found."));
                         return true;
                     }
                     if (User.getbyPlayer(player) == null) {
                         User.users.add(new User(player.getName()));
                     }
                     if (User.getbyPlayer(p).getIsland() != null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou are already apart of an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou are already apart of an island."));
                         return true;
                     }
                     if (User.getbyPlayer(player).getIsland() == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThat player is not apart of an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThat player is not apart of an island."));
                         return true;
                     }
                     if (User.getbyPlayer(p).getInvites().contains(User.getbyPlayer(player).getIsland().getownername())) {
                         if (User.getbyPlayer(player).getIsland().getPlayers().size() >= EpicSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members." + User.getbyPlayer(player).getIsland().getMemberCount())) {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThe maximum amount of players has already been reached."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThe maximum amount of players has already been reached."));
                             return true;
                         }
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have joined an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have joined an island."));
                         User.getbyPlayer(player).getIsland().addUser(p.getName());
                         p.teleport(User.getbyPlayer(p).getIsland().gethome());
                         for (String pla : User.getbyPlayer(player).getIsland().getPlayers()) {
                             Player i = Bukkit.getPlayer(pla);
                             if (i != null) {
-                                i.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e" + p.getName() + " has joined your island."));
+                                i.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e" + p.getName() + " has joined your island."));
                             }
 
                         }
                         return true;
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an invite for that island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an invite for that island."));
                         return true;
                     }
                 }
             } catch (Exception e) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is join <PlayerName>."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is join <PlayerName>."));
                 e.printStackTrace();
                 return true;
             }
@@ -378,32 +379,32 @@ class Command implements CommandExecutor {
                         User.users.add(new User(player));
                     }
                     if (User.getbyPlayer(p).getIsland() == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                         return true;
                     }
                     if (User.getbyPlayer(p).getIsland().getownername().equalsIgnoreCase(p.getName())) {
                         if (p.getName().equalsIgnoreCase(player)) {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou cannot give yourself the leader role."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou cannot give yourself the leader role."));
                             return true;
                         }
                         if (User.getbyPlayer(p).getIsland().getPlayers().contains(player)) {
                             User.getbyPlayer(p).getIsland().setowner(player);
                             if (Bukkit.getPlayer(player) != null) {
-                                Bukkit.getPlayer(player).sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have been given the owner role by " + p.getName()));
+                                Bukkit.getPlayer(player).sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have been given the owner role by " + p.getName()));
                             }
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have transfered ownership to " + player));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have transfered ownership to " + player));
                             return true;
                         } else {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis player is not in your island."));
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis player is not in your island."));
                             return true;
                         }
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eOnly the island owner can transfer ownership."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eOnly the island owner can transfer ownership."));
                         return true;
                     }
                 }
             } catch (Exception e) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is leader <PlayerName>."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is leader <PlayerName>."));
                 return true;
             }
             try {
@@ -416,32 +417,32 @@ class Command implements CommandExecutor {
                         User.users.add(new User(player));
                     }
                     if (User.getbyPlayer(p).getIsland() == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                         return true;
                     }
                     if (p.getName().equalsIgnoreCase(player)) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou cannot kick yourself."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou cannot kick yourself."));
                         return true;
                     }
                     if (User.getbyPlayer(p).getIsland().getownername().equalsIgnoreCase(player)) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou cannot kick the owner."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou cannot kick the owner."));
                         return true;
                     }
                     if (User.getbyPlayer(p).getIsland().getPlayers().contains(player)) {
                         User.getbyPlayer(player).getIsland().getPlayers().remove(player);
                         User.getbyPlayer(player).setIsland(null);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have kicked " + player));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have kicked " + player));
                         if (Bukkit.getPlayer(player) != null) {
-                            Bukkit.getPlayer(player).sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have beed kicked by " + p.getName()));
+                            Bukkit.getPlayer(player).sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have beed kicked by " + p.getName()));
                         }
                         return true;
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis player is not in your island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis player is not in your island."));
                         return true;
                     }
                 }
             } catch (Exception e) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is kick <PlayerName>."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is kick <PlayerName>."));
                 return true;
             }
             try {
@@ -451,31 +452,31 @@ class Command implements CommandExecutor {
                     }
                     Player player = Bukkit.getPlayer(args[1]);
                     if (player == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &ePlayer not found."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlayer not found."));
                         return true;
                     }
                     if (User.getbyPlayer(player) == null) {
                         User.users.add(new User(player.getName()));
                     }
                     if (User.getbyPlayer(p).getIsland() == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                         return true;
                     }
                     if (p == player) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou cannot invite yourself."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou cannot invite yourself."));
                         return true;
                     }
                     if (User.getbyPlayer(player).getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
                         User.getbyPlayer(player).getInvites().remove(User.getbyPlayer(p).getIsland().getownername());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eInvite has been revoked from " + player.getName()));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eInvite has been revoked from " + player.getName()));
                         return true;
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis player has no active Invite to your island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis player has no active Invite to your island."));
                         return true;
                     }
                 }
             } catch (Exception e) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is uninvite <PlayerName>."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is uninvite <PlayerName>."));
                 return true;
             }
             try {
@@ -488,31 +489,31 @@ class Command implements CommandExecutor {
                         User.users.add(new User(player.getName()));
                     }
                     if (player == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &ePlayer not found."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlayer not found."));
                         return true;
                     }
                     if (User.getbyPlayer(player) == null) {
                         User.users.add(new User(player.getName()));
                     }
                     if (User.getbyPlayer(p).getIsland() == null) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have an island."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island."));
                         return true;
                     }
                     if (p == player) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou cannot invite yourself."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou cannot invite yourself."));
                         return true;
                     }
                     if (User.getbyPlayer(player).getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis player already has an active invite."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis player already has an active invite."));
                         return true;
                     }
                     User.getbyPlayer(player).getInvites().add(User.getbyPlayer(p).getIsland().getownername());
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eInvite sent to " + player.getName()));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have been invited to join " + p.getName() + "'s Island."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eInvite sent to " + player.getName()));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have been invited to join " + p.getName() + "'s Island."));
                     return true;
                 }
             } catch (Exception e) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &e/is invite <PlayerName>."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is invite <PlayerName>."));
                 return true;
             }
             for (String message : ConfigManager.getInstance().getConfig().getStringList("help")) {

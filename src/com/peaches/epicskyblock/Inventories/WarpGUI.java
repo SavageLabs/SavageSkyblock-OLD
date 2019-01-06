@@ -40,35 +40,35 @@ public class WarpGUI implements Listener {
                 if (island.getWarp1() != null) {
                     p.teleport(island.getWarp1());
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis warp does not exist, do /is setwarp to set one"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis warp does not exist, do /is setwarp to set one"));
                 }
             }
             if (e.getSlot() == 11) {
                 if (island.getWarp2() != null) {
                     p.teleport(island.getWarp2());
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis warp does not exist, do /is setwarp to set one"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis warp does not exist, do /is setwarp to set one"));
                 }
             }
             if (e.getSlot() == 13) {
                 if (island.getWarp3() != null) {
                     p.teleport(island.getWarp3());
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis warp does not exist, do /is setwarp to set one"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis warp does not exist, do /is setwarp to set one"));
                 }
             }
             if (e.getSlot() == 15) {
                 if (island.getWarp4() != null) {
                     p.teleport(island.getWarp4());
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis warp does not exist, do /is setwarp to set one"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis warp does not exist, do /is setwarp to set one"));
                 }
             }
             if (e.getSlot() == 17) {
                 if (island.getWarp5() != null) {
                     p.teleport(island.getWarp5());
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eThis warp does not exist, do /is setwarp to set one"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis warp does not exist, do /is setwarp to set one"));
                 }
             }
             e.setCancelled(true);

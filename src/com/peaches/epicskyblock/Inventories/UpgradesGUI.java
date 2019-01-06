@@ -78,84 +78,84 @@ public class UpgradesGUI implements Listener {
             if (e.getSlot() == 10) {
                 if (island.getSize() == 1) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(15);
                         island.setSize(2);
                         island.setPos1(island.getPos1().add(-(IslandManager.level2radius - IslandManager.level1radius), 0, -(IslandManager.level2radius - IslandManager.level1radius)));
                         island.setPos2(island.getPos2().add(IslandManager.level2radius - IslandManager.level1radius, 0, IslandManager.level2radius - IslandManager.level1radius));
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the island size."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the island size."));
                         p.openInventory(inv(island));
                         return;
                     }
                 } else if (island.getSize() == 2) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(15);
                         island.setSize(3);
                         island.setPos1(island.getMaxpos1());
                         island.setPos2(island.getMaxpos2());
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the island size."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the island size."));
                         p.openInventory(inv(island));
                         return;
                     }
                 }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMaximum Upgrade reached."));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eMaximum Upgrade reached."));
             }
             if (e.getSlot() == 13) {
                 if (island.getMemberCount() == 1) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                     } else {
                         island.removeCrystals(15);
                         island.setMemberCount(2);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
                         p.openInventory(inv(island));
                         return;
                     }
                 } else if (island.getMemberCount() == 2) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(15);
                         island.setMemberCount(3);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
                         p.openInventory(inv(island));
                         return;
                     }
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMaximum Upgrade reached."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eMaximum Upgrade reached."));
                 }
             }
             if (e.getSlot() == 15) {
                 if (island.getWarpCount() == 1) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(15);
                         island.setWarpCount(2);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
                         p.openInventory(inv(island));
                         return;
                     }
                 } else if (island.getWarpCount() == 2) {
                     if (island.getCrystals() < 15) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou do not have enough crystals to active this booster."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(15);
                         island.setWarpCount(3);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
                         p.openInventory(inv(island));
                         return;
                     }
                 } else {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSkyBlock &8» &eMaximum Upgrade reached."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eMaximum Upgrade reached."));
                 }
             }
         }

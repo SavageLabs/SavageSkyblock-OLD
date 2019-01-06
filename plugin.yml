@@ -1,5 +1,5 @@
 name: EpicSkyblock
-version: 1.4-b
+version: 1.6-b
 main: com.peaches.epicskyblock.EpicSkyBlock
 author: Peaches_MLG
 depend: [WorldEdit]
