@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -184,16 +185,22 @@ public class Island {
             for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
                 for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
                     for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                        String b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock().getType().name();
-                        if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b)) {
-                            level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b);
+                        Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                        if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
+                            level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
+                        }
+
+                        if (b.getState() instanceof CreatureSpawner) {
+                            CreatureSpawner cs = (CreatureSpawner) b.getState();
+                            if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()))) {
+                                level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()));
+                            }
                         }
                     }
                 }
             }
             setLevel(level);
         }
-
     }
 
     public Integer getLevel() {

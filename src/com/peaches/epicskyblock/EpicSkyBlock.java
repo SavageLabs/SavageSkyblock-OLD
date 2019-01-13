@@ -29,11 +29,12 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     public EpicSkyBlock() {
     }
 
-    //BUGS
+    //TODO / Bugs
     //Have to do /is create twice
     //Warp upgrade doesnt work
     //Update is missions
     //Update Command.java
+    //make IslandTop Safe Async
 
     public void onEnable() {
         registerEvents();
@@ -45,7 +46,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         load();
         startCounting();
         saveint();
-        calculateworth();
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(this, () -> calculateworth(), 60);
         new Metrics(this);
         System.out.print("-------------------------------");
         System.out.print("");
@@ -78,6 +79,25 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new WarpGUI(), this);
         pm.registerEvents(new Members(), this);
         pm.registerEvents(new Events(), this);
+    }
+
+    public void sendIslandBoarder(Player p) {
+        if (p.getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
+            if (IslandManager.getislandviablock(p.getLocation().getBlock()) != null) {
+                Island island = IslandManager.getislandviablock(p.getLocation().getBlock());
+                int radius = 0;
+                if (island.getSize() == 1) {
+                    radius = IslandManager.level1radius;
+                }
+                if (island.getSize() == 2) {
+                    radius = IslandManager.level2radius;
+                }
+                if (island.getSize() == 3) {
+                    radius = IslandManager.level3radius;
+                }
+                EpicSkyBlock.getSkyblock.sendBorder(p, island.getCenter().getX(), island.getCenter().getZ(), radius - 1, ColorType.BLUE);
+            }
+        }
     }
 
     public void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {

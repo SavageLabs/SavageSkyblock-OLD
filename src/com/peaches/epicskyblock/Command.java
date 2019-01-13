@@ -55,6 +55,30 @@ class Command implements CommandExecutor {
             e.printStackTrace();
             return true;
         }
+        try {
+            if (args[0].equalsIgnoreCase("visit")) {
+                Player p = Bukkit.getPlayer(args[1]);
+                if (User.getbyPlayer(p) == null) {
+                    User.users.add(new User(p.getName()));
+                }
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    Island island = u.getIsland();
+                    ((Player) cs).teleport(island.gethome());
+                    return true;
+                }
+                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e" + p.getName() + " Does not have an island."));
+                return true;
+            }
+        } catch (Exception e) {
+            cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &e/is givecrystals <Playername> <Amount>."));
+            e.printStackTrace();
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("recalculate")) {
+            EpicSkyBlock.getSkyblock.calculateworth();
+            cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  Recalculating Island Top."));
+        }
         if (cs instanceof Player) {
             Player p = (Player) cs;
             if (args[0].equalsIgnoreCase("top")) {

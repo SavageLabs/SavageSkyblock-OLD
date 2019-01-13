@@ -43,6 +43,7 @@ public class IslandManager {
     }
 
     public static void createIsland(Player player) {
+        System.out.println("-----Island Creation-----");
         for (Island island : Islands) {
             if (island.getownername().equals("")) {
                 island.setowner(player);
@@ -58,18 +59,22 @@ public class IslandManager {
                 i = false;
             }
             if (direction == Direction.UNDIFINED) {
+                System.out.println("UNDIF");
                 direction = Direction.NORTH;
                 if (!i) {
+                    System.out.println(1);
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    return;
                 }
-                return;
             }
             if (direction == Direction.NORTH) {
+                System.out.println("NORTH");
                 nextloc.add(level3radius * 2, 0, 0);
                 if (!i) {
+                    System.out.println("1");
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(0, 0, level3radius * 2).getBlock()) == null) {
                         direction = Direction.EAST;
@@ -78,12 +83,14 @@ public class IslandManager {
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    return;
                 }
-                return;
             }
             if (direction == Direction.EAST) {
+                System.out.println("EAST");
                 nextloc.add(0, 0, level3radius * 2);
                 if (!i) {
+                    System.out.println("1");
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(-level3radius * 2, 0, 0).getBlock()) == null) {
                         direction = Direction.SOUTH;
@@ -92,12 +99,14 @@ public class IslandManager {
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    return;
                 }
-                return;
             }
             if (direction == Direction.SOUTH) {
+                System.out.println("SOUTH");
                 nextloc.add(-level3radius * 2, 0, 0);
                 if (!i) {
+                    System.out.println("1");
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(0, 0, -level3radius * 2).getBlock()) == null) {
                         direction = Direction.WEST;
@@ -106,12 +115,14 @@ public class IslandManager {
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    return;
                 }
-                return;
             }
             if (direction == Direction.WEST) {
+                System.out.println("WEST");
                 nextloc.add(0, 0, -level3radius * 2);
                 if (!i) {
+                    System.out.println("1");
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(level3radius * 2, 0, 0).getBlock()) == null) {
                         direction = Direction.NORTH;
@@ -120,6 +131,7 @@ public class IslandManager {
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
                     player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    return;
                 }
             }
         }

@@ -87,6 +87,7 @@ public class UpgradesGUI implements Listener {
                         island.setPos2(island.getPos2().add(IslandManager.level2radius - IslandManager.level1radius, 0, IslandManager.level2radius - IslandManager.level1radius));
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the island size."));
                         p.openInventory(inv(island));
+                        EpicSkyBlock.getSkyblock.sendIslandBoarder(p);
                         return;
                     }
                 } else if (island.getSize() == 2) {
@@ -100,6 +101,7 @@ public class UpgradesGUI implements Listener {
                         island.setPos2(island.getMaxpos2());
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the island size."));
                         p.openInventory(inv(island));
+                        EpicSkyBlock.getSkyblock.sendIslandBoarder(p);
                         return;
                     }
                 }
@@ -131,7 +133,7 @@ public class UpgradesGUI implements Listener {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eMaximum Upgrade reached."));
                 }
             }
-            if (e.getSlot() == 15) {
+            if (e.getSlot() == 16) {
                 if (island.getWarpCount() == 1) {
                     if (island.getCrystals() < 15) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));

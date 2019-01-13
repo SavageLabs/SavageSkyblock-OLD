@@ -1,7 +1,6 @@
 package com.peaches.epicskyblock;
 
 import com.peaches.epicskyblock.API.IslandMissionCompleteEvent;
-import com.peaches.epicskyblock.NMS.ColorType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -121,25 +120,28 @@ public class Events implements Listener {
 
     @EventHandler
     public void oninteract(PlayerInteractEvent e) {
-        if (e.getClickedBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
-            if (e.getClickedBlock() == null) return;
-            if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
-                if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
-                    if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
-                    e.setCancelled(true);
-                    for (String player : IslandManager.getislandviablock(e.getClickedBlock()).getPlayers()) {
-                        System.out.print(player);
+        if (e.getClickedBlock() != null) {
+            if (e.getClickedBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
+                if (e.getClickedBlock() == null) return;
+                if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
+                    if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                        if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+                        e.setCancelled(true);
+                        for (String player : IslandManager.getislandviablock(e.getClickedBlock()).getPlayers()) {
+                            System.out.print(player);
+                        }
                     }
+                    return;
+                } else {
+                    e.setCancelled(true);
                 }
-                return;
-            } else {
-                e.setCancelled(true);
             }
         }
     }
 
     @EventHandler
     public void onteleport(PlayerTeleportEvent e) {
+        EpicSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer());
         if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
             Island island = IslandManager.getislandviablock(e.getTo().getBlock());
             if (IslandManager.getislandviablock(e.getFrom().getBlock()) != null) {
@@ -155,20 +157,6 @@ public class Events implements Listener {
     @EventHandler
     public void onmove(PlayerMoveEvent e) {
         if (e.getTo().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
-            if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
-                Island island = IslandManager.getislandviablock(e.getTo().getBlock());
-                int radius = 0;
-                if (island.getSize() == 1) {
-                    radius = IslandManager.level1radius;
-                }
-                if (island.getSize() == 2) {
-                    radius = IslandManager.level2radius;
-                }
-                if (island.getSize() == 3) {
-                    radius = IslandManager.level3radius;
-                }
-                EpicSkyBlock.getSkyblock.sendBorder(e.getPlayer(), island.getCenter().getX(), island.getCenter().getZ(), radius - 1, ColorType.BLUE);
-            }
             if (e.getTo().getY() <= 0) {
                 //Send to island home
                 Player p = e.getPlayer();
