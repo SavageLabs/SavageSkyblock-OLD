@@ -2,7 +2,6 @@ package com.peaches.epicskyblock.Inventories;
 
 import com.peaches.epicskyblock.EpicSkyBlock;
 import com.peaches.epicskyblock.Island;
-import com.peaches.epicskyblock.Mission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -29,37 +28,37 @@ public class MissionsGUI implements Listener {
         if (island.getMission1() == null) {
             EpicSkyBlock.getSkyblock.addMissions(island);
         }
-        ItemStack item1 = Mission.getInstance.missions1.get(island.getMission1()).clone();
-        ItemStack item2 = Mission.getInstance.missions2.get(island.getMission2()).clone();
-        ItemStack item3 = Mission.getInstance.missions3.get(island.getMission3()).clone();
+        ItemStack item1 = island.getMission1().getItem();
+        ItemStack item2 = island.getMission2().getItem();
+        ItemStack item3 = island.getMission3().getItem();
         ItemMeta im1 = item1.getItemMeta();
         ItemMeta im2 = item2.getItemMeta();
         ItemMeta im3 = item3.getItemMeta();
 
         ArrayList<String> lore1 = new ArrayList<>();
         lore1.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission1Data() >= Mission.getInstance.missions.get(Mission.getInstance.missions1.get(island.getMission1()))) {
+        if (island.getMission1Data() >= island.getMission1().getTotal()) {
             lore1.add(ChatColor.YELLOW + "Complete");
         } else {
-            lore1.add(ChatColor.YELLOW + island.getMission1Data().toString() + "/" + Mission.getInstance.missions.get(item1).toString());
+            lore1.add(ChatColor.YELLOW + island.getMission1Data().toString() + "/" + island.getMission1().getTotal());
         }
         lore1.addAll(item1.getItemMeta().getLore());
 
         ArrayList<String> lore2 = new ArrayList<>();
         lore2.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission2Data() >= Mission.getInstance.missions.get(Mission.getInstance.missions2.get(island.getMission2()))) {
+        if (island.getMission2Data() >= island.getMission2().getTotal()) {
             lore2.add(ChatColor.YELLOW + "Complete");
         } else {
-            lore2.add(ChatColor.YELLOW + island.getMission2Data().toString() + "/" + Mission.getInstance.missions.get(item2).toString());
+            lore2.add(ChatColor.YELLOW + island.getMission2Data().toString() + "/" + island.getMission2().getTotal());
         }
         lore2.addAll(item2.getItemMeta().getLore());
 
         ArrayList<String> lore3 = new ArrayList<>();
         lore3.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission3Data() >= Mission.getInstance.missions.get(Mission.getInstance.missions3.get(island.getMission3()))) {
+        if (island.getMission3Data() >= island.getMission3().getTotal()) {
             lore3.add(ChatColor.YELLOW + "Complete");
         } else {
-            lore3.add(ChatColor.YELLOW + island.getMission3Data().toString() + "/" + Mission.getInstance.missions.get(item3).toString());
+            lore3.add(ChatColor.YELLOW + island.getMission3Data().toString() + "/" + island.getMission3().getTotal());
         }
         lore3.addAll(item3.getItemMeta().getLore());
 

@@ -1,6 +1,7 @@
 package com.peaches.epicskyblock;
 
 import com.peaches.epicskyblock.Inventories.*;
+import com.peaches.epicskyblock.Missions.Missions;
 import com.peaches.epicskyblock.NMS.*;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -29,21 +30,15 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     public EpicSkyBlock() {
     }
 
-    //TODO / Bugs
-    //Have to do /is create twice
-    //Warp upgrade doesnt work
-    //Update is missions
-    //Update Command.java
-    //make IslandTop Safe Async
-
     public void onEnable() {
         registerEvents();
         getSkyblock = this;
-        Mission.getInstance.put();
+        new Missions();
         ConfigManager.getInstance().setup(this);
         makeworld();
         getCommand("Island").setExecutor(new Command(this));
         load();
+        addmissionstoIslands();
         startCounting();
         saveint();
         Bukkit.getScheduler().scheduleAsyncDelayedTask(this, () -> calculateworth(), 60);
@@ -75,7 +70,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new UpgradesGUI(), this);
         pm.registerEvents(new MissionsGUI(), this);
         pm.registerEvents(new BoostersGUI(), this);
-        pm.registerEvents(new Mission(), this);
+        pm.registerEvents(new Missions(), this);
         pm.registerEvents(new WarpGUI(), this);
         pm.registerEvents(new Members(), this);
         pm.registerEvents(new Events(), this);
@@ -109,6 +104,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius, colorType);
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius, colorType);
     }
 
     public void sendTitle(Player p, String text, int in, int stay, int out) {
@@ -120,6 +116,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "TITLE");
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "TITLE");
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "TITLE");
     }
 
     public void sendsubTitle(Player p, String text, int in, int stay, int out) {
@@ -131,6 +128,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
     }
 
     public void calculateworth() {
@@ -157,9 +155,9 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
 
     public void addMissions(Island island) {
         Random r = new Random();
-        island.setMission1(r.nextInt(Mission.getInstance.missions1.size()));
-        island.setMission2(r.nextInt(Mission.getInstance.missions2.size()));
-        island.setMission3(r.nextInt(Mission.getInstance.missions3.size()));
+        island.setMission1(Missions.Instance.mission1.get(r.nextInt(Missions.Instance.mission1.size())));
+        island.setMission2(Missions.Instance.mission2.get(r.nextInt(Missions.Instance.mission2.size())));
+        island.setMission3(Missions.Instance.mission3.get(r.nextInt(Missions.Instance.mission3.size())));
         island.setMission1Data(0);
         island.setMission2Data(0);
         island.setMission3Data(0);
@@ -168,11 +166,15 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     private void startCounting() {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> {
             if (getTime() == 0) {
-                for (Island island : IslandManager.getIslands()) {
-                    addMissions(island);
-                }
+                addmissionstoIslands();
             }
         }, 20, 20);
+    }
+
+    public void addmissionstoIslands() {
+        for (Island island : IslandManager.getIslands()) {
+            addMissions(island);
+        }
     }
 
     private long getTime() { // Seconds until midnight (When MissionsGUI Change)

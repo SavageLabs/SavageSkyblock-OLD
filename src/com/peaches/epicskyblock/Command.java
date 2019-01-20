@@ -21,7 +21,7 @@ class Command implements CommandExecutor {
         plugin = pl;
     }
 
-    // Complete redo
+
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length == 0) {
             for (String message : ConfigManager.getInstance().getConfig().getStringList("help")) {
@@ -78,6 +78,7 @@ class Command implements CommandExecutor {
         if (args[0].equalsIgnoreCase("recalculate")) {
             EpicSkyBlock.getSkyblock.calculateworth();
             cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  Recalculating Island Top."));
+            return true;
         }
         if (cs instanceof Player) {
             Player p = (Player) cs;
@@ -324,6 +325,7 @@ class Command implements CommandExecutor {
                 }
                 if (User.getbyPlayer(p).getIsland() == null) {
                     IslandManager.createIsland(p);
+                    EpicSkyBlock.getSkyblock.sendTitle(p, "&e&lIsland Created", 20, 40, 20);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland Created."));
                     return true;
                 } else {
@@ -338,10 +340,12 @@ class Command implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("reload")) {
-                ConfigManager.getInstance().reloadConfig();
-                EpicSkyBlock.getSkyblock.reloadConfig();
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlugin Reloaded."));
-                return true;
+                if (p.hasPermission("EpicSkyblock.reload")) {
+                    ConfigManager.getInstance().reloadConfig();
+                    EpicSkyBlock.getSkyblock.reloadConfig();
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &ePlugin Reloaded."));
+                    return true;
+                }
             }
             try {
                 if (args[0].equalsIgnoreCase("join")) {

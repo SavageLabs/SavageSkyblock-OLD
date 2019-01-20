@@ -1,21 +1,14 @@
 package com.peaches.epicskyblock;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.schematic.SchematicFormat;
-import com.sk89q.worldedit.world.DataException;
+import com.peaches.epicskyblock.Missions.Mission;
+import com.peaches.epicskyblock.NMS.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Island {
@@ -42,9 +35,9 @@ public class Island {
     private Integer XPCode;
     private Integer FlyCode;
     private Integer MobcoinsCode;
-    private Integer Mission1;
-    private Integer Mission2;
-    private Integer Mission3;
+    private Mission Mission1;
+    private Mission Mission2;
+    private Mission Mission3;
     private Integer Mission1Data;
     private Integer Mission2Data;
     private Integer Mission3Data;
@@ -94,17 +87,6 @@ public class Island {
         addUser(owner);
         //Loads island.schematic
         if (schem) {
-
-            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                        Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
-                        if (b.getType() != Material.AIR) {
-                            b.setType(Material.AIR);
-                        }
-                    }
-                }
-            }
             loadSchematic();
         }
         EpicSkyBlock.getSkyblock.addMissions(this);
@@ -164,17 +146,7 @@ public class Island {
     }
 
     public void regen() {
-
-        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-            for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                    Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
-                    if (b.getType() != Material.AIR) {
-                        b.setType(Material.AIR, false);
-                    }
-                }
-            }
-        }
+        deleteblocks();
         loadSchematic();
     }
 
@@ -185,13 +157,13 @@ public class Island {
             for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
                 for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
                     for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                        Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
+                        BlockState b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock().getState();
                         if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
                             level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
                         }
 
-                        if (b.getState() instanceof CreatureSpawner) {
-                            CreatureSpawner cs = (CreatureSpawner) b.getState();
+                        if (b instanceof CreatureSpawner) {
+                            CreatureSpawner cs = (CreatureSpawner) b;
                             if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()))) {
                                 level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()));
                             }
@@ -299,27 +271,27 @@ public class Island {
         WarpCount = warpCount;
     }
 
-    public Integer getMission1() {
+    public Mission getMission1() {
         return Mission1;
     }
 
-    public void setMission1(Integer mission1) {
+    public void setMission1(Mission mission1) {
         Mission1 = mission1;
     }
 
-    public Integer getMission2() {
+    public Mission getMission2() {
         return Mission2;
     }
 
-    public void setMission2(Integer mission2) {
+    public void setMission2(Mission mission2) {
         Mission2 = mission2;
     }
 
-    public Integer getMission3() {
+    public Mission getMission3() {
         return Mission3;
     }
 
-    public void setMission3(Integer mission3) {
+    public void setMission3(Mission mission3) {
         Mission3 = mission3;
     }
 
@@ -412,31 +384,87 @@ public class Island {
     }
 
     public void loadSchematic() {
-        Location location = this.home;
-        WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-        File schematic = ConfigManager.getInstance().getSchematicFile();
-        EditSession editSession = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(location.getWorld()), 10000);
-        try {
-            SchematicFormat.getFormat(schematic).load(schematic).paste(editSession, new Vector(location.getX(), location.getY(), location.getZ()), true, false);
-            editSession.flushQueue();
-        } catch (MaxChangedBlocksException | DataException | IOException e) {
-            e.printStackTrace();
-        }
+        if (Version.getVersion().equals(Version.v1_8_R2))
+            NMS_v1_8_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_8_R3))
+            NMS_v1_8_R3.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_9_R1))
+            NMS_v1_9_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_10_R1))
+            NMS_v1_10_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_11_R1))
+            NMS_v1_11_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_12_R1))
+            NMS_v1_12_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_13_R1))
+            NMS_v1_13_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        if (Version.getVersion().equals(Version.v1_13_R2))
+            NMS_v1_13_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
     }
 
-    public void delete() {
-        //Deleting Island Blocks
-        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-            for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                    Block b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock();
-                    if (b.getType() != Material.AIR) {
-                        b.setType(Material.AIR, false);
+    public void deleteblocks() {
+        //Deleting Island Blocks Using NMSs
+        if (Version.getVersion().equals(Version.v1_8_R2)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_8_R2.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else if (Version.getVersion().equals(Version.v1_8_R3)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_8_R3.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else if (Version.getVersion().equals(Version.v1_9_R1)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_9_R1.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else if (Version.getVersion().equals(Version.v1_10_R1)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_10_R1.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else if (Version.getVersion().equals(Version.v1_11_R1)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_11_R1.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else if (Version.getVersion().equals(Version.v1_12_R1)) {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        NMS_v1_12_R1.setBlockSuperFast((int) X, (int) Y, (int) Z, 0, (byte) 0, false);
+                    }
+                }
+            }
+        } else {
+            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
+                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                        EpicSkyBlock.getSkyblock.getWorld().getBlockAt((int) X, (int) Y, (int) Z).setType(Material.AIR, false);
                     }
                 }
             }
         }
+    }
 
+    public void delete() {
+        deleteblocks();
         for (String player : players) {
             if (User.getbyPlayer(player) != null) {
                 User.getbyPlayer(player).setIsland(null);

@@ -1,8 +1,7 @@
 name: EpicSkyblock
-version: 1.9-b
+version: 1.9.3-b
 main: com.peaches.epicskyblock.EpicSkyBlock
 author: Peaches_MLG
-depend: [WorldEdit]
 commands:
   Island:
     aliases: [is]

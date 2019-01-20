@@ -4,6 +4,7 @@ import com.peaches.epicskyblock.EpicSkyBlock;
 import com.peaches.epicskyblock.Island;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,13 +21,13 @@ public class Members implements Listener {
         for (String player : island.getPlayers()) {
             if (!(player == null || player.equalsIgnoreCase(""))) {
                 if (island.getownername().equals(player)) {
-                    ItemStack head = EpicSkyBlock.getSkyblock.makeItem("397:3", 1, "&c&l" + player);
+                    ItemStack head = EpicSkyBlock.getSkyblock.makeItem(Material.SKULL_ITEM, 1, 3, "&c&l" + player);
                     SkullMeta m = (SkullMeta) head.getItemMeta();
                     m.setOwner(player);
                     head.setItemMeta(m);
                     inv.addItem(head);
                 } else {
-                    ItemStack head = EpicSkyBlock.getSkyblock.makeItem("397:3", 1, "&7" + player);
+                    ItemStack head = EpicSkyBlock.getSkyblock.makeItem(Material.SKULL_ITEM, 1, 3, "&7" + player);
                     SkullMeta m = (SkullMeta) head.getItemMeta();
                     m.setOwner(player);
                     head.setItemMeta(m);

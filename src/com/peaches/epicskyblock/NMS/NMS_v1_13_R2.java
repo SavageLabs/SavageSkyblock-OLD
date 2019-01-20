@@ -1,11 +1,11 @@
 package com.peaches.epicskyblock.NMS;
 
-import net.minecraft.server.v1_13_R1.*;
+import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_13_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NMS_v1_13_R1 {
+public class NMS_v1_13_R2 {
 
     public static List<Location> pasteSchematic(File f, Location loc) {
         List<Location> locations = new ArrayList<>();
