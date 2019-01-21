@@ -10,10 +10,11 @@ import java.io.File;
 public class ConfigManager {
 
     private static final ConfigManager instance = new ConfigManager();
-    private Plugin p;
     private FileConfiguration config;
     private File configfile;
     private File schematicFile;
+    private YamlConfiguration Messages;
+    private File mfile;
 
     public static ConfigManager getInstance() {
         return instance;
@@ -52,6 +53,15 @@ public class ConfigManager {
 
         this.config = YamlConfiguration.loadConfiguration(this.configfile);
 
+        this.mfile = new File(p.getDataFolder(), "Messages.yml");
+        if (p.getResource("Messages.yml") != null) {
+            if (!this.mfile.exists()) {
+                p.saveResource("Messages.yml", false);
+            }
+        }
+
+        this.Messages = YamlConfiguration.loadConfiguration(this.mfile);
+
     }
 
     public FileConfiguration getConfig() {
@@ -62,7 +72,15 @@ public class ConfigManager {
         this.config = YamlConfiguration.loadConfiguration(this.configfile);
     }
 
+    public void reloadMessages() {
+        this.Messages = YamlConfiguration.loadConfiguration(this.mfile);
+    }
+
     public File getSchematicFile() {
         return this.schematicFile;
+    }
+
+    public YamlConfiguration getMessages() {
+        return Messages;
     }
 }

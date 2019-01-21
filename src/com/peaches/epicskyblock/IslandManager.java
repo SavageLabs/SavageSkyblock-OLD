@@ -1,7 +1,6 @@
 package com.peaches.epicskyblock;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -131,33 +130,19 @@ public class IslandManager {
     }
 
     public static void deleteIsland(Player player) {
-        if (User.getbyPlayer(player).getIsland() != null) {
-            if (User.getbyPlayer(player).getIsland().getownername().equals(player.getName())) {
-                for (String players : User.getbyPlayer(player).getIsland().getPlayers()) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + players);
-                }
-                User.getbyPlayer(player).getIsland().delete();
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eIsland deleted"));
-                player.getInventory().clear();
-                User.getbyPlayer(player).setIsland(null);
-            } else {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eOnly the Island owner can do this"));
-            }
-        } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have an island"));
+        for (String players : User.getbyPlayer(player).getIsland().getPlayers()) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + players);
         }
+        User.getbyPlayer(player).getIsland().delete();
+        player.getInventory().clear();
+        User.getbyPlayer(player).setIsland(null);
     }
 
     public static Island getislandviablock(Block b) {
+        Location loc = b.getLocation();
         for (Island island : Islands) {
-            Location loc = b.getLocation();
-            if (loc.getX() > island.pos1.getX() && loc.getX() <= island.pos2.getX()) {
-                if (loc.getY() > island.pos1.getY() && loc.getY() <= island.pos2.getY()) {
-                    if (loc.getZ() > island.pos1.getZ() && loc.getZ() <= island.pos2.getZ()) {
-                        return island;
-                    }
-                }
-
+            if (island.isblockinisland((int) loc.getX(), (int) loc.getZ())) {
+                return island;
             }
         }
         return null;

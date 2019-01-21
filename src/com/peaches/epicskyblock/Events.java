@@ -83,6 +83,7 @@ public class Events implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer()), 20);
         if (User.getbyPlayer(e.getPlayer()) == null) {
             User.users.add(new User(e.getPlayer().getName()));
         }
@@ -91,14 +92,12 @@ public class Events implements Listener {
     @EventHandler
     public void onbreak(BlockBreakEvent e) {
         if (e.getBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
-            if (IslandManager.getislandviablock(e.getBlock()) != null) {
-                if (!IslandManager.getislandviablock(e.getBlock()).getPlayers().contains(e.getPlayer().getName())) {
+            User u = User.getbyPlayer(e.getPlayer());
+            if (u.getIsland() != null) {
+                if (!u.getIsland().isblockinisland(e.getBlock().getX(), e.getBlock().getY())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
                 }
-                return;
-            } else {
-                e.setCancelled(true);
             }
         }
     }
@@ -106,14 +105,12 @@ public class Events implements Listener {
     @EventHandler
     public void onplace(BlockPlaceEvent e) {
         if (e.getBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
-            if (IslandManager.getislandviablock(e.getBlockPlaced()) != null) {
-                if (!IslandManager.getislandviablock(e.getBlockPlaced()).getPlayers().contains(e.getPlayer().getName())) {
+            User u = User.getbyPlayer(e.getPlayer());
+            if (u.getIsland() != null) {
+                if (!u.getIsland().isblockinisland(e.getBlockPlaced().getX(), e.getBlockPlaced().getY())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
                 }
-                return;
-            } else {
-                e.setCancelled(true);
             }
         }
     }
@@ -123,17 +120,12 @@ public class Events implements Listener {
         if (e.getClickedBlock() != null) {
             if (e.getClickedBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
                 if (e.getClickedBlock() == null) return;
-                if (IslandManager.getislandviablock(e.getClickedBlock()) != null) {
-                    if (!IslandManager.getislandviablock(e.getClickedBlock()).getPlayers().contains(e.getPlayer().getName())) {
+                User u = User.getbyPlayer(e.getPlayer());
+                if (u.getIsland() != null) {
+                    if (!u.getIsland().isblockinisland(e.getClickedBlock().getX(), e.getClickedBlock().getY())) {
                         if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                         e.setCancelled(true);
-                        for (String player : IslandManager.getislandviablock(e.getClickedBlock()).getPlayers()) {
-                            System.out.print(player);
-                        }
                     }
-                    return;
-                } else {
-                    e.setCancelled(true);
                 }
             }
         }
@@ -144,13 +136,10 @@ public class Events implements Listener {
         EpicSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer());
         if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
             Island island = IslandManager.getislandviablock(e.getTo().getBlock());
-            if (IslandManager.getislandviablock(e.getFrom().getBlock()) != null) {
-                if (!island.equals(IslandManager.getislandviablock(e.getFrom().getBlock()))) {
-                    EpicSkyBlock.getSkyblock.sendTitle(e.getPlayer(), "&e&l" + island.getownername() + "'s Island", 20, 40, 20);
-                }
-            } else {
+            if (!island.equals(IslandManager.getislandviablock(e.getFrom().getBlock()))) {
                 EpicSkyBlock.getSkyblock.sendTitle(e.getPlayer(), "&e&l" + island.getownername() + "'s Island", 20, 40, 20);
             }
+
         }
     }
 
@@ -165,7 +154,7 @@ public class Events implements Listener {
                 }
                 if (User.getbyPlayer(p).getIsland() != null) {
                     p.teleport(User.getbyPlayer(p).getIsland().gethome());
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eTeleporting to island..."));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 }
             }
         }
