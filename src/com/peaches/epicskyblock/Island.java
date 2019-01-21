@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class Island {
-
     private final Location maxpos1; // Bottom left corner
     private final Location maxpos2; // Bottom right corner
     public Location pos1; // Bottom left corner

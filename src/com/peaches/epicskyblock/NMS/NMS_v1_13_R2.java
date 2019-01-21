@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 public class NMS_v1_13_R2 {
 
     public static int calculate(Object object, Island island) {
