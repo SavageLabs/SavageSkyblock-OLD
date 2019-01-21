@@ -8,6 +8,7 @@
       <element id="directory" name="schematics">
         <element id="dir-copy" path="$PROJECT_DIR$/schematics" />
       </element>
+      <element id="file-copy" path="$PROJECT_DIR$/Messages.yml" />
     </root>
   </artifact>
 </component>

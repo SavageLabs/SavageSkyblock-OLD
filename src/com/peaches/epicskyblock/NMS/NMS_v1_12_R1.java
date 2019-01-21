@@ -1,12 +1,14 @@
 package com.peaches.epicskyblock.NMS;
 
 import com.peaches.epicskyblock.EpicSkyBlock;
+import com.peaches.epicskyblock.Island;
 import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_12_R1.CraftChunk;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -14,9 +16,30 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class NMS_v1_12_R1 {
+
+    public static int calculate(Object object, Island island) {
+        int level = 0;
+        CraftChunk chunk = (CraftChunk) object;
+        for (final Map.Entry<BlockPosition, TileEntity> entry : chunk.getHandle().tileEntities.entrySet()) {
+            if (island.isblockinisland(entry.getKey().getX(), entry.getKey().getZ())) {
+                final TileEntity tileEntity = entry.getValue();
+                if (tileEntity instanceof TileEntityMobSpawner) {
+                    if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Spawners." + ((TileEntityMobSpawner) tileEntity).getSpawner().getMobName().toString().toUpperCase())) {
+                        level += EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Spawners." + ((TileEntityMobSpawner) tileEntity).getSpawner().getMobName().toString().toUpperCase());
+                    }
+                } else {
+                    if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + tileEntity.getBlock().getName().toUpperCase())) {
+                        level += EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + tileEntity.getBlock().getName().toUpperCase());
+                    }
+                }
+            }
+        }
+        return level;
+    }
 
     public static List<Location> pasteSchematic(File f, Location loc) {
         List<Location> locations = new ArrayList<>();

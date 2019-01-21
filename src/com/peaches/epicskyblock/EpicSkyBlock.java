@@ -41,7 +41,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
         addmissionstoIslands();
         startCounting();
         saveint();
-        Bukkit.getScheduler().scheduleAsyncDelayedTask(this, () -> calculateworth(), 60);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> calculateworth(), 0, 20 * 60);
         new Metrics(this);
         System.out.print("-------------------------------");
         System.out.print("");
@@ -78,8 +78,8 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
 
     public void sendIslandBoarder(Player p) {
         if (p.getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
-            if (IslandManager.getislandviablock(p.getLocation().getBlock()) != null) {
-                Island island = IslandManager.getislandviablock(p.getLocation().getBlock());
+            Island island = IslandManager.getislandviablock(p.getLocation().getBlock());
+            if (island != null) {
                 int radius = 0;
                 if (island.getSize() == 1) {
                     radius = IslandManager.level1radius;
@@ -133,7 +133,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
 
     public void calculateworth() {
         for (Island is : IslandManager.getIslands()) {
-            Bukkit.getScheduler().runTaskAsynchronously(this, () -> is.calculateworth());
+            is.calculateworth();
         }
     }
 
@@ -371,7 +371,7 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                     }
                     island.setSize(config.getInt("SizeLevel"));
                     island.setMemberCount(config.getInt("MemberLevel"));
-                    island.setWarpCount(config.getInt("WarpLevel"));
+                    island.setWarpCount(config.getInt("WarpsLevel"));
                     IslandManager.addIsland(island);
                     file.delete();
                 }
