@@ -134,7 +134,7 @@ public class UpgradesGUI implements Listener {
                 }
             }
             if (e.getSlot() == 16) {
-                if (island.getWarpCount() == 1) {
+                if (island.getWarpCount() >= 1) {
                     if (island.getCrystals() < 15) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;

@@ -3,16 +3,14 @@ package com.peaches.epicskyblock;
 import com.peaches.epicskyblock.Missions.Mission;
 import com.peaches.epicskyblock.NMS.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
 public class Island {
-
     private final Location maxpos1; // Bottom left corner
     private final Location maxpos2; // Bottom right corner
     public Location pos1; // Bottom left corner
@@ -60,6 +58,8 @@ public class Island {
     private Integer level = 0;
     private ArrayList<String> players = new ArrayList<>();
 
+    private ArrayList<Chunk> chunks = new ArrayList<>();
+
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, Boolean schem) {
         this.owner = owner;
         this.home = home;
@@ -84,6 +84,14 @@ public class Island {
         this.Mission2Complete = false;
         this.Mission3Complete = false;
 
+        for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
+            for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
+                if (!chunks.contains(EpicSkyBlock.getSkyblock.getWorld().getChunkAt(new Location(EpicSkyBlock.getSkyblock.getWorld(), X, 10, Z)))) {
+                    chunks.add(EpicSkyBlock.getSkyblock.getWorld().getChunkAt(new Location(EpicSkyBlock.getSkyblock.getWorld(), X, 10, Z)));
+                }
+            }
+        }
+
         addUser(owner);
         //Loads island.schematic
         if (schem) {
@@ -91,6 +99,15 @@ public class Island {
         }
         EpicSkyBlock.getSkyblock.addMissions(this);
         Bukkit.getScheduler().runTaskAsynchronously(EpicSkyBlock.getSkyblock, () -> EpicSkyBlock.getSkyblock.saveisland(this));
+    }
+
+    public boolean isblockinisland(int x, int z) {
+        if (x > pos1.getX() && x <= pos2.getX()) {
+            if (z > pos1.getZ() && z <= pos2.getZ()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Location getWarp1() {
@@ -154,22 +171,16 @@ public class Island {
     public void calculateworth() {
         if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
             int level = 0;
-            for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
-                for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {
-                    for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
-                        BlockState b = new Location(EpicSkyBlock.getSkyblock.getWorld(), X, Y, Z).getBlock().getState();
-                        if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Blocks." + b.getType().name())) {
-                            level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Blocks." + b.getType().name());
-                        }
-
-                        if (b instanceof CreatureSpawner) {
-                            CreatureSpawner cs = (CreatureSpawner) b;
-                            if (EpicSkyBlock.getSkyblock.getConfig().contains("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()))) {
-                                level = level + EpicSkyBlock.getSkyblock.getConfig().getInt("IsTop.Spawners." + (cs.getCreatureTypeName().toUpperCase()));
-                            }
-                        }
-                    }
-                }
+            for (Object object : chunks) {
+                if (Version.getVersion().equals(Version.v1_8_R2)) level += NMS_v1_8_R2.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_8_R3)) level += NMS_v1_8_R3.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_9_R1)) level += NMS_v1_9_R1.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_9_R2)) level += NMS_v1_9_R2.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_10_R1)) level += NMS_v1_10_R1.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_11_R1)) level += NMS_v1_11_R1.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_12_R1)) level += NMS_v1_12_R1.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_13_R1)) level += NMS_v1_13_R1.calculate(object, this);
+                if (Version.getVersion().equals(Version.v1_13_R2)) level += NMS_v1_13_R2.calculate(object, this);
             }
             setLevel(level);
         }
@@ -404,6 +415,7 @@ public class Island {
 
     public void deleteblocks() {
         //Deleting Island Blocks Using NMSs
+        //1 layer at a time
         if (Version.getVersion().equals(Version.v1_8_R2)) {
             for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
                 for (double Y = maxpos1.getY(); Y <= maxpos2.getY(); Y++) {

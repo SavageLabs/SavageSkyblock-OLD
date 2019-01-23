@@ -7,6 +7,7 @@ Options:
   Level1Size: 25
   Level2Size: 50
   Level3Size: 75
+  IslandHomeMainCommand: true
 Inventories:
   Boosters: "&e&lIsland Boosters"
   Missions: "&e&lIsland Mission"
@@ -30,12 +31,10 @@ OreGen:
   - DIAMOND_ORE:10
 IsTop:
   Blocks:
-    DIAMOND_BLOCK: 100
-    IRON_BLOCK: 50
     HOPPER: 10
   Spawners:
     PIG: 1000
-    VILLAGER_GOLEM: 10000
+    VILLAGERGOLEM: 10000
 help:
   - '&7&m-----------------------------------------------------'
   - '%centered%&6&lIsland Help'
