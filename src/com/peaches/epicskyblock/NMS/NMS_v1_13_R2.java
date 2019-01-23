@@ -13,8 +13,6 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class NMS_v1_13_R2 {
@@ -39,8 +37,7 @@ public class NMS_v1_13_R2 {
         return level;
     }
 
-    public static List<Location> pasteSchematic(File f, Location loc) {
-        List<Location> locations = new ArrayList<>();
+    public static void pasteSchematic(File f, Location loc) {
         try {
             FileInputStream fis = new FileInputStream(f);
             NBTTagCompound nbt = NBTCompressedStreamTools.a(fis);
@@ -48,7 +45,6 @@ public class NMS_v1_13_R2 {
             short height = nbt.getShort("Height");
             short length = nbt.getShort("Length");
             byte[] blocks = nbt.getByteArray("Blocks");
-            byte[] data = nbt.getByteArray("Data");
             fis.close();
             //paste
             for (int x = 0; x < width; ++x) {
@@ -60,15 +56,12 @@ public class NMS_v1_13_R2 {
                         final Block block = l.getBlock();
                         Material m = Material.getMaterial(b);
                         block.setType(m);
-                        //you can check what type the block is here, like if(m.equals(Material.BEACON)) to check if it's a beacon
-                        locations.add(l);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return locations;
     }
 
     public static void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {

@@ -11,6 +11,7 @@ public class User {
     private String player;
     private Island island;
     private Boolean chat = false;
+    private Boolean Falldmg = false;
     private Boolean bypass = false;
     private ArrayList<String> invites = new ArrayList<>();
 
@@ -34,6 +35,14 @@ public class User {
             }
         }
         return null;
+    }
+
+    public Boolean getFalldmg() {
+        return Falldmg;
+    }
+
+    public void setFalldmg(Boolean falldmg) {
+        Falldmg = falldmg;
     }
 
     public Boolean getBypass() {

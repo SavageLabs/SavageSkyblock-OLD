@@ -327,7 +327,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
     }
 
     private void load() {
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
             if (im.exists()) {
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(im);
@@ -376,6 +375,5 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
                     file.delete();
                 }
             }
-        });
     }
 }
