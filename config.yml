@@ -8,6 +8,7 @@ Options:
   Level2Size: 50
   Level3Size: 75
   IslandHomeMainCommand: true
+  IslandChatFormat: "&6&l %player% &8» %message% &e"
 Inventories:
   Boosters: "&e&lIsland Boosters"
   Missions: "&e&lIsland Mission"

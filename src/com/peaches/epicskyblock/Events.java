@@ -41,7 +41,7 @@ public class Events implements Listener {
                 for (String player : User.getbyPlayer(p).getIsland().getPlayers()) {
                     Player member = Bukkit.getPlayer(player);
                     if (member != null) {
-                        member.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&l" + p.getName() + " &8» &e" + e.getMessage()));
+                        member.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.IslandChatFormat").replace("%player%", p.getName()).replace("%message%", e.getMessage())));
                     }
                 }
             }
