@@ -94,7 +94,7 @@ public class Events implements Listener {
         if (e.getBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
-                if (!u.getIsland().isblockinisland(e.getBlock().getX(), e.getBlock().getY())) {
+                if (!u.getIsland().isblockinisland(e.getBlock().getX(), e.getBlock().getZ())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
                 }
@@ -107,7 +107,7 @@ public class Events implements Listener {
         if (e.getBlock().getLocation().getWorld().equals(EpicSkyBlock.getSkyblock.getWorld())) {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
-                if (!u.getIsland().isblockinisland(e.getBlockPlaced().getX(), e.getBlockPlaced().getY())) {
+                if (!u.getIsland().isblockinisland(e.getBlockPlaced().getX(), e.getBlockPlaced().getZ())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
                 }
@@ -122,7 +122,7 @@ public class Events implements Listener {
                 if (e.getClickedBlock() == null) return;
                 User u = User.getbyPlayer(e.getPlayer());
                 if (u.getIsland() != null) {
-                    if (!u.getIsland().isblockinisland(e.getClickedBlock().getX(), e.getClickedBlock().getY())) {
+                    if (!u.getIsland().isblockinisland(e.getClickedBlock().getX(), e.getClickedBlock().getZ())) {
                         if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                         e.setCancelled(true);
                     }
