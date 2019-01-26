@@ -83,6 +83,8 @@ public class Island {
         this.Mission1Complete = false;
         this.Mission2Complete = false;
         this.Mission3Complete = false;
+
+        //Optimise this
         for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
             for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
                 if (!chunks.contains(EpicSkyBlock.getSkyblock.getWorld().getChunkAt(new Location(EpicSkyBlock.getSkyblock.getWorld(), X, 10, Z)))) {

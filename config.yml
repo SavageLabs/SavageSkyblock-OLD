@@ -23,6 +23,16 @@ Upgrades:
     1: 1
     2: 3
     3: 5
+UpgradeCost:
+  Size:
+    1: 50
+    2: 75
+  Members:
+    1: 40
+    2: 60
+  Warps:
+    1: 20
+    2: 40
 OreGen:
   # List of Material Names https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   - COBBLESTONE:30

@@ -322,7 +322,6 @@ public class EpicSkyBlock extends JavaPlugin implements Listener {
             config.set("WarpsLevel", island.getWarpCount());
             config.save(file);
         } catch (Exception ignored) {
-
         }
     }
 
