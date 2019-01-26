@@ -48,6 +48,7 @@ public class IslandManager {
                 island.loadSchematic();
                 island.addUser(player.getName());
                 player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                EpicSkyBlock.getSkyblock.sendIslandBoarder(player);
                 return;
             }
         }
