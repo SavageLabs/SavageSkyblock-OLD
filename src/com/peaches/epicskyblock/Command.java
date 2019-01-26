@@ -21,7 +21,6 @@ class Command implements CommandExecutor {
         plugin = pl;
     }
 
-
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length == 0) {
             if (cs instanceof Player) {
@@ -39,6 +38,8 @@ class Command implements CommandExecutor {
                     }
                     return true;
                 } else {
+                    User.getbyPlayer(p).setFalldmg(true);
+                    Bukkit.getScheduler().scheduleAsyncDelayedTask(EpicSkyBlock.getSkyblock, () -> User.getbyPlayer(p).setFalldmg(false), 20);
                     p.teleport(User.getbyPlayer(p).getIsland().gethome());
                     EpicSkyBlock.getSkyblock.sendIslandBoarder(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -57,19 +58,23 @@ class Command implements CommandExecutor {
         }
         try {
             if (args[0].equalsIgnoreCase("givecrystals")) {
-                Player p = Bukkit.getPlayer(args[1]);
-                if (User.getbyPlayer(p) == null) {
-                    User.users.add(new User(p.getName()));
-                }
-                User u = User.getbyPlayer(p);
-                if (u.getIsland() != null) {
-                    EpicSkyBlock.getSkyblock.sendTitle(p, "&e&lYou have recieved " + args[2] + " Island Crystals.", 20, 40, 20);
-                    Island island = u.getIsland();
-                    island.addCrystals(Integer.parseInt(args[2]));
-                    cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("GiveCrystals").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName()).replace("%amount%", args[2])));
+                if (cs.hasPermission("EpciSkyblock.givecrystals")) {
+                    Player p = Bukkit.getPlayer(args[1]);
+                    if (User.getbyPlayer(p) == null) {
+                        User.users.add(new User(p.getName()));
+                    }
+                    User u = User.getbyPlayer(p);
+                    if (u.getIsland() != null) {
+                        EpicSkyBlock.getSkyblock.sendTitle(p, "&e&lYou have recieved " + args[2] + " Island Crystals.", 20, 40, 20);
+                        Island island = u.getIsland();
+                        island.addCrystals(Integer.parseInt(args[2]));
+                        cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("GiveCrystals").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName()).replace("%amount%", args[2])));
+                        return true;
+                    }
+                    cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIsland").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
                     return true;
                 }
-                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIsland").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
+                cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoPermissions").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 return true;
             }
         } catch (Exception e) {
@@ -103,6 +108,7 @@ class Command implements CommandExecutor {
                 EpicSkyBlock.getSkyblock.calculateworth();
                 cs.sendMessage(ChatColor.translateAlternateColorCodes('&', EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + " Completed took " + (System.currentTimeMillis() - ms) + "ms."));
             }
+            cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoPermissions").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
             return true;
         }
         if (cs instanceof Player) {
@@ -340,6 +346,8 @@ class Command implements CommandExecutor {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
                 } else {
+                    User.getbyPlayer(p).setFalldmg(true);
+                    Bukkit.getScheduler().scheduleAsyncDelayedTask(EpicSkyBlock.getSkyblock, () -> User.getbyPlayer(p).setFalldmg(false), 20);
                     p.teleport(User.getbyPlayer(p).getIsland().gethome());
                     EpicSkyBlock.getSkyblock.sendIslandBoarder(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", EpicSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));

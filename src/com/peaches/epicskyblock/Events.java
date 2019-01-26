@@ -214,11 +214,8 @@ public class Events implements Listener {
             if (e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
                 User u = User.getbyPlayer(p);
                 if (u != null) {
-                    Island island = u.getIsland();
-                    if (island != null) {
-                        if (p.getLocation().equals(island.gethome())) {
-                            e.setCancelled(true);
-                        }
+                    if (u.getFalldmg()) {
+                        e.setCancelled(true);
                     }
                 }
             }
