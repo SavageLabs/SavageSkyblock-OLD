@@ -11,6 +11,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.spigotmc.........</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/serverjars/1.12.2.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
@@ -72,13 +79,6 @@
             <version>1.12-R0.1-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/serverjars/1.12.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.spigotmc.........</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/serverjars/1.12.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc..............</groupId>
