@@ -1,6 +1,6 @@
-name: EpicSkyblock
+name: SavageSkyblock
 version: 1.9.5-b
-main: com.peaches.epicskyblock.EpicSkyBlock
+main: net.prosavage.savageskyblock.SavageSkyblock
 author: Peaches_MLG
 commands:
   Island:
