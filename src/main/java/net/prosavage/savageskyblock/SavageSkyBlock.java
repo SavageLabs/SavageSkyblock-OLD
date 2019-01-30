@@ -16,9 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class SavageSkyBlock extends JavaPlugin implements Listener {
@@ -138,16 +136,15 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     }
 
     public boolean isSurroundedByWater(Location fromLoc) {
-        Block[] blocks = {
-                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX() + 1, fromLoc.getBlockY(), fromLoc.getBlockZ()),
+        // Sets gives better performance than arrays when used wisely
+        Set<Block> blocksSet = new HashSet<>(Arrays.asList(fromLoc.getWorld().getBlockAt(fromLoc.getBlockX() + 1, fromLoc.getBlockY(), fromLoc.getBlockZ()),
                 fromLoc.getWorld().getBlockAt(fromLoc.getBlockX() - 1, fromLoc.getBlockY(), fromLoc.getBlockZ()),
                 fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() + 1),
-                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() - 1)};
+                fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() - 1)));
 
-        for (Block b : blocks) {
-            if (b.getType().toString().contains("WATER")) {
-                return true;
-            }
+        for (Block b : blocksSet) {
+            if (b.getType().toString().contains("WATER"))return true;
+            continue;
         }
         return false;
 

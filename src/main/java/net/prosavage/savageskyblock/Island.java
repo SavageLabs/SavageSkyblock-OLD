@@ -48,7 +48,7 @@ public class Island {
     private Integer crystals;
 
     private Integer id;
-
+    // What about a Set of Locations? So Owner can easily config how many warps
     private Location warp1;
     private Location warp2;
     private Location warp3;
