@@ -25,55 +25,13 @@ public class MissionsGUI implements Listener {
             inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
             inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
-        if (island.getMission1() == null) {
-            SavageSkyBlock.getSkyblock.addMissions(island);
-        }
-        ItemStack item1 = island.getMission1().getItem();
-        ItemStack item2 = island.getMission2().getItem();
-        ItemStack item3 = island.getMission3().getItem();
-        ItemMeta im1 = item1.getItemMeta();
-        ItemMeta im2 = item2.getItemMeta();
-        ItemMeta im3 = item3.getItemMeta();
-
-        ArrayList<String> lore1 = new ArrayList<>();
-        lore1.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission1Data() >= island.getMission1().getTotal()) {
-            lore1.add(ChatColor.YELLOW + "Complete");
-        } else {
-            lore1.add(ChatColor.YELLOW + island.getMission1Data().toString() + "/" + island.getMission1().getTotal());
-        }
-        lore1.addAll(item1.getItemMeta().getLore());
-
-        ArrayList<String> lore2 = new ArrayList<>();
-        lore2.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission2Data() >= island.getMission2().getTotal()) {
-            lore2.add(ChatColor.YELLOW + "Complete");
-        } else {
-            lore2.add(ChatColor.YELLOW + island.getMission2Data().toString() + "/" + island.getMission2().getTotal());
-        }
-        lore2.addAll(item2.getItemMeta().getLore());
-
-        ArrayList<String> lore3 = new ArrayList<>();
-        lore3.add(ChatColor.RED + "" + ChatColor.BOLD + "Status:");
-        if (island.getMission3Data() >= island.getMission3().getTotal()) {
-            lore3.add(ChatColor.YELLOW + "Complete");
-        } else {
-            lore3.add(ChatColor.YELLOW + island.getMission3Data().toString() + "/" + island.getMission3().getTotal());
-        }
-        lore3.addAll(item3.getItemMeta().getLore());
-
-
-        im1.setLore(lore1);
-        im2.setLore(lore2);
-        im3.setLore(lore3);
-
-        item1.setItemMeta(im1);
-        item2.setItemMeta(im2);
-        item3.setItemMeta(im3);
-
-        inv.setItem(11, item1);
-        inv.setItem(13, item2);
-        inv.setItem(15, item3);
+        inv.setItem(10, island.getFarmer().getItem());
+        inv.setItem(11, island.getHunter().getItem());
+        inv.setItem(12, island.getCompetitor().getItem());
+        inv.setItem(13, island.getCollector().getItem());
+        inv.setItem(14, island.getFisherman().getItem());
+        inv.setItem(15, island.getBuilder().getItem());
+        inv.setItem(16, island.getMiner().getItem());
         return inv;
     }
 

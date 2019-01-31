@@ -90,6 +90,44 @@ public class Events implements Listener {
     }
 
     @EventHandler
+    public void onentitykill(EntityDeathEvent e) {
+        if (e.getEntity().getKiller() != null) {
+            if (User.getbyPlayer(e.getEntity().getKiller()) == null) {
+                User.users.add(new User(e.getEntity().getKiller().getName()));
+            }
+            User u = User.getbyPlayer(e.getEntity().getKiller());
+            if (u.getIsland() != null) {
+                if(u.getIsland().getHunter().getCurrent() != 7500){
+                    u.getIsland().getHunter().setCurrent(u.getIsland().getHunter().getCurrent()+1);
+                }
+                if(u.getIsland().getHunter().getCurrent() == 7500){
+                    u.getIsland().addCrystals(u.getIsland().getHunter().getReward());
+                    Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getHunter().getReward(), "Hunter"));
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onfish(PlayerFishEvent e) {
+        if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
+            if (User.getbyPlayer(e.getPlayer()) == null) {
+                User.users.add(new User(e.getPlayer().getName()));
+            }
+            User u = User.getbyPlayer(e.getPlayer());
+            if (u.getIsland() != null) {
+                if(u.getIsland().getFisherman().getCurrent() != 1500){
+                    u.getIsland().getFisherman().setCurrent(u.getIsland().getFisherman().getCurrent()+1);
+                }
+                if(u.getIsland().getFisherman().getCurrent() == 1500){
+                    u.getIsland().addCrystals(u.getIsland().getFisherman().getReward());
+                    Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getFisherman().getReward(), "Fisherman"));
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onbreak(BlockBreakEvent e) {
         if (e.getBlock().getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
             User u = User.getbyPlayer(e.getPlayer());
@@ -97,6 +135,32 @@ public class Events implements Listener {
                 if (!u.getIsland().isblockinisland(e.getBlock().getX(), e.getBlock().getZ())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
+                }else{
+                    if(e.getBlock().getType().name().endsWith("ORE")){
+                        if(u.getIsland().getCollector().getCurrent() != 7500){
+                            u.getIsland().getCollector().setCurrent(u.getIsland().getCollector().getCurrent()+1);
+                        }
+                        if(u.getIsland().getCollector().getCurrent() == 7500){
+                            u.getIsland().addCrystals(u.getIsland().getCollector().getReward());
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getCollector().getReward(), "Collector"));
+                        }
+                    }
+                    if(e.getBlock().getType()==Material.SUGAR_CANE){
+                        if(u.getIsland().getFarmer().getCurrent() != 5000){
+                            u.getIsland().getFarmer().setCurrent(u.getIsland().getFarmer().getCurrent()+1);
+                        }
+                        if(u.getIsland().getFarmer().getCurrent() == 5000){
+                            u.getIsland().addCrystals(u.getIsland().getFarmer().getReward());
+                            Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getFarmer().getReward(), "Farmer"));
+                        }
+                    }
+                    if(u.getIsland().getMiner().getCurrent() != 5000){
+                        u.getIsland().getMiner().setCurrent(u.getIsland().getMiner().getCurrent()+1);
+                    }
+                    if(u.getIsland().getMiner().getCurrent() == 5000){
+                        u.getIsland().addCrystals(u.getIsland().getMiner().getReward());
+                        Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getMiner().getReward(), "Miner"));
+                    }
                 }
             }
         }
@@ -110,6 +174,14 @@ public class Events implements Listener {
                 if (!u.getIsland().isblockinisland(e.getBlockPlaced().getX(), e.getBlockPlaced().getZ())) {
                     if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
                     e.setCancelled(true);
+                }else{
+                    if(u.getIsland().getBuilder().getCurrent() != 10000){
+                        u.getIsland().getBuilder().setCurrent(u.getIsland().getBuilder().getCurrent()+1);
+                    }
+                    if(u.getIsland().getBuilder().getCurrent() == 10000){
+                        u.getIsland().addCrystals(u.getIsland().getBuilder().getReward());
+                        Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getBuilder().getReward(), "Builder"));
+                    }
                 }
             }
         }

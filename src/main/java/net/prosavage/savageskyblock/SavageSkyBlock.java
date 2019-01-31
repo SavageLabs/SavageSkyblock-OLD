@@ -1,7 +1,7 @@
 package net.prosavage.savageskyblock;
 
 import net.prosavage.savageskyblock.Inventories.*;
-import net.prosavage.savageskyblock.Missions.Missions;
+import net.prosavage.savageskyblock.Missions.*;
 import net.prosavage.savageskyblock.NMS.*;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -31,7 +31,6 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     public void onEnable() {
         registerEvents();
         getSkyblock = this;
-        new Missions();
         ConfigManager.getInstance().setup(this);
         makeworld();
         getCommand("Island").setExecutor(new Command(this));
@@ -68,7 +67,6 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new UpgradesGUI(), this);
         pm.registerEvents(new MissionsGUI(), this);
         pm.registerEvents(new BoostersGUI(), this);
-        pm.registerEvents(new Missions(), this);
         pm.registerEvents(new WarpGUI(), this);
         pm.registerEvents(new Members(), this);
         pm.registerEvents(new Events(), this);
@@ -151,13 +149,13 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     }
 
     public void addMissions(Island island) {
-        Random r = new Random();
-        island.setMission1(Missions.Instance.mission1.get(r.nextInt(Missions.Instance.mission1.size())));
-        island.setMission2(Missions.Instance.mission2.get(r.nextInt(Missions.Instance.mission2.size())));
-        island.setMission3(Missions.Instance.mission3.get(r.nextInt(Missions.Instance.mission3.size())));
-        island.setMission1Data(0);
-        island.setMission2Data(0);
-        island.setMission3Data(0);
+        island.setBuilder(new Builder());
+        island.setCollector(new Collector());
+        island.setCompetitor(new Competitor());
+        island.setFarmer(new Farmer());
+        island.setFisherman(new Fisherman());
+        island.setHunter(new Hunter());
+        island.setMiner(new Miner());
     }
 
     private void startCounting() {

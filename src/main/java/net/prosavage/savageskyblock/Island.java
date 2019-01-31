@@ -1,6 +1,6 @@
 package net.prosavage.savageskyblock;
 
-import net.prosavage.savageskyblock.Missions.Mission;
+import net.prosavage.savageskyblock.Missions.*;
 import net.prosavage.savageskyblock.NMS.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -33,15 +33,6 @@ public class Island {
     private Integer XPCode;
     private Integer FlyCode;
     private Integer MobcoinsCode;
-    private Mission Mission1;
-    private Mission Mission2;
-    private Mission Mission3;
-    private Integer Mission1Data;
-    private Integer Mission2Data;
-    private Integer Mission3Data;
-    private Boolean Mission1Complete;
-    private Boolean Mission2Complete;
-    private Boolean Mission3Complete;
     private Integer Size = 1;
     private Integer MemberCount = 1;
     private Integer WarpCount = 1;
@@ -54,6 +45,14 @@ public class Island {
     private Location warp3;
     private Location warp4;
     private Location warp5;
+
+    private Builder builder;
+    private Collector collector;
+    private Competitor competitor;
+    private Farmer farmer;
+    private Fisherman fisherman;
+    private Hunter hunter;
+    private Miner miner;
 
     private Integer level = 0;
     private ArrayList<String> players = new ArrayList<>();
@@ -80,10 +79,6 @@ public class Island {
         this.FlyBoosterActive = false;
         this.MobCoinsBoosterActive = false;
 
-        this.Mission1Complete = false;
-        this.Mission2Complete = false;
-        this.Mission3Complete = false;
-
         //Optimise this
         for (double X = maxpos1.getX(); X <= maxpos2.getX(); X++) {
             for (double Z = maxpos1.getZ(); Z <= maxpos2.getZ(); Z++) {
@@ -100,6 +95,62 @@ public class Island {
         }
         SavageSkyBlock.getSkyblock.addMissions(this);
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
+    }
+
+    public Builder getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
+    }
+
+    public Collector getCollector() {
+        return collector;
+    }
+
+    public void setCollector(Collector collector) {
+        this.collector = collector;
+    }
+
+    public Competitor getCompetitor() {
+        return competitor;
+    }
+
+    public void setCompetitor(Competitor competitor) {
+        this.competitor = competitor;
+    }
+
+    public Farmer getFarmer() {
+        return farmer;
+    }
+
+    public void setFarmer(Farmer farmer) {
+        this.farmer = farmer;
+    }
+
+    public Fisherman getFisherman() {
+        return fisherman;
+    }
+
+    public void setFisherman(Fisherman fisherman) {
+        this.fisherman = fisherman;
+    }
+
+    public Hunter getHunter() {
+        return hunter;
+    }
+
+    public void setHunter(Hunter hunter) {
+        this.hunter = hunter;
+    }
+
+    public Miner getMiner() {
+        return miner;
+    }
+
+    public void setMiner(Miner miner) {
+        this.miner = miner;
     }
 
     public boolean isblockinisland(int x, int z) {
@@ -195,54 +246,6 @@ public class Island {
         this.level = level;
     }
 
-    public Boolean getMission1Complete() {
-        return Mission1Complete;
-    }
-
-    public void setMission1Complete(Boolean mission1Complete) {
-        Mission1Complete = mission1Complete;
-    }
-
-    public Boolean getMission2Complete() {
-        return Mission2Complete;
-    }
-
-    public void setMission2Complete(Boolean mission2Complete) {
-        Mission2Complete = mission2Complete;
-    }
-
-    public Boolean getMission3Complete() {
-        return Mission3Complete;
-    }
-
-    public void setMission3Complete(Boolean mission3Complete) {
-        Mission3Complete = mission3Complete;
-    }
-
-    public Integer getMission1Data() {
-        return Mission1Data;
-    }
-
-    public void setMission1Data(Integer mission1Data) {
-        Mission1Data = mission1Data;
-    }
-
-    public Integer getMission2Data() {
-        return Mission2Data;
-    }
-
-    public void setMission2Data(Integer mission2Data) {
-        Mission2Data = mission2Data;
-    }
-
-    public Integer getMission3Data() {
-        return Mission3Data;
-    }
-
-    public void setMission3Data(Integer mission3Data) {
-        Mission3Data = mission3Data;
-    }
-
     public Integer getCrystals() {
         return crystals;
     }
@@ -281,30 +284,6 @@ public class Island {
 
     public void setWarpCount(Integer warpCount) {
         WarpCount = warpCount;
-    }
-
-    public Mission getMission1() {
-        return Mission1;
-    }
-
-    public void setMission1(Mission mission1) {
-        Mission1 = mission1;
-    }
-
-    public Mission getMission2() {
-        return Mission2;
-    }
-
-    public void setMission2(Mission mission2) {
-        Mission2 = mission2;
-    }
-
-    public Mission getMission3() {
-        return Mission3;
-    }
-
-    public void setMission3(Mission mission3) {
-        Mission3 = mission3;
     }
 
     public Integer getSpawner() {

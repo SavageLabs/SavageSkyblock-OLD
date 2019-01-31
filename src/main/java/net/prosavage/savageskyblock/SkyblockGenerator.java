@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
-
 class SkyblockGenerator extends ChunkGenerator {
 
     @Override
@@ -26,6 +23,7 @@ class SkyblockGenerator extends ChunkGenerator {
         }
         return chunkData;
     }
+
     @Override
     public byte[][] generateBlockSections(World world, Random random, int x, int z, BiomeGrid biomes) {
         return new byte[world.getMaxHeight() / 16][];

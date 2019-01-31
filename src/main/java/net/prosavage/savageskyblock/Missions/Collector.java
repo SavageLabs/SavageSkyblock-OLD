@@ -7,12 +7,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class Miner {
+public class Collector {
     private Integer reward;
     private Integer current;
 
-    public Miner() {
-        this.reward = 20;
+    public Collector() {
+        this.reward = 10;
         this.current = 0;
     }
 
@@ -21,12 +21,12 @@ public class Miner {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&bComplete island missions to gain crystals that can be spent on Boosters and Upgrades."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Objective: &bMine 5,000 Blocks"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Status: &b" + current + "/5000"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Objective: &bCollect 7,500 Ores"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Status: &b" + current + "/7500"));
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
-        return SavageSkyBlock.getSkyblock.makeItem(Material.DIAMOND_PICKAXE, 1, 0, "&b&lMiner", lore);
+        return SavageSkyBlock.getSkyblock.makeItem(Material.DIAMOND_ORE, 1, 0, "&b&lCollector", lore);
     }
 
     public Integer getReward() {
