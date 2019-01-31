@@ -22,81 +22,84 @@ public class UpgradesGUI implements Listener {
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
+            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
             inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Need more room to expand? Buy this upgrade to increase your island size."));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Need more room to expand? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7upgrade to increase your island size."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Level: &b" + island.getSize()));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Level: &b" + island.getSize()));
         if (island.getSize() == 1) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.1") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.1") + " Crystals"));
         }
         if (island.getSize() == 2) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.2") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.2") + " Crystals"));
         }
         if (island.getSize() == 3) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + IslandManager.level3radius * 2 + "x" + IslandManager.level3radius * 2 + " Blocks"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + IslandManager.level3radius * 2 + "x" + IslandManager.level3radius * 2 + " Blocks"));
         }
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lLevels:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 1: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 2: &b" + IslandManager.level2radius * 2 + "x" + IslandManager.level2radius * 2 + " Blocks"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 3: &b" + IslandManager.level3radius * 2 + "x" + IslandManager.level3radius * 2 + " Blocks"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 1: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 2: &b" + IslandManager.level2radius * 2 + "x" + IslandManager.level2radius * 2 + " Blocks"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 3: &b" + IslandManager.level3radius * 2 + "x" + IslandManager.level3radius * 2 + " Blocks"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Upgrade."));
         inv.setItem(10, SavageSkyBlock.getSkyblock.makeItem(Material.GRASS, 1, 0, "&b&lIsland Size", lore));
 
         lore.clear();
 
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Want to invite more friends? Buy this upgrade to increase your member size."));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Want to invite more friends? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7upgrade to increase your member size."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Level: &b" + island.getMemberCount()));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Level: &b" + island.getMemberCount()));
         if (island.getMemberCount() == 1) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.1") + " Members"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.1") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.1") + " Members"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.1") + " Crystals"));
         }
         if (island.getMemberCount() == 2) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.2") + " Members"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.2") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.2") + " Members"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.2") + " Crystals"));
         }
         if (island.getMemberCount() == 3) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.3") + " Members"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.3") + " Members"));
         }
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lLevels:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 1: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.1") + " Members"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 2: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.2") + " Members"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 3: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.3") + " Members"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 1: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.1") + " Members"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 2: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.2") + " Members"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 3: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members.3") + " Members"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Upgrade."));
 
         inv.setItem(13, SavageSkyBlock.getSkyblock.makeItem(Material.ARMOR_STAND, 1, 0, "&b&lIsland Team Size", lore));
         lore.clear();
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Want some extra warps? Buy this upgrade to increase your warp limit."));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Need some extra island warps? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7upgrade to increase your warp limit."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Level: &b" + island.getWarpCount()));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Level: &b" + island.getWarpCount()));
         if (island.getWarpCount() == 1) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.1") + " Warps"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.1") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.1") + " Warps"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.1") + " Crystals"));
         }
         if (island.getWarpCount() == 2) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.2") + " Warps"));
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.2") + " Crystals"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.2") + " Warps"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.2") + " Crystals"));
         }
         if (island.getWarpCount() == 3) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.3") + " Warps"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.3") + " Warps"));
         }
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lLevels:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 1: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.1") + " Warps"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 2: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.2") + " Warps"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Level 3: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.3") + " Warps"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 1: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.1") + " Warps"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 2: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.2") + " Warps"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Level 3: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Warps.3") + " Warps"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Upgrade."));
         inv.setItem(16, SavageSkyBlock.getSkyblock.makeItem(Material.ENDER_PORTAL_FRAME, 1, 0, "&b&lIsland Warp Limit", lore));
