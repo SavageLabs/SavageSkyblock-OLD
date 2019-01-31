@@ -18,12 +18,13 @@ public class Fisherman {
 
     public ItemStack getItem() {
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&bComplete island missions to gain crystals that can be spent on Boosters and Upgrades."));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Complete island missions to gain crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7that can be spent on Boosters and Upgrades."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Objective: &bCatch 1,500 Fish"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Status: &b" + current + "/1500"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Reward: &b" + reward));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Objective: &bCatch 1,500 Fish"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Status: &b" + current + "/1500"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
         return SavageSkyBlock.getSkyblock.makeItem(Material.FISHING_ROD, 1, 0, "&b&lFisherman", lore);
