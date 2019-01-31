@@ -7,24 +7,42 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class Farmer extends Mission {
+public class Farmer {
+    private Integer reward;
+    private Integer current;
+
+    public Farmer() {
+
+        this.reward = 10;
+        this.current = 0;
+    }
 
     public ItemStack getItem() {
         ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&bComplete island missions to gain crystals that can be spent on Boosters and Upgrades."));
         lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Requirements:");
-        lore.add(ChatColor.YELLOW + "Harvest 5000 Sugar Cane");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Objective: &bHarvest 5,000 Sugar Cane"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Current Status: &b" + current + "/5000"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Reward: &b" + reward));
         lore.add("");
-        lore.add(ChatColor.RED + "" + ChatColor.BOLD + "Rewards:");
-        lore.add(ChatColor.YELLOW + "1 Island Crystal");
-        return SavageSkyBlock.getSkyblock.makeItem(Material.SUGAR_CANE, 1, 0, ChatColor.YELLOW + "" + ChatColor.BOLD + "Farmer", lore);
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
+        return SavageSkyBlock.getSkyblock.makeItem(Material.SUGAR_CANE, 1, 0, "&b&lFarmer", lore);
     }
 
-    public int getTotal() {
-        return 5000;
+    public Integer getReward() {
+        return reward;
     }
 
-    public String getName() {
-        return "Farmer";
+    public void setReward(Integer reward) {
+        this.reward = reward;
+    }
+
+    public Integer getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Integer current) {
+        this.current = current;
     }
 }
