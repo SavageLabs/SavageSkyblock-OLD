@@ -19,13 +19,13 @@ public class WarpGUI implements Listener {
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
+            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
             inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&e&lWarp 1"));
-            inv.setItem(11, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&e&lWarp 2"));
-            inv.setItem(13, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&e&lWarp 3"));
-            inv.setItem(15, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&e&lWarp 4"));
-            inv.setItem(17, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&e&lWarp 5"));
+            inv.setItem(9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&b&lWarp 1"));
+            inv.setItem(11, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&b&lWarp 2"));
+            inv.setItem(13, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&b&lWarp 3"));
+            inv.setItem(15, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&b&lWarp 4"));
+            inv.setItem(17, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 1, "&b&lWarp 5"));
         }
         return inv;
     }
