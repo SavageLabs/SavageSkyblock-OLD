@@ -21,61 +21,65 @@ public class BoostersGUI implements Listener {
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
             inv.setItem(i, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 8, " "));
+            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
             inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your spawners too slow? Buy this booster and increase spawner rates x2"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your spawners too slow? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7booster and increase spawner rates x2."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
         if (island.getSpawnerBoosterActive()) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &b" + island.getSpawner() + "s"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &b" + island.getSpawner() + "s"));
         } else {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &bNot Active"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawner") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawner") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
         inv.setItem(10, SavageSkyBlock.getSkyblock.makeItem(Material.MOB_SPAWNER, 1, 0, "&b&lIncreased Mobs", lore));
         lore.clear();
 
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your crops too slow? Buy this booster and increase crop rates x2"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your crops too slow? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7booster and increase crop rates x2."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
         if (island.getFarmingBoosterActive()) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &b" + island.getFarming() + "s"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &b" + island.getFarming() + "s"));
         } else {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &bNot Active"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
         inv.setItem(12, SavageSkyBlock.getSkyblock.makeItem(Material.WHEAT, 1, 0, "&b&lIncreased Crops", lore));
         lore.clear();
 
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Takes too long to get exp? Buy this booster and increase exp rates x2"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Takes too long to get exp? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7booster and increase exp rates x2."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
         if (island.getXPBoosterActive()) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &b" + island.getXp() + "s"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &b" + island.getXp() + "s"));
         } else {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &bNot Active"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
         inv.setItem(14, SavageSkyBlock.getSkyblock.makeItem(Material.EXP_BOTTLE, 1, 0, "&b&lIncreased Experiance", lore));
         lore.clear();
 
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tired of falling off your island? Buy this booster and allow your member to use fly"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tired of falling off your island? Buy this"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7booster and allow your members to use fly."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
         if (island.getFlyBoosterActive()) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &b" + island.getFly() + "s"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &b" + island.getFly() + "s"));
         } else {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Time Remaining: &bNot Active"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l* &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
         inv.setItem(16, SavageSkyBlock.getSkyblock.makeItem(Material.FEATHER, 1, 0, "&b&lIncreased Flight", lore));
