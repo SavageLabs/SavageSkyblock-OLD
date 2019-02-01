@@ -36,7 +36,7 @@ public class UpgradesGUI implements Listener {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.1") + " Crystals"));
         }
         if (island.getSize() == 2) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + IslandManager.level1radius * 2 + "x" + IslandManager.level1radius * 2 + " Blocks"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Current Size: &b" + IslandManager.level2radius * 2 + "x" + IslandManager.level2radius * 2 + " Blocks"));
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Upgrade Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Size.2") + " Crystals"));
         }
         if (island.getSize() == 3) {
