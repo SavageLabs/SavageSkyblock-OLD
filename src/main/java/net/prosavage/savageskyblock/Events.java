@@ -35,10 +35,11 @@ public class Events implements Listener {
         if (User.getbyPlayer(p) == null) {
             User.users.put(p.getName(), new User(p.getName()));
         }
-        if (User.getbyPlayer(p).getIsland() != null) {
-            if (User.getbyPlayer(p).getChat()) {
+        User u = User.getbyPlayer(p);
+        if (u.getIsland() != null) {
+            if (u.getChat()) {
                 e.setCancelled(true);
-                for (String player : User.getbyPlayer(p).getIsland().getPlayers()) {
+                for (String player : u.getIsland().getPlayers()) {
                     Player member = Bukkit.getPlayer(player);
                     if (member != null) {
                         member.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.IslandChatFormat").replace("%player%", p.getName()).replace("%message%", e.getMessage())));
@@ -133,7 +134,7 @@ public class Events implements Listener {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
                 if (!u.getIsland().isblockinisland(e.getBlock().getX(), e.getBlock().getZ())) {
-                    if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+                    if (u.getBypass()) return;
                     e.setCancelled(true);
                 }else{
                     if(e.getBlock().getType().name().endsWith("ORE")){
@@ -172,7 +173,7 @@ public class Events implements Listener {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
                 if (!u.getIsland().isblockinisland(e.getBlockPlaced().getX(), e.getBlockPlaced().getZ())) {
-                    if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+                    if (u.getBypass()) return;
                     e.setCancelled(true);
                 }else{
                     if(u.getIsland().getBuilder().getCurrent() != 10000){
@@ -195,7 +196,7 @@ public class Events implements Listener {
                 User u = User.getbyPlayer(e.getPlayer());
                 if (u.getIsland() != null) {
                     if (!u.getIsland().isblockinisland(e.getClickedBlock().getX(), e.getClickedBlock().getZ())) {
-                        if (User.getbyPlayer(e.getPlayer()).getBypass()) return;
+                        if (u.getBypass()) return;
                         e.setCancelled(true);
                     }
                 }
@@ -224,8 +225,9 @@ public class Events implements Listener {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    p.teleport(User.getbyPlayer(p).getIsland().gethome());
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    p.teleport(u.getIsland().gethome());
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 }
             }
