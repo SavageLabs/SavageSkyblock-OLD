@@ -4,10 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
 
-    public static ArrayList<User> users = new ArrayList<>();
+    public static HashMap<String, User> users = new HashMap<>();
     private String player;
     private Island island;
     private Boolean chat = false;
@@ -20,21 +21,11 @@ public class User {
     }
 
     public static User getbyPlayer(Player player) {
-        for (User user : users) {
-            if (user.getPlayerName().equals(player.getName())) {
-                return user;
-            }
-        }
-        return null;
+        return users.get(player.getName());
     }
 
     public static User getbyPlayer(String player) {
-        for (User user : users) {
-            if (user.getPlayerName().equals(player)) {
-                return user;
-            }
-        }
-        return null;
+        return users.get(player);
     }
 
     public Boolean getFalldmg() {

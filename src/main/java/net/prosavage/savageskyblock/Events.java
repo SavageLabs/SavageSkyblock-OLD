@@ -33,7 +33,7 @@ public class Events implements Listener {
     public void ontalk(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         if (User.getbyPlayer(p) == null) {
-            User.users.add(new User(p.getName()));
+            User.users.put(p.getName(), new User(p.getName()));
         }
         if (User.getbyPlayer(p).getIsland() != null) {
             if (User.getbyPlayer(p).getChat()) {
@@ -63,7 +63,7 @@ public class Events implements Listener {
         Player p = e.getEntity().getKiller();
         if (p == null) return;
         if (User.getbyPlayer(p) == null) {
-            User.users.add(new User(p.getName()));
+            User.users.put(p.getName(), new User(p.getName()));
         }
         User u = User.getbyPlayer(p);
         if (u.getIsland() != null) {
@@ -85,7 +85,7 @@ public class Events implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer()), 20);
         if (User.getbyPlayer(e.getPlayer()) == null) {
-            User.users.add(new User(e.getPlayer().getName()));
+            User.users.put(e.getPlayer().getName(), new User(e.getPlayer().getName()));
         }
     }
 
@@ -93,7 +93,7 @@ public class Events implements Listener {
     public void onentitykill(EntityDeathEvent e) {
         if (e.getEntity().getKiller() != null) {
             if (User.getbyPlayer(e.getEntity().getKiller()) == null) {
-                User.users.add(new User(e.getEntity().getKiller().getName()));
+                    User.users.put(e.getEntity().getKiller().getName(), new User((e.getEntity().getKiller().getName())));
             }
             User u = User.getbyPlayer(e.getEntity().getKiller());
             if (u.getIsland() != null) {
@@ -112,7 +112,7 @@ public class Events implements Listener {
     public void onfish(PlayerFishEvent e) {
         if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             if (User.getbyPlayer(e.getPlayer()) == null) {
-                User.users.add(new User(e.getPlayer().getName()));
+                User.users.put(e.getPlayer().getName(), new User(e.getPlayer().getName()));
             }
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
@@ -222,7 +222,7 @@ public class Events implements Listener {
                 //Send to island home
                 Player p = e.getPlayer();
                 if (User.getbyPlayer(p) == null) {
-                    User.users.add(new User(p.getName()));
+                    User.users.put(p.getName(), new User(p.getName()));
                 }
                 if (User.getbyPlayer(p).getIsland() != null) {
                     p.teleport(User.getbyPlayer(p).getIsland().gethome());
@@ -239,7 +239,7 @@ public class Events implements Listener {
             Player dmg = (Player) e.getDamager();
             User u = User.getbyPlayer(p);
             if (u == null) {
-                User.users.add(new User(p.getName()));
+                User.users.put(p.getName(), new User(p.getName()));
             }
             if (IslandManager.getislandviablock(e.getEntity().getLocation().getBlock()) != null) {
                 e.setCancelled(true);

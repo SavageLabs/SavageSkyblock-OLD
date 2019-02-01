@@ -483,7 +483,7 @@ public class Island {
 
     public boolean canbuild(Player player) {
         if (User.getbyPlayer(player.getName()) == null) {
-            User.users.add(new User(player.getName()));
+            User.users.put(player.getName(), new User(player.getName()));
         }
         User u = User.getbyPlayer(player.getName());
         if (u.getBypass()) return true;
@@ -557,7 +557,7 @@ public class Island {
     public void addUser(String player) {
         players.add(player);
         if (User.getbyPlayer(player) == null) {
-            User.users.add(new User(player));
+            User.users.put(player, new User(player));
         }
         User.getbyPlayer(player).setIsland(this);
     }
@@ -565,7 +565,7 @@ public class Island {
     public void removeUser(String player) {
         players.remove(player);
         if (User.getbyPlayer(player) == null) {
-            User.users.add(new User(player));
+            User.users.put(player, new User(player));
         }
         User.getbyPlayer(player).setIsland(null);
     }
