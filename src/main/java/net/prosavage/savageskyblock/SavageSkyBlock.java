@@ -237,7 +237,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     }
 
     private void makeworld() {
-        String worldname = "EpicSkyblock";
+        String worldname = "SavageSkyblock";
         if (Bukkit.getWorld(worldname) == null) {
             WorldCreator wc = new WorldCreator(worldname);
             wc.generateStructures(false);
