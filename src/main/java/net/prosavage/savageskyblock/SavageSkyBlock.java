@@ -72,6 +72,25 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new Events(), this);
     }
 
+    public Location getnewhome(Location loc, Island island) {
+        if (issafe(getWorld().getHighestBlockAt(loc))) {
+            return getWorld().getHighestBlockAt(loc).getLocation();
+        }
+
+        for (double X = island.pos1.getX(); X <= island.pos2.getX(); X++) {
+            for (double Z = island.pos1.getZ(); Z <= island.pos2.getZ(); Z++) {
+                if(issafe(getWorld().getHighestBlockAt((int)X, (int)Z))){
+                    return getWorld().getHighestBlockAt((int)X, (int)Z).getLocation();
+                }
+            }
+        }
+        return null;//Regen island
+    }
+
+    public boolean issafe(Block b) {
+        return b.getType() != Material.AIR;
+    }
+
     public void sendIslandBoarder(Player p) {
         if (p.getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
             Island island = IslandManager.getislandviablock(p.getLocation().getBlock());
@@ -141,7 +160,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
                 fromLoc.getWorld().getBlockAt(fromLoc.getBlockX(), fromLoc.getBlockY(), fromLoc.getBlockZ() - 1)));
 
         for (Block b : blocksSet) {
-            if (b.getType().toString().contains("WATER"))return true;
+            if (b.getType().toString().contains("WATER")) return true;
             continue;
         }
         return false;
@@ -321,53 +340,53 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     }
 
     private void load() {
-            File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
-            if (im.exists()) {
-                YamlConfiguration config = YamlConfiguration.loadConfiguration(im);
-                if (config.contains("NextLocation")) {
-                    String[] Home = config.getString("NextLocation").split(",");
-                    Location home = new Location(Bukkit.getWorld(Home[0]), Double.parseDouble(Home[1]), Double.parseDouble(Home[2]), Double.parseDouble(Home[3]));
-                    IslandManager.setNextloc(home);
-                }
-                if (config.contains("NextID")) {
-                    IslandManager.setNextid(Integer.parseInt(config.getString("NextID")));
-                }
-                if (config.contains("Direction")) {
-                    IslandManager.setDirection(Direction.valueOf(config.getString("Direction")));
-                }
-                im.delete();
+        File im = new File("plugins//" + getDescription().getName() + "//IslandManager.yml");
+        if (im.exists()) {
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(im);
+            if (config.contains("NextLocation")) {
+                String[] Home = config.getString("NextLocation").split(",");
+                Location home = new Location(Bukkit.getWorld(Home[0]), Double.parseDouble(Home[1]), Double.parseDouble(Home[2]), Double.parseDouble(Home[3]));
+                IslandManager.setNextloc(home);
             }
-            File DIR = new File("plugins//" + getDescription().getName() + "//Islands");
-            if (DIR.exists()) {
-                File[] files = DIR.listFiles();
-                for (File file : files) {
-                    YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-                    String owner = config.getString("Owner");
-                    String[] Home = config.getString("Home").split(",");
-                    String[] Pos1 = config.getString("Pos1").split(",");
-                    String[] Pos2 = config.getString("Pos2").split(",");
-                    String[] Maxpos1 = config.getString("Maxpos1").split(",");
-                    String[] Maxpos2 = config.getString("Maxpos2").split(",");
-                    String[] Center = config.getString("Center").split(",");
-                    Location home = new Location(Bukkit.getWorld(Home[0]), Double.parseDouble(Home[1]), Double.parseDouble(Home[2]), Double.parseDouble(Home[3]));
-                    Location pos1 = new Location(Bukkit.getWorld(Pos1[0]), Double.parseDouble(Pos1[1]), Double.parseDouble(Pos1[2]), Double.parseDouble(Pos1[3]));
-                    Location pos2 = new Location(Bukkit.getWorld(Pos2[0]), Double.parseDouble(Pos2[1]), Double.parseDouble(Pos2[2]), Double.parseDouble(Pos2[3]));
-                    Location maxpos1 = new Location(Bukkit.getWorld(Maxpos1[0]), Double.parseDouble(Maxpos1[1]), Double.parseDouble(Maxpos1[2]), Double.parseDouble(Maxpos1[3]));
-                    Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
-                    Location center = new Location(Bukkit.getWorld(Center[0]), Double.parseDouble(Center[1]), Double.parseDouble(Center[2]), Double.parseDouble(Center[3]));
-                    Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, center, false);
-                    island.setCrystals(config.getInt("Crystals"));
-                    for (String member : config.getStringList("Members")) {
-                        if (!member.equals(owner)) {
-                            island.addUser(member);
-                        }
+            if (config.contains("NextID")) {
+                IslandManager.setNextid(Integer.parseInt(config.getString("NextID")));
+            }
+            if (config.contains("Direction")) {
+                IslandManager.setDirection(Direction.valueOf(config.getString("Direction")));
+            }
+            im.delete();
+        }
+        File DIR = new File("plugins//" + getDescription().getName() + "//Islands");
+        if (DIR.exists()) {
+            File[] files = DIR.listFiles();
+            for (File file : files) {
+                YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+                String owner = config.getString("Owner");
+                String[] Home = config.getString("Home").split(",");
+                String[] Pos1 = config.getString("Pos1").split(",");
+                String[] Pos2 = config.getString("Pos2").split(",");
+                String[] Maxpos1 = config.getString("Maxpos1").split(",");
+                String[] Maxpos2 = config.getString("Maxpos2").split(",");
+                String[] Center = config.getString("Center").split(",");
+                Location home = new Location(Bukkit.getWorld(Home[0]), Double.parseDouble(Home[1]), Double.parseDouble(Home[2]), Double.parseDouble(Home[3]));
+                Location pos1 = new Location(Bukkit.getWorld(Pos1[0]), Double.parseDouble(Pos1[1]), Double.parseDouble(Pos1[2]), Double.parseDouble(Pos1[3]));
+                Location pos2 = new Location(Bukkit.getWorld(Pos2[0]), Double.parseDouble(Pos2[1]), Double.parseDouble(Pos2[2]), Double.parseDouble(Pos2[3]));
+                Location maxpos1 = new Location(Bukkit.getWorld(Maxpos1[0]), Double.parseDouble(Maxpos1[1]), Double.parseDouble(Maxpos1[2]), Double.parseDouble(Maxpos1[3]));
+                Location maxpos2 = new Location(Bukkit.getWorld(Maxpos2[0]), Double.parseDouble(Maxpos2[1]), Double.parseDouble(Maxpos2[2]), Double.parseDouble(Maxpos2[3]));
+                Location center = new Location(Bukkit.getWorld(Center[0]), Double.parseDouble(Center[1]), Double.parseDouble(Center[2]), Double.parseDouble(Center[3]));
+                Island island = new Island(owner, home, pos1, pos2, maxpos1, maxpos2, center, false);
+                island.setCrystals(config.getInt("Crystals"));
+                for (String member : config.getStringList("Members")) {
+                    if (!member.equals(owner)) {
+                        island.addUser(member);
                     }
-                    island.setSize(config.getInt("SizeLevel"));
-                    island.setMemberCount(config.getInt("MemberLevel"));
-                    island.setWarpCount(config.getInt("WarpsLevel"));
-                    IslandManager.addIsland(island);
-                    file.delete();
                 }
+                island.setSize(config.getInt("SizeLevel"));
+                island.setMemberCount(config.getInt("MemberLevel"));
+                island.setWarpCount(config.getInt("WarpsLevel"));
+                IslandManager.addIsland(island);
+                file.delete();
             }
+        }
     }
 }

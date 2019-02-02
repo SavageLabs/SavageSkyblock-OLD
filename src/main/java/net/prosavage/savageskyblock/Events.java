@@ -227,7 +227,7 @@ public class Events implements Listener {
                 }
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    p.teleport(u.getIsland().gethome());
+                    u.getIsland().teleporthome(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 }
             }

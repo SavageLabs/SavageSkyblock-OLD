@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -102,6 +103,21 @@ public class Island {
         }
         SavageSkyBlock.getSkyblock.addMissions(this);
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
+    }
+
+    public void teleporthome(LivingEntity e){
+        if(SavageSkyBlock.getSkyblock.issafe(this.home.getBlock())){
+            e.teleport(this.home);
+        }else{
+            Location loc = SavageSkyBlock.getSkyblock.getnewhome(this.home, this);
+            if(loc != null){
+                setHome(loc);
+                e.teleport(this.home);
+            }else{
+                regen();
+                teleporthome(e);
+            }
+        }
     }
 
     public Builder getBuilder() {

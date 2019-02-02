@@ -47,7 +47,7 @@ public class IslandManager {
                 island.setowner(player);
                 island.loadSchematic();
                 island.addUser(player.getName());
-                player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                island.teleporthome(player);
                 SavageSkyBlock.getSkyblock.sendIslandBoarder(player);
                 return;
             }
@@ -63,7 +63,7 @@ public class IslandManager {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
-                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -77,7 +77,7 @@ public class IslandManager {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
-                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -91,7 +91,7 @@ public class IslandManager {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
-                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -105,7 +105,7 @@ public class IslandManager {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
-                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -119,7 +119,7 @@ public class IslandManager {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, 0, 0.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
                     User.getbyPlayer(player).setIsland(island);
-                    player.teleport(User.getbyPlayer(player).getIsland().gethome());
+                    island.teleporthome(player);
                     return;
                 }
             }
