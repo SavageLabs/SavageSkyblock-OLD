@@ -137,8 +137,9 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    User.getbyPlayer(p).getIsland().regen();
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    u.getIsland().regen();
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("RegeneratingIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
                 }
@@ -201,8 +202,9 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
-                    User.getbyPlayer(p).setBypass(!User.getbyPlayer(p).getBypass());
-                    if (User.getbyPlayer(p).getBypass()) {
+                    User u = User.getbyPlayer(p);
+                    u.setBypass(!u.getBypass());
+                    if (u.getBypass()) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("BypassEnabled").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     } else {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("BypassDisabled").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -217,8 +219,9 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    if (User.getbyPlayer(p).getIsland().getFlyBoosterActive()) {
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    if (u.getIsland().getFlyBoosterActive()) {
                         if (p.getAllowFlight()) {
                             p.setAllowFlight(false);
                             p.setFlying(false);
@@ -239,9 +242,10 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    User.getbyPlayer(p).setChat(!User.getbyPlayer(p).getChat());
-                    if (User.getbyPlayer(p).getChat()) {
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    u.setChat(!u.getChat());
+                    if (u.getChat()) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("ChatEnabled").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     } else {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("ChatDisabled").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -255,8 +259,9 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    p.openInventory(UpgradesGUI.inv(User.getbyPlayer(p).getIsland()));
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    p.openInventory(UpgradesGUI.inv(u.getIsland()));
                     return true;
                 }
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -266,8 +271,9 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    p.openInventory(BoostersGUI.inv(User.getbyPlayer(p).getIsland()));
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    p.openInventory(BoostersGUI.inv(u.getIsland()));
                     return true;
                 }
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -288,12 +294,13 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    if (User.getbyPlayer(p).getIsland().getownername().equals(p.getName())) {
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    if (u.getIsland().getownername().equals(p.getName())) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TransferOwnership").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    User.getbyPlayer(p).getIsland().removeUser(p.getName());
+                    u.getIsland().removeUser(p.getName());
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("LeftIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
                 }
@@ -304,10 +311,11 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    if (User.getbyPlayer(p).getIsland().getownername().equals(p.getName())) {
-                        if (IslandManager.getislandviablock(p.getLocation().getBlock()) == User.getbyPlayer(p).getIsland()) {
-                            User.getbyPlayer(p).getIsland().setHome(p.getLocation());
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    if (u.getIsland().getownername().equals(p.getName())) {
+                        if (IslandManager.getislandviablock(p.getLocation().getBlock()) == u.getIsland()) {
+                            u.getIsland().setHome(p.getLocation());
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetHome").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
                         }
@@ -324,8 +332,9 @@ class Command implements CommandExecutor {
                 if (User.getbyPlayer(p) == null) {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
-                if (User.getbyPlayer(p).getIsland() != null) {
-                    Island island = User.getbyPlayer(p).getIsland();
+                User u = User.getbyPlayer(p);
+                if (u.getIsland() != null) {
+                    Island island = u.getIsland();
                     if (island.getownername().equals(p.getName())) {
                         IslandManager.deleteIsland(p);
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("IslandDeleted").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -415,9 +424,6 @@ class Command implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerNotFound").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(player) == null) {
-                        User.users.put(player.getName(), new User(player.getName()));
-                    }
                     User u1 = User.getbyPlayer(player);
                     if (u.getIsland() != null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyHaveAnIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -458,21 +464,19 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
+                    User u = User.getbyPlayer(p);
                     String player = args[1];
-                    if (User.getbyPlayer(player) == null) {
-                        User.users.put(player, new User(player));
-                    }
-                    if (User.getbyPlayer(p).getIsland() == null) {
+                    if (u.getIsland() == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(p).getIsland().getownername().equalsIgnoreCase(p.getName())) {
+                    if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
                         if (p.getName().equalsIgnoreCase(player)) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CannotGiveYourselfLeader").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
                         }
-                        if (User.getbyPlayer(p).getIsland().getPlayers().contains(player)) {
-                            User.getbyPlayer(p).getIsland().setowner(player);
+                        if (u.getIsland().getPlayers().contains(player)) {
+                            u.getIsland().setowner(player);
                             if (Bukkit.getPlayer(player) != null) {
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("YouHaveBeenGivenOwner").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             }
@@ -496,11 +500,13 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
+                    User u = User.getbyPlayer(p);
                     String player = args[1];
                     if (User.getbyPlayer(player) == null) {
                         User.users.put(player, new User(player));
                     }
-                    if (User.getbyPlayer(p).getIsland() == null) {
+                    User user = User.getbyPlayer(player);
+                    if (u.getIsland() == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
@@ -508,12 +514,12 @@ class Command implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CannotKickYourself").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(p).getIsland().getownername().equalsIgnoreCase(player)) {
+                    if (u.getIsland().getownername().equalsIgnoreCase(player)) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CannotKickTheOwner").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     }
-                    if (User.getbyPlayer(p).getIsland().getPlayers().contains(player)) {
-                        User.getbyPlayer(player).getIsland().getPlayers().remove(player);
-                        User.getbyPlayer(player).setIsland(null);
+                    if (u.getIsland().getPlayers().contains(player)) {
+                        user.getIsland().getPlayers().remove(player);
+                        user.setIsland(null);
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("KickedPlayer").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", player)));
                         if (Bukkit.getPlayer(player) != null) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("Kicked").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
@@ -533,6 +539,7 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
+                    User u = User.getbyPlayer(p);
                     Player player = Bukkit.getPlayer(args[1]);
                     if (player == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerNotFound").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -541,7 +548,8 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(player) == null) {
                         User.users.put(player.getName(), new User(player.getName()));
                     }
-                    if (User.getbyPlayer(p).getIsland() == null) {
+                    User user = User.getbyPlayer(player);
+                    if (u.getIsland() == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
@@ -549,8 +557,8 @@ class Command implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CannotInviteYourself").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(player).getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
-                        User.getbyPlayer(player).getInvites().remove(User.getbyPlayer(p).getIsland().getownername());
+                    if (user.getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
+                        user.getInvites().remove(User.getbyPlayer(p).getIsland().getownername());
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("InviteRevoked").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", player.getName())));
                         return true;
                     } else {
@@ -568,17 +576,16 @@ class Command implements CommandExecutor {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
+                    User u = User.getbyPlayer(p);
                     if (User.getbyPlayer(player) == null) {
                         User.users.put(player.getName(), new User(player.getName()));
                     }
+                    User user = User.getbyPlayer(player);
                     if (player == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerNotFound").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(player) == null) {
-                        User.users.put(player.getName(), new User(player.getName()));
-                    }
-                    if (User.getbyPlayer(p).getIsland() == null) {
+                    if (u.getIsland() == null) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
@@ -586,7 +593,7 @@ class Command implements CommandExecutor {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CannotInviteYourself").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
-                    if (User.getbyPlayer(player).getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
+                    if (user.getInvites().contains(User.getbyPlayer(p).getIsland().getownername())) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("HasInvite").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
