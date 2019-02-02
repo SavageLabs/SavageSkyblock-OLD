@@ -37,33 +37,6 @@ public class NMS_v1_13_R1 {
         return level;
     }
 
-    public static void pasteSchematic(File f, Location loc) {
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            NBTTagCompound nbt = NBTCompressedStreamTools.a(fis);
-            short width = nbt.getShort("Width");
-            short height = nbt.getShort("Height");
-            short length = nbt.getShort("Length");
-            byte[] blocks = nbt.getByteArray("Blocks");
-            fis.close();
-            //paste
-            for (int x = 0; x < width; ++x) {
-                for (int y = 0; y < height; ++y) {
-                    for (int z = 0; z < length; ++z) {
-                        int index = y * width * length + z * width + x;
-                        final Location l = new Location(loc.getWorld(), x + loc.getX(), y + loc.getY(), z + loc.getZ());
-                        int b = blocks[index] & 0xFF;//make the block unsigned, so that blocks with an id over 127, like quartz and emerald, can be pasted
-                        final Block block = l.getBlock();
-                        Material m = Material.getMaterial(b);
-                        block.setType(m);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {
         EntityPlayer entityPlayer = ((CraftPlayer) p).getHandle();
         WorldBorder worldBorder = new WorldBorder();

@@ -38,33 +38,6 @@ public class NMS_v1_8_R3 {
         return level;
     }
 
-    public static void pasteSchematic(File f, Location loc) {
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            NBTTagCompound nbt = NBTCompressedStreamTools.a(fis);
-            short width = nbt.getShort("Width");
-            short height = nbt.getShort("Height");
-            short length = nbt.getShort("Length");
-            byte[] blocks = nbt.getByteArray("Blocks");
-            fis.close();
-            //paste
-            for (int x = 0; x < width; ++x) {
-                for (int y = 0; y < height; ++y) {
-                    for (int z = 0; z < length; ++z) {
-                        int index = y * width * length + z * width + x;
-                        final Location l = new Location(loc.getWorld(), x + loc.getX(), y + loc.getY(), z + loc.getZ());
-                        int b = blocks[index] & 0xFF;//make the block unsigned, so that blocks with an id over 127, like quartz and emerald, can be pasted
-                        final Block block = l.getBlock();
-                        Material m = Material.getMaterial(b);
-                        block.setType(m);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void setBlockSuperFast(int X, int Y, int Z, int blockId, byte data, boolean applyPhysics) {
         net.minecraft.server.v1_8_R3.World w = ((org.bukkit.craftbukkit.v1_8_R3.CraftWorld) SavageSkyBlock.getSkyblock.getWorld()).getHandle();
         net.minecraft.server.v1_8_R3.Chunk chunk = w.getChunkAt(X >> 4, Z >> 4);

@@ -1,5 +1,12 @@
 package net.prosavage.savageskyblock;
 
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.MaxChangedBlocksException;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.schematic.SchematicFormat;
+import com.sk89q.worldedit.world.DataException;
 import net.prosavage.savageskyblock.Missions.*;
 import net.prosavage.savageskyblock.NMS.*;
 import org.bukkit.Bukkit;
@@ -8,6 +15,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Island {
@@ -27,12 +36,10 @@ public class Island {
     private Integer Farming = 0;
     private Integer Xp = 0;
     private Integer Fly = 0;
-    private Integer MobCoins = 0;
     private Integer SpawnerCode;
     private Integer FarmingCode;
     private Integer XPCode;
     private Integer FlyCode;
-    private Integer MobcoinsCode;
     private Integer Size = 1;
     private Integer MemberCount = 1;
     private Integer WarpCount = 1;
@@ -302,14 +309,6 @@ public class Island {
         return Fly;
     }
 
-    public Integer getMobCoins() {
-        return MobCoins;
-    }
-
-    public Integer getSpawnerCode() {
-        return SpawnerCode;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -362,35 +361,16 @@ public class Island {
         }, 20L, 20L);
     }
 
-    public void startmobcoinscountdown(int i) {
-        MobCoins = i;
-        MobcoinsCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
-            if (MobCoins <= 0) {
-                Bukkit.getScheduler().cancelTask(MobcoinsCode);
-                MobCoinsBoosterActive = false;
-            } else {
-                this.MobCoins--;
-            }
-        }, 20L, 20L);
-    }
-
     public void loadSchematic() {
-        if (Version.getVersion().equals(Version.v1_8_R2))
-            NMS_v1_8_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_8_R3))
-            NMS_v1_8_R3.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_9_R1))
-            NMS_v1_9_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_10_R1))
-            NMS_v1_10_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_11_R1))
-            NMS_v1_11_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_12_R1))
-            NMS_v1_12_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_13_R1))
-            NMS_v1_13_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
-        if (Version.getVersion().equals(Version.v1_13_R2))
-            NMS_v1_13_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone().add(-3, -9, -1));
+        WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+        File schematic = ConfigManager.getInstance().getSchematicFile();
+        EditSession editSession = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(SavageSkyBlock.getSkyblock.getWorld()), 10000);
+        try {
+            SchematicFormat.getFormat(schematic).load(schematic).paste(editSession, new Vector(this.home.getX(), this.home.getY(), this.home.getZ()), true, false);
+            editSession.flushQueue();
+        } catch (MaxChangedBlocksException | DataException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteblocks() {
@@ -462,7 +442,6 @@ public class Island {
                 User.getbyPlayer(player).setIsland(null);
             }
         }
-        if (this.MobcoinsCode != null) Bukkit.getScheduler().cancelTask(this.MobcoinsCode);
         if (this.FarmingCode != null) Bukkit.getScheduler().cancelTask(this.FarmingCode);
         if (this.XPCode != null) Bukkit.getScheduler().cancelTask(this.XPCode);
         if (this.SpawnerCode != null) Bukkit.getScheduler().cancelTask(this.SpawnerCode);
@@ -520,14 +499,6 @@ public class Island {
 
     public void setFlyBoosterActive(Boolean flyBoosterActive) {
         FlyBoosterActive = flyBoosterActive;
-    }
-
-    public Boolean getMobCoinsBoosterActive() {
-        return MobCoinsBoosterActive;
-    }
-
-    public void setMobCoinsBoosterActive(Boolean mobCoinsBoosterActive) {
-        MobCoinsBoosterActive = mobCoinsBoosterActive;
     }
 
     public String getownername() {
