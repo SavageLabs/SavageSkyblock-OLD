@@ -131,12 +131,13 @@ public class IslandManager {
     }
 
     public static void deleteIsland(Player player) {
-        for (String players : User.getbyPlayer(player).getIsland().getPlayers()) {
+        User u = User.getbyPlayer(player);
+        for (String players : u.getIsland().getPlayers()) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawn " + players);
         }
-        User.getbyPlayer(player).getIsland().delete();
+        u.getIsland().delete();
         player.getInventory().clear();
-        User.getbyPlayer(player).setIsland(null);
+        u.setIsland(null);
     }
 
     public static Island getislandviablock(Block b) {

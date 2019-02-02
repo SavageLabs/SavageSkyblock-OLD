@@ -72,23 +72,26 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new Events(), this);
     }
 
-    public Location getnewhome(Location loc, Island island) {
-        if (issafe(getWorld().getHighestBlockAt(loc))) {
-            return getWorld().getHighestBlockAt(loc).getLocation();
+    public Location getnewhome(Island island, Location loc){
+        Block b;
+        b = getWorld().getHighestBlockAt(loc);
+        if(issafe(b.getLocation())){
+            return b.getLocation().add(0.5, 0, 0.5);
         }
 
-        for (double X = island.pos1.getX(); X <= island.pos2.getX(); X++) {
-            for (double Z = island.pos1.getZ(); Z <= island.pos2.getZ(); Z++) {
-                if(issafe(getWorld().getHighestBlockAt((int)X, (int)Z))){
-                    return getWorld().getHighestBlockAt((int)X, (int)Z).getLocation();
+        for (double X = island.getPos1().getX(); X <= island.getPos2().getX(); X++) {
+            for (double Z = island.getPos1().getZ(); Z <= island.getPos2().getZ(); Z++) {
+                b = getWorld().getHighestBlockAt((int)X, (int)Z);
+                if(issafe(b.getLocation())){
+                    return b.getLocation().add(0.5, 0, 0.5);
                 }
             }
         }
-        return null;//Regen island
+        return null;
     }
 
-    public boolean issafe(Block b) {
-        return b.getType() != Material.AIR;
+    public boolean issafe(Location loc){
+        return !loc.clone().add(0, -1, 0).getBlock().getType().equals(Material.AIR);
     }
 
     public void sendIslandBoarder(Player p) {

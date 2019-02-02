@@ -95,7 +95,6 @@ public class Island {
                 }
             }
         }
-
         addUser(owner);
         //Loads island.schematic
         if (schem) {
@@ -106,16 +105,17 @@ public class Island {
     }
 
     public void teleporthome(LivingEntity e){
-        if(SavageSkyBlock.getSkyblock.issafe(this.home.getBlock())){
+        if(SavageSkyBlock.getSkyblock.issafe(this.home)) {
             e.teleport(this.home);
         }else{
-            Location loc = SavageSkyBlock.getSkyblock.getnewhome(this.home, this);
+            // Not safe
+            Location loc = SavageSkyBlock.getSkyblock.getnewhome(this, this.home);
             if(loc != null){
-                setHome(loc);
+                this.home = loc;
                 e.teleport(this.home);
             }else{
                 regen();
-                teleporthome(e);
+                e.teleport(this.home);
             }
         }
     }
