@@ -8,6 +8,19 @@
     <artifactId>SavageSkyblock</artifactId>
     <version>1.0-BETA</version>
 
+ <repositories>
+  <repository>
+    <id>sk89q-snapshots</id>
+    <url>http://maven.sk89q.com/artifactory/repo</url>
+    <releases>
+      <enabled>true</enabled> <!-- releases enabled: this specific repository also hosts release versions -->
+    </releases>
+    <snapshots>
+      <enabled>true</enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
+    </snapshots>
+  </repository>
+</repositories>
+         
     <dependencies>
         <dependency>
             <groupId>org.spigotmc.........</groupId>
