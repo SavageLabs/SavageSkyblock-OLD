@@ -392,8 +392,8 @@ class Command implements CommandExecutor {
                     return true;
                 }
             }
-            if (args[0].equalsIgnoreCase("version")) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lPlugin Name : &eEpicSkyBlock"));
+            if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("about") ) {
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lPlugin Name : &eSavageSkyBlock"));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lPlugin Version : &e" + plugin.getDescription().getVersion()));
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6&lPlugin Author : &ePeaches_MLG"));
                 return true;
