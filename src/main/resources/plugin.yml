@@ -2,7 +2,6 @@ name: SavageSkyblock
 version: 1.9.5-b
 main: net.prosavage.savageskyblock.SavageSkyBlock
 author: Peaches_MLG
-depend: [WorldEdit]
 commands:
   Island:
     aliases: [is]

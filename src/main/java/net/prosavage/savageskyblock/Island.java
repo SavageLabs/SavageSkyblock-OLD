@@ -1,12 +1,5 @@
 package net.prosavage.savageskyblock;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.schematic.SchematicFormat;
-import com.sk89q.worldedit.world.DataException;
 import net.prosavage.savageskyblock.Missions.*;
 import net.prosavage.savageskyblock.NMS.*;
 import org.bukkit.Bukkit;
@@ -16,8 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Island {
@@ -378,15 +369,14 @@ public class Island {
     }
 
     public void loadSchematic() {
-        WorldEditPlugin worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-        File schematic = ConfigManager.getInstance().getSchematicFile();
-        EditSession editSession = worldEditPlugin.getWorldEdit().getEditSessionFactory().getEditSession(new BukkitWorld(SavageSkyBlock.getSkyblock.getWorld()), 10000);
-        try {
-            SchematicFormat.getFormat(schematic).load(schematic).paste(editSession, new Vector(this.home.getX(), this.home.getY(), this.home.getZ()), true, false);
-            editSession.flushQueue();
-        } catch (MaxChangedBlocksException | DataException | IOException e) {
-            e.printStackTrace();
-        }
+        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_8_R3))NMS_v1_8_R3.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_9_R1))NMS_v1_9_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_10_R1))NMS_v1_10_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_12_R1))NMS_v1_12_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_13_R1))NMS_v1_13_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        if (Version.getVersion().equals(Version.v1_13_R2))NMS_v1_13_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
     }
 
     public void deleteblocks() {

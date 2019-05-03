@@ -18,6 +18,36 @@ import java.util.Map;
 
 public class NMS_v1_11_R1 {
 
+    public static void pasteSchematic(File f, Location loc) {
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            NBTTagCompound nbt = NBTCompressedStreamTools.a(fis);
+            short width = nbt.getShort("Width");
+            short height = nbt.getShort("Height");
+            short length = nbt.getShort("Length");
+            byte[] blocks = nbt.getByteArray("Blocks");
+
+
+            loc.subtract(width/2, 0, length/2);
+            fis.close();
+            //paste
+            for (int x = 0; x < width; ++x) {
+                for (int y = 0; y < height; ++y) {
+                    for (int z = 0; z < length; ++z) {
+                        int index = y * width * length + z * width + x;
+                        final Location l = new Location(loc.getWorld(), x + loc.getX(), y + loc.getY(), z + loc.getZ());
+                        int b = blocks[index] & 0xFF;//make the block unsigned, so that blocks with an id over 127, like quartz and emerald, can be pasted
+                        final Block block = l.getBlock();
+                        Material m = Material.getMaterial(b);
+                        block.setType(m);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static int calculate(Object object, Island island) {
         int level = 0;
         CraftChunk chunk = (CraftChunk) object;

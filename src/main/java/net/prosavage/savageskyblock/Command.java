@@ -384,6 +384,7 @@ class Command implements CommandExecutor {
                 }
                 if (User.getbyPlayer(p).getIsland() == null) {
                     IslandManager.createIsland(p);
+                    SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
                     SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lIsland Created", 20, 40, 20);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("IslandCreated").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
