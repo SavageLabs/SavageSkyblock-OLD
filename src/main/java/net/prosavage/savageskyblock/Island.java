@@ -369,14 +369,7 @@ public class Island {
     }
 
     public void loadSchematic() {
-        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_8_R3))NMS_v1_8_R3.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_9_R1))NMS_v1_9_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_10_R1))NMS_v1_10_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_12_R1))NMS_v1_12_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_13_R1))NMS_v1_13_R1.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
-        if (Version.getVersion().equals(Version.v1_13_R2))NMS_v1_13_R2.pasteSchematic(ConfigManager.getInstance().getSchematicFile(), this.home.clone());
+        SavageSkyBlock.getSkyblock.getSchematic().pasteSchematic(center);
     }
 
     public void deleteblocks() {

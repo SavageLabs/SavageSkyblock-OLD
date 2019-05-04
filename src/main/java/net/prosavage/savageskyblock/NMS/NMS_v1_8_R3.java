@@ -19,46 +19,6 @@ import java.util.Map;
 
 public class NMS_v1_8_R3 {
 
-    public static void pasteSchematic(File f, Location loc) {
-        try {
-
-            FileInputStream fis = new FileInputStream(f);
-
-            NBTTagCompound nbtdata = NBTCompressedStreamTools.a(fis);
-
-            short width = nbtdata.getShort("Width");
-            short height = nbtdata.getShort("Height");
-            short length = nbtdata.getShort("Length");
-
-            byte[] blocks = nbtdata.getByteArray("Blocks");
-            byte[] data = nbtdata.getByteArray("Data");
-
-            //TODO Support Entities and TileEntities
-            NBTTagList entities = nbtdata.getList("Entities", 100);
-            NBTTagList tileentities = nbtdata.getList("TileEntities", 100);
-
-
-            loc.subtract(width/2, 0, length/2);
-            fis.close();
-            //paste
-            for (int x = 0; x < width; ++x) {
-                for (int y = 0; y < height; ++y) {
-                    for (int z = 0; z < length; ++z) {
-                        int index = y * width * length + z * width + x;
-                        final Location l = new Location(loc.getWorld(), x + loc.getX(), y + loc.getY(), z + loc.getZ());
-                        int b = blocks[index] & 0xFF;//make the block unsigned, so that blocks with an id over 127, like quartz and emerald, can be pasted
-                        final Block block = l.getBlock();
-                        Material m = Material.getMaterial(b);
-                        block.setType(m);
-                        block.setData(data[index]);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static int calculate(Object object, Island island) {
         int level = 0;
         CraftChunk chunk = (CraftChunk) object;

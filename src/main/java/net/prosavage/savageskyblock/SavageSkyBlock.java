@@ -15,6 +15,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,8 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     private final static int CENTER_PX = 154;
     public static SavageSkyBlock getSkyblock;
     private World world;
+
+    private Schematic schematic;
 
     public SavageSkyBlock() {
     }
@@ -40,6 +43,11 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         saveint();
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> calculateworth(), 0, 20 * 60);
         new Metrics(this);
+        try {
+            this.schematic = Schematic.loadSchematic(ConfigManager.getInstance().getSchematicFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.print("-------------------------------");
         System.out.print("");
         System.out.print(getDescription().getName() + " Enabled!");
@@ -391,5 +399,9 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
                 file.delete();
             }
         }
+    }
+
+    public Schematic getSchematic() {
+        return schematic;
     }
 }
