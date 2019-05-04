@@ -15,16 +15,16 @@ public class Schematic {
     private byte[] blocks;
     private byte[] data;
     private short width;
-    private short lenght;
+    private short length;
     private short height;
     private List<Tag> tileEntities;
     private List<Tag> entities;
 
-    public Schematic(byte[] blocks, byte[] data, short width, short lenght, short height, List<Tag> tileEntities, List<Tag> entities) {
+    public Schematic(byte[] blocks, byte[] data, short width, short length, short height, List<Tag> tileEntities, List<Tag> entities) {
         this.blocks = blocks;
         this.data = data;
         this.width = width;
-        this.lenght = lenght;
+        this.length = length;
         this.height = height;
         this.tileEntities = tileEntities;
         this.entities = entities;
@@ -52,10 +52,10 @@ public class Schematic {
     }
 
     /**
-     * @return the lenght
+     * @return the length
      */
-    public short getLenght() {
-        return lenght;
+    public short getLength() {
+        return length;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Schematic {
         byte[] blocks = getBlocks();
         byte[] blockData = getData();
 
-        short length = getLenght();
+        short length = getLength();
         short width = getWidth();
         short height = getHeight();
 
