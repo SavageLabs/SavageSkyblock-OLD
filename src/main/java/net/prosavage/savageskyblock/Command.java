@@ -383,6 +383,8 @@ class Command implements CommandExecutor {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
                 if (User.getbyPlayer(p).getIsland() == null) {
+                    User.getbyPlayer(p).setFalldmg(true);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> User.getbyPlayer(p).setFalldmg(false), 20);
                     IslandManager.createIsland(p);
                     SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
                     SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lIsland Created", 20, 40, 20);

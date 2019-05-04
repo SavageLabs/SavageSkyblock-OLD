@@ -226,6 +226,8 @@ public class Events implements Listener {
                     User.users.put(p.getName(), new User(p.getName()));
                 }
                 User u = User.getbyPlayer(p);
+                u.setFalldmg(true);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> u.setFalldmg(false), 20);
                 if (u.getIsland() != null) {
                     u.getIsland().teleporthome(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
