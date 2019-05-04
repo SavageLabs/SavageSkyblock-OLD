@@ -160,7 +160,7 @@ public class UpgradesGUI implements Listener {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
-                        island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.1"));
+                        island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Members.2"));
                         island.setMemberCount(3);
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
                         p.openInventory(inv(island));
