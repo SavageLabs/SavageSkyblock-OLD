@@ -18,7 +18,7 @@ public class Schematic {
     private short lenght;
     private short height;
     private List<Tag> tileEntities;
-    List<Tag> entities;
+    private List<Tag> entities;
 
     public Schematic(byte[] blocks, byte[] data, short width, short lenght, short height, List<Tag> tileEntities, List<Tag> entities) {
         this.blocks = blocks;
