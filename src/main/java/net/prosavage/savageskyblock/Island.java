@@ -369,7 +369,7 @@ public class Island {
     }
 
     public void loadSchematic() {
-        SavageSkyBlock.getSkyblock.getSchematic().pasteSchematic(center);
+        SavageSkyBlock.getSkyblock.getSchematic().pasteSchematic(center.clone());
     }
 
     public void deleteblocks() {

@@ -73,7 +73,7 @@ public class Schematic {
         short width = getWidth();
         short height = getHeight();
 
-        loc.subtract(width / 2, 0, length / 2); // Centers the schematic
+        loc.subtract(width / 2, height/2, length / 2); // Centers the schematic
 
         //LoadBlocks
         for (int x = 0; x < width; ++x) {
@@ -84,15 +84,6 @@ public class Schematic {
                     block.setTypeIdAndData(blocks[index], blockData[index], true);
                 }
             }
-        }
-
-        for (Tag tag : entities) {
-
-            if (!(tag instanceof CompoundTag))
-                continue;
-
-            CompoundTag t = (CompoundTag) tag;
-
         }
 
     }
