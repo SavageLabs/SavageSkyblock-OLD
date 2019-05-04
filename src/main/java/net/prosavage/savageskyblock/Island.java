@@ -108,7 +108,7 @@ public class Island {
                 e.teleport(this.home);
             }else{
                 regen();
-                e.teleport(this.home);
+                teleporthome(e);
             }
         }
     }
