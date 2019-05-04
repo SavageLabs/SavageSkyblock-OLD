@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class Competitor {
     private Integer reward;
     private Integer current;
+    private Boolean completed;
 
     public Competitor() {
         this.reward = 20;
         this.current = 0;
+        this.completed = false;
     }
 
     public ItemStack getItem() {
@@ -44,5 +46,13 @@ public class Competitor {
 
     public void setCurrent(Integer current) {
         this.current = current;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }

@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class Builder {
     private Integer reward;
     private Integer current;
+    private Boolean completed;
 
     public Builder() {
         this.reward = 20;
         this.current = 0;
+        this.completed = true;
     }
 
     public ItemStack getItem() {
@@ -45,4 +47,13 @@ public class Builder {
     public void setCurrent(Integer current) {
         this.current = current;
     }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
 }
+

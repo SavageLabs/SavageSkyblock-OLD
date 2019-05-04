@@ -7,7 +7,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 import org.jnbt.*;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

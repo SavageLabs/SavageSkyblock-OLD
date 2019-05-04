@@ -101,8 +101,9 @@ public class Events implements Listener {
                 if(u.getIsland().getHunter().getCurrent() != 7500){
                     u.getIsland().getHunter().setCurrent(u.getIsland().getHunter().getCurrent()+1);
                 }
-                if(u.getIsland().getHunter().getCurrent() == 7500){
+                if(u.getIsland().getHunter().getCurrent() == 7500 && !u.getIsland().getHunter().getCompleted()){
                     u.getIsland().addCrystals(u.getIsland().getHunter().getReward());
+                    u.getIsland().getHunter().setCompleted(true);
                     Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getHunter().getReward(), "Hunter"));
                 }
             }
@@ -120,7 +121,8 @@ public class Events implements Listener {
                 if(u.getIsland().getFisherman().getCurrent() != 1500){
                     u.getIsland().getFisherman().setCurrent(u.getIsland().getFisherman().getCurrent()+1);
                 }
-                if(u.getIsland().getFisherman().getCurrent() == 1500){
+                if(u.getIsland().getFisherman().getCurrent() == 1500 && !u.getIsland().getFisherman().getCompleted()){
+                    u.getIsland().getFisherman().setCompleted(true);
                     u.getIsland().addCrystals(u.getIsland().getFisherman().getReward());
                     Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getFisherman().getReward(), "Fisherman"));
                 }
@@ -141,7 +143,8 @@ public class Events implements Listener {
                         if(u.getIsland().getCollector().getCurrent() != 7500){
                             u.getIsland().getCollector().setCurrent(u.getIsland().getCollector().getCurrent()+1);
                         }
-                        if(u.getIsland().getCollector().getCurrent() == 7500){
+                        if(u.getIsland().getCollector().getCurrent() == 7500 && !u.getIsland().getCollector().getCompleted()){
+                            u.getIsland().getCollector().setCompleted(true);
                             u.getIsland().addCrystals(u.getIsland().getCollector().getReward());
                             Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getCollector().getReward(), "Collector"));
                         }
@@ -150,16 +153,18 @@ public class Events implements Listener {
                         if(u.getIsland().getFarmer().getCurrent() != 5000){
                             u.getIsland().getFarmer().setCurrent(u.getIsland().getFarmer().getCurrent()+1);
                         }
-                        if(u.getIsland().getFarmer().getCurrent() == 5000){
+                        if(u.getIsland().getFarmer().getCurrent() == 5000 && !u.getIsland().getFarmer().getCompleted()){
                             u.getIsland().addCrystals(u.getIsland().getFarmer().getReward());
+                            u.getIsland().getFarmer().setCompleted(true);
                             Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getFarmer().getReward(), "Farmer"));
                         }
                     }
                     if(u.getIsland().getMiner().getCurrent() != 5000){
                         u.getIsland().getMiner().setCurrent(u.getIsland().getMiner().getCurrent()+1);
                     }
-                    if(u.getIsland().getMiner().getCurrent() == 5000){
+                    if(u.getIsland().getMiner().getCurrent() == 5000 && !u.getIsland().getMiner().getCompleted()){
                         u.getIsland().addCrystals(u.getIsland().getMiner().getReward());
+                        u.getIsland().getMiner().setCompleted(true);
                         Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getMiner().getReward(), "Miner"));
                     }
                 }
@@ -179,8 +184,9 @@ public class Events implements Listener {
                     if(u.getIsland().getBuilder().getCurrent() != 10000){
                         u.getIsland().getBuilder().setCurrent(u.getIsland().getBuilder().getCurrent()+1);
                     }
-                    if(u.getIsland().getBuilder().getCurrent() == 10000){
+                    if(u.getIsland().getBuilder().getCurrent() == 10000 && !u.getIsland().getBuilder().getCompleted()){
                         u.getIsland().addCrystals(u.getIsland().getBuilder().getReward());
+                        u.getIsland().getBuilder().setCompleted(true);
                         Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getBuilder().getReward(), "Builder"));
                     }
                 }
