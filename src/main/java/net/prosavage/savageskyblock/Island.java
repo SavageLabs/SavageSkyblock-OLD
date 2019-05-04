@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -230,6 +232,7 @@ public class Island {
 
     public void regen() {
         deleteblocks();
+        killEntities();
         loadSchematic();
     }
 
@@ -434,6 +437,16 @@ public class Island {
         }
     }
 
+    public void killEntities(){
+        for(Chunk c : chunks){
+            for(Entity e : c.getEntities()){
+                if(e.getType()!= EntityType.PLAYER){
+                    e.remove();
+                }
+            }
+        }
+    }
+
     public void delete() {
         deleteblocks();
         for (String player : players) {
@@ -457,6 +470,7 @@ public class Island {
         setWarpCount(1);
         setMemberCount(1);
         SavageSkyBlock.getSkyblock.save();
+        killEntities();
     }
 
     public boolean canbuild(Player player) {
