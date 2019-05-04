@@ -1,9 +1,13 @@
 package net.prosavage.savageskyblock;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.inventory.ItemStack;
 import org.jnbt.*;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -73,7 +77,7 @@ public class Schematic {
         short width = getWidth();
         short height = getHeight();
 
-        loc.subtract(width / 2, height/2, length / 2); // Centers the schematic
+        loc.subtract(width / 2, height / 2, length / 2); // Centers the schematic
 
         //LoadBlocks
         for (int x = 0; x < width; ++x) {
@@ -84,6 +88,40 @@ public class Schematic {
                     block.setTypeIdAndData(blocks[index], blockData[index], true);
                 }
             }
+        }
+        //Tile Entities
+        for (Tag tag : tileEntities) {
+            if (!(tag instanceof CompoundTag))
+                continue;
+            CompoundTag t = (CompoundTag) tag;
+            Map<String, Tag> tags = t.getValue();
+
+            int x = getChildTag(tags, "x", IntTag.class).getValue();
+            int y = getChildTag(tags, "y", IntTag.class).getValue();
+            int z = getChildTag(tags, "z", IntTag.class).getValue();
+
+            String id = getChildTag(tags, "id", StringTag.class).getValue();
+            if (id.equalsIgnoreCase("Chest")) {
+                List<Tag> items = getChildTag(tags, "Items", ListTag.class).getValue();
+                Block block = new Location(loc.getWorld(), x + loc.getX(), y + loc.getY(), z + loc.getZ()).getBlock();
+                if (block.getState() instanceof Chest) {
+                    Chest chest = (Chest) block.getState();
+                    for (Tag item : items) {
+                        if (!(item instanceof CompoundTag))
+                            continue;
+                        Map<String, Tag> itemtag = ((CompoundTag) item).getValue();
+                        byte slot = getChildTag(itemtag, "Slot", ByteTag.class).getValue();
+                        String name = (getChildTag(itemtag, "id", StringTag.class).getValue()).toLowerCase().replace("minecraft:", "");
+                        Byte amount = getChildTag(itemtag, "Count", ByteTag.class).getValue();
+                        Material material = Material.getMaterial(name.toUpperCase());
+                        if(material != null){
+                            chest.getBlockInventory().setItem(slot, new ItemStack(material, amount));
+                        }
+                    }
+                    chest.update();
+                }
+            }
+
         }
 
     }
@@ -112,9 +150,9 @@ public class Schematic {
 
         byte[] blocks = getChildTag(schematic, "Blocks", ByteArrayTag.class).getValue();
         byte[] blockData = getChildTag(schematic, "Data", ByteArrayTag.class).getValue();
-        List<Tag> tileEntities = getChildTag(schematic, "TileEntities", ListTag.class).getValue();
+        List<Tag> TileEntities = getChildTag(schematic, "TileEntities", ListTag.class).getValue();
         List<Tag> entities = getChildTag(schematic, "Entities", ListTag.class).getValue();
-        return new Schematic(blocks, blockData, width, length, height, tileEntities, entities);
+        return new Schematic(blocks, blockData, width, length, height, TileEntities, entities);
     }
 
     private static <T extends Tag> T getChildTag(Map<String, Tag> items, String key, Class<T> expected) throws IllegalArgumentException {
