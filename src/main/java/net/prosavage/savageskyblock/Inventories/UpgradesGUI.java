@@ -171,14 +171,14 @@ public class UpgradesGUI implements Listener {
                 }
             }
             if (e.getSlot() == 16) {
-                if (island.getWarpCount() >= 1) {
+                if (island.getWarpCount() == 1) {
                     if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.1")) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     } else {
                         island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.1"));
                         island.setWarpCount(2);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the warp count."));
                         p.openInventory(inv(island));
                         return;
                     }
@@ -189,7 +189,7 @@ public class UpgradesGUI implements Listener {
                     } else {
                         island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("UpgradeCost.Warps.2"));
                         island.setWarpCount(3);
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the member count."));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou have upgraded the warp count."));
                         p.openInventory(inv(island));
                         return;
                     }
