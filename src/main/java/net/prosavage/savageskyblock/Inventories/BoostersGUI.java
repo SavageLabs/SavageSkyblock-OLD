@@ -91,7 +91,7 @@ public class BoostersGUI implements Listener {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (e.getInventory() != null) {
-            if (e.getInventory().getTitle().equals(inv(island).getTitle())) {
+            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Boosters")))) {
                 e.setCancelled(true);
                 if (e.getSlot() == 10) {
                     if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawners")) {

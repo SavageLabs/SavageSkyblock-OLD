@@ -23,13 +23,6 @@ import java.util.Random;
 public class Events implements Listener {
 
     @EventHandler
-    public void onexplode(EntityExplodeEvent e) {
-        if (e.getEntity().getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
     public void ontalk(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         if (User.getbyPlayer(p) == null) {

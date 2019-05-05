@@ -35,7 +35,7 @@ public class WarpGUI implements Listener {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (island == null) return;
-        if (e.getInventory().getTitle().equals(inv(null).getTitle())) {
+        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Warp")))) {
             if (e.getSlot() == 9) {
                 if (island.getWarp1() != null) {
                     p.teleport(island.getWarp1());

@@ -131,6 +131,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
         if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius, colorType);
+        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendBorder(p, x, z, radius, colorType);
     }
 
     public void sendTitle(Player p, String text, int in, int stay, int out) {
@@ -143,6 +144,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "TITLE");
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "TITLE");
         if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "TITLE");
+        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "TITLE");
     }
 
     public void sendsubTitle(Player p, String text, int in, int stay, int out) {
@@ -155,6 +157,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
         if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
         if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
     }
 
     public void calculateworth() {
