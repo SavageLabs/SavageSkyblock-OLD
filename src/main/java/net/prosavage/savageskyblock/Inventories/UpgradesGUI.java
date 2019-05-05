@@ -110,7 +110,7 @@ public class UpgradesGUI implements Listener {
     public void onclick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
-        if (e.getInventory().getTitle().equals(inv(null).getTitle())) {
+        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Upgrades")))) {
             e.setCancelled(true);
             if (e.getSlot() == 10) {
                 if (island.getSize() == 1) {

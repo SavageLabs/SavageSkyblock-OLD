@@ -66,7 +66,8 @@ class Command implements CommandExecutor {
                     }
                     User u = User.getbyPlayer(p);
                     if (u.getIsland() != null) {
-                        SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lYou have recieved " + args[2] + " Island Crystals.", 20, 40, 20);
+                        SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lA gift from the gods", 20, 40, 20);
+                        SavageSkyBlock.getSkyblock.sendsubTitle(p, "&7&lYou have received " + args[2] + " Island Crystals.", 20, 40, 20);
                         Island island = u.getIsland();
                         island.addCrystals(Integer.parseInt(args[2]));
                         cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("GiveCrystals").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName()).replace("%amount%", args[2])));

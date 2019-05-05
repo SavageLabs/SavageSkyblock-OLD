@@ -43,7 +43,7 @@ public class Members implements Listener {
     public void onclick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if (e.getClickedInventory() != null) {
-            if (e.getClickedInventory().getTitle().equals(inv(null).getTitle())) {
+            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Members")))) {
                 e.setCancelled(true);
             }
         }
