@@ -1,8 +1,0 @@
-# Exclude everything else from the container
-src\
-target\
-.idea\
-.gitignore
-dependency-reduced-pom.xml
-pom.xml
-vatrixcore.iml
