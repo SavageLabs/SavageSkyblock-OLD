@@ -122,42 +122,51 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     }
 
     public void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {
-        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius, colorType);
-        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendBorder(p, x, z, radius, colorType);
+        try {
+            if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendBorder(p, x, z, radius, colorType);
+        } catch (Exception ignored) {
+        }
     }
 
     public void sendTitle(Player p, String text, int in, int stay, int out) {
-        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "TITLE");
-        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        try {
+            if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "TITLE");
+            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "TITLE");
+        } catch (Exception ignored) {
+        }
     }
 
     public void sendsubTitle(Player p, String text, int in, int stay, int out) {
-        if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
-        if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        try {
+            if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+        } catch (Exception ignored) {
+        }
     }
 
     public void calculateworth() {

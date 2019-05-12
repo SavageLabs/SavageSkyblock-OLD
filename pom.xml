@@ -6,21 +6,22 @@
 
     <groupId>net.prosavage</groupId>
     <artifactId>SavageSkyblock</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
 
- <repositories>
-  <repository>
-    <id>sk89q-snapshots</id>
-    <url>http://maven.sk89q.com/artifactory/repo</url>
-    <releases>
-      <enabled>true</enabled> <!-- releases enabled: this specific repository also hosts release versions -->
-    </releases>
-    <snapshots>
-      <enabled>true</enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
-    </snapshots>
-  </repository>
-</repositories>
-         
+    <repositories>
+        <repository>
+            <id>sk89q-snapshots</id>
+            <url>http://maven.sk89q.com/artifactory/repo</url>
+            <releases>
+                <enabled>true</enabled> <!-- releases enabled: this specific repository also hosts release versions -->
+            </releases>
+            <snapshots>
+                <enabled>true
+                </enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc.........</groupId>
@@ -90,7 +91,7 @@
             <artifactId>spigot</artifactId>
             <version>1.12-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/serverjars/1.12.jar</systemPath>
+            <systemPath>${project.basedir}/lib/serverjars/1.12.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc..............</groupId>
