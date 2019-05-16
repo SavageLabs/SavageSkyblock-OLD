@@ -68,7 +68,7 @@ public class IslandManager {
                 }
             }
             if (direction == Direction.NORTH) {
-                nextloc.add(level3radius * 2, 0, 0);
+                nextloc.add(level3radius * 16, 0, 0);
                 if (!i) {
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(0, 0, level3radius * 2).getBlock()) == null) {
@@ -82,7 +82,7 @@ public class IslandManager {
                 }
             }
             if (direction == Direction.EAST) {
-                nextloc.add(0, 0, level3radius * 2);
+                nextloc.add(0, 0, level3radius * 16);
                 if (!i) {
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(-level3radius * 2, 0, 0).getBlock()) == null) {
@@ -96,7 +96,7 @@ public class IslandManager {
                 }
             }
             if (direction == Direction.SOUTH) {
-                nextloc.add(-level3radius * 2, 0, 0);
+                nextloc.add(-level3radius * 16, 0, 0);
                 if (!i) {
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(0, 0, -level3radius * 2).getBlock()) == null) {
@@ -110,7 +110,7 @@ public class IslandManager {
                 }
             }
             if (direction == Direction.WEST) {
-                nextloc.add(0, 0, -level3radius * 2);
+                nextloc.add(0, 0, -level3radius * 16);
                 if (!i) {
                     // Check if an island is available in east
                     if (getislandviablock(nextloc.clone().add(level3radius * 2, 0, 0).getBlock()) == null) {

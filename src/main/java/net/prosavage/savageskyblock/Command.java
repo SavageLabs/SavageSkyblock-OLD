@@ -59,7 +59,7 @@ class Command implements CommandExecutor {
         }
         try {
             if (args[0].equalsIgnoreCase("givecrystals")) {
-                if (cs.hasPermission("EpciSkyblock.givecrystals")) {
+                if (cs.hasPermission("EpicSkyblock.givecrystals")) {
                     Player p = Bukkit.getPlayer(args[1]);
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
