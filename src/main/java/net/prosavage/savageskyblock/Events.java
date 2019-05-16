@@ -161,6 +161,8 @@ public class Events implements Listener {
                         Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getMiner().getReward(), "Miner"));
                     }
                 }
+            }else{
+                e.setCancelled(true);
             }
         }
     }
