@@ -97,6 +97,16 @@ public class Island {
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
     }
 
+    public int getonline(){
+        int i = 0;
+        for(String p : players){
+            if(Bukkit.getPlayer(p)!=null){
+                i++;
+            }
+        }
+        return i;
+    }
+
     public void teleporthome(Player p){
         if(SavageSkyBlock.getSkyblock.issafe(this.home)) {
             p.teleport(this.home);

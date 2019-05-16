@@ -21,11 +21,15 @@ public class User {
     }
 
     public static User getbyPlayer(Player player) {
-        return users.get(player.getName());
+        return getbyPlayer(player.getName());
     }
 
     public static User getbyPlayer(String player) {
-        return users.get(player);
+        if(users.containsKey(player)){
+            return users.get(player);
+        }else{
+            return new User(player);
+        }
     }
 
     public Boolean getFalldmg() {

@@ -47,6 +47,10 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "Loading Placeholders...");
+            new PlacholderAPI().register();
+        }
         System.out.print("-------------------------------");
         System.out.print("");
         System.out.print(getDescription().getName() + " Enabled!");
