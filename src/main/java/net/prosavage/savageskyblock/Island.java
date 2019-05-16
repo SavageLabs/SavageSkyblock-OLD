@@ -97,18 +97,20 @@ public class Island {
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
     }
 
-    public void teleporthome(LivingEntity e){
+    public void teleporthome(Player p){
         if(SavageSkyBlock.getSkyblock.issafe(this.home)) {
-            e.teleport(this.home);
+            p.teleport(this.home);
+            SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
         }else{
             // Not safe
             Location loc = SavageSkyBlock.getSkyblock.getnewhome(this, this.home);
             if(loc != null){
                 this.home = loc;
-                e.teleport(this.home);
+                p.teleport(this.home);
+                SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
             }else{
                 regen();
-                teleporthome(e);
+                teleporthome(p);
             }
         }
     }
