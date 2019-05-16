@@ -59,7 +59,7 @@ class Command implements CommandExecutor {
         }
         try {
             if (args[0].equalsIgnoreCase("givecrystals")) {
-                if (cs.hasPermission("EpicSkyblock.givecrystals")) {
+                if (cs.hasPermission("savageskyblock.givecrystals")) {
                     Player p = Bukkit.getPlayer(args[1]);
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
@@ -199,7 +199,7 @@ class Command implements CommandExecutor {
                 }
             }
             if (args[0].equalsIgnoreCase("bypass")) {
-                if (p.hasPermission("EpicSkyblock.bypass")) {
+                if (p.hasPermission("savageskyblock.bypass")) {
                     if (User.getbyPlayer(p) == null) {
                         User.users.put(p.getName(), new User(p.getName()));
                     }
@@ -403,7 +403,7 @@ class Command implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("reload")) {
-                if (p.hasPermission("EpicSkyblock.reload")) {
+                if (p.hasPermission("savageskyblock.reload")) {
                     ConfigManager.getInstance().reloadConfig();
                     ConfigManager.getInstance().reloadMessages();
                     SavageSkyBlock.getSkyblock.reloadConfig();

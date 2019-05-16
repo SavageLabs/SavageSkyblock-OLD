@@ -116,23 +116,23 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
                 if (island.getSize() == 3) {
                     radius = IslandManager.level3radius;
                 }
-                SavageSkyBlock.getSkyblock.sendBorder(p, island.getCenter().getX(), island.getCenter().getZ(), radius - 1, ColorType.BLUE);
+                SavageSkyBlock.getSkyblock.sendBorder(p, island.getCenter().getX(), island.getCenter().getZ(), radius - 1);
             }
         }
     }
 
-    public void sendBorder(Player p, double x, double z, double radius, ColorType colorType) {
+    public void sendBorder(Player p, double x, double z, double radius) {
         try {
-            if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius, colorType);
-            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendBorder(p, x, z, radius, colorType);
+            if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendBorder(p, x, z, radius);
+            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendBorder(p, x, z, radius);
         } catch (Exception ignored) {
         }
     }

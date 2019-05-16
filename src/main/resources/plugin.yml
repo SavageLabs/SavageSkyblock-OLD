@@ -1,7 +1,20 @@
 name: SavageSkyblock
-version: 2.0.3
+version: 2.0.4
 main: net.prosavage.savageskyblock.SavageSkyBlock
 author: Peaches_MLG
 commands:
   Island:
     aliases: [is]
+permissions:
+  savageskyblock.admin:
+    description: All permissions.
+    children:
+      savageskyblock.reload: true
+      savageskyblock.give: true
+      savageskyblock.bypass: true
+  savageskyblock.reload:
+    description: Reload the plugins configuration
+  savageskyblock.givecrystals:
+    description: Give an island crystals
+  savageskyblock.bypass:
+    description: Bypass island restrictions
