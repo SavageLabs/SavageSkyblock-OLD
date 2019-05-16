@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 public class PlacholderAPI extends PlaceholderExpansion {
     @Override
     public String getIdentifier() {
-        return "savageftop";
+        return "SavageSkyblock";
     }
 
     @Override
