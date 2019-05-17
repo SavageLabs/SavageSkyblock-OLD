@@ -93,8 +93,6 @@ public class Island {
             }
         }
         addUser(owner);
-        User.getbyPlayer(owner).setIsland(this);
-        teleporthome(Bukkit.getPlayer(owner));
         //Loads island.schematic
         if (schem) {
             loadSchematic();

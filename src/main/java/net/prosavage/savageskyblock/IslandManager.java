@@ -62,6 +62,8 @@ public class IslandManager {
                 if (!i) {
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, -3, -1.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -74,6 +76,8 @@ public class IslandManager {
                     }
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, -3, -1.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -86,6 +90,8 @@ public class IslandManager {
                     }
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, -3, -1.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -98,6 +104,8 @@ public class IslandManager {
                     }
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, -3, -1.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    island.teleporthome(player);
                     return;
                 }
             }
@@ -110,6 +118,8 @@ public class IslandManager {
                     }
                     Island island = new Island(player.getName(), nextloc.clone().add(0.5, -3, -1.5), nextloc.clone().add(-level1radius, -120, -level1radius), nextloc.clone().add(level1radius, 100, level1radius), nextloc.clone().add(-level3radius, -120, -level3radius), nextloc.clone().add(level3radius, 100, level3radius), nextloc.clone(), true);
                     Islands.add(island);
+                    User.getbyPlayer(player).setIsland(island);
+                    island.teleporthome(player);
                     return;
                 }
             }
