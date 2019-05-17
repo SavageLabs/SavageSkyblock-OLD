@@ -18,6 +18,7 @@ public class User {
 
     public User(String player) {
         this.player = player;
+        users.put(player, this);
     }
 
     public static User getbyPlayer(Player player) {
@@ -65,7 +66,7 @@ public class User {
     }
 
     public Island getIsland() {
-        return island;
+        return this.island;
     }
 
     public void setIsland(Island island) {

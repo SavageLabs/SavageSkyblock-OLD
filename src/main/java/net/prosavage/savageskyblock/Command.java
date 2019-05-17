@@ -81,13 +81,13 @@ class Command implements CommandExecutor {
                 Player p = Bukkit.getPlayer(args[1]);
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    if (u.getIsland().Ispublic()) {
+                    if (u.getIsland().ispublic()) {
                         Island island = u.getIsland();
                         ((Player) cs).teleport(island.gethome());
                         SavageSkyBlock.getSkyblock.sendIslandBoarder((Player) cs);
                         return true;
                     } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("IsPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                        cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("IsPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                         return true;
                     }
                 }
@@ -137,22 +137,38 @@ class Command implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("public")) {
                 User u = User.getbyPlayer(p);
-                if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
-                    if (u.getIsland().setIspublic(true)) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetPublic").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
-                    } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPublic").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                if (u.getIsland() != null) {
+                    if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
+                        if (u.getIsland().ispublic()) {
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPublic").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                            return true;
+                        } else {
+                            u.getIsland().setPublic(true);
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetPublic").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                            return true;
+                        }
                     }
+                } else {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                    return true;
                 }
             }
             if (args[0].equalsIgnoreCase("private")) {
                 User u = User.getbyPlayer(p);
-                if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
-                    if (u.getIsland().setIspublic(false)) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
-                    } else {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                if (u.getIsland() != null) {
+                    if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
+                        if (!u.getIsland().ispublic()) {
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                            return true;
+                        } else {
+                            u.getIsland().setPublic(false);
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                            return true;
+                        }
                     }
+                } else {
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                    return true;
                 }
             }
             if (args[0].equalsIgnoreCase("top")) {

@@ -93,6 +93,8 @@ public class Island {
             }
         }
         addUser(owner);
+        User.getbyPlayer(owner).setIsland(this);
+        teleporthome(Bukkit.getPlayer(owner));
         //Loads island.schematic
         if (schem) {
             loadSchematic();
@@ -102,13 +104,11 @@ public class Island {
         regencooldown();
     }
 
-    public Boolean setIspublic(Boolean ispublic) {
-        if (ispublic) return false;
+    public void setPublic(Boolean ispublic) {
         this.ispublic = ispublic;
-        return true;
     }
 
-    public Boolean Ispublic() {
+    public Boolean ispublic() {
         return ispublic;
     }
 
