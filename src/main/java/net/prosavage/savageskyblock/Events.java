@@ -77,10 +77,7 @@ public class Events implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer()), 20);
-        if (User.getbyPlayer(e.getPlayer()) == null) {
-            User.users.put(e.getPlayer().getName(), new User(e.getPlayer().getName()));
-        }
+        User.getbyPlayer(e.getPlayer());
     }
 
     @EventHandler
