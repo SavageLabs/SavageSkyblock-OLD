@@ -23,6 +23,13 @@ import java.util.Random;
 public class Events implements Listener {
 
     @EventHandler
+    public void onexplode(EntityExplodeEvent e){
+        if (e.getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())){
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
     public void ontalk(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         if (User.getbyPlayer(p) == null) {
@@ -78,6 +85,7 @@ public class Events implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         User.getbyPlayer(e.getPlayer());
+        SavageSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer());
     }
 
     @EventHandler
