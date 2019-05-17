@@ -182,6 +182,8 @@ public class Events implements Listener {
                         Bukkit.getPluginManager().callEvent(new IslandMissionCompleteEvent(u.getIsland(), u.getIsland().getBuilder().getReward(), "Builder"));
                     }
                 }
+            }else{
+                e.setCancelled(true);
             }
         }
     }
@@ -197,6 +199,8 @@ public class Events implements Listener {
                         if (u.getBypass()) return;
                         e.setCancelled(true);
                     }
+                }else{
+                    e.setCancelled(true);
                 }
             }
         }
