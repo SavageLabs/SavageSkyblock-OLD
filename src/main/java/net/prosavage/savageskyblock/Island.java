@@ -60,6 +60,8 @@ public class Island {
 
     private ArrayList<Chunk> chunks = new ArrayList<>();
 
+    private Integer regencooldown = 0;
+
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, Boolean schem) {
         this.owner = owner;
         this.home = home;
@@ -95,30 +97,39 @@ public class Island {
         }
         SavageSkyBlock.getSkyblock.addMissions(this);
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
+        regencooldown();
     }
 
-    public int getonline(){
+    public void regencooldown() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
+            if (regencooldown <= 0) {
+                regencooldown--;
+            }
+        }, 0, 20);
+    }
+
+    public int getonline() {
         int i = 0;
-        for(String p : players){
-            if(Bukkit.getPlayer(p)!=null){
+        for (String p : players) {
+            if (Bukkit.getPlayer(p) != null) {
                 i++;
             }
         }
         return i;
     }
 
-    public void teleporthome(Player p){
-        if(SavageSkyBlock.getSkyblock.issafe(this.home)) {
+    public void teleporthome(Player p) {
+        if (SavageSkyBlock.getSkyblock.issafe(this.home)) {
             p.teleport(this.home);
             SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
-        }else{
+        } else {
             // Not safe
             Location loc = SavageSkyBlock.getSkyblock.getnewhome(this, this.home);
-            if(loc != null){
+            if (loc != null) {
                 this.home = loc;
                 p.teleport(this.home);
                 SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
-            }else{
+            } else {
                 regen();
                 teleporthome(p);
             }
@@ -242,12 +253,21 @@ public class Island {
         return center;
     }
 
-    public void regen() {
-        deleteblocks();
-        killEntities();
-        loadSchematic();
+    public boolean regen() {
+        if (regencooldown <= 0) {
+            deleteblocks();
+            killEntities();
+            loadSchematic();
+            regencooldown = 60;
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    public Integer getRegencooldown() {
+        return regencooldown;
+    }
 
     public void calculateworth() {
         if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
@@ -449,10 +469,10 @@ public class Island {
         }
     }
 
-    public void killEntities(){
-        for(Chunk c : chunks){
-            for(Entity e : c.getEntities()){
-                if(e.getType()!= EntityType.PLAYER){
+    public void killEntities() {
+        for (Chunk c : chunks) {
+            for (Entity e : c.getEntities()) {
+                if (e.getType() != EntityType.PLAYER) {
                     e.remove();
                 }
             }
@@ -478,6 +498,7 @@ public class Island {
         this.FlyBoosterActive = false;
         this.FarmingBoosterActive = false;
         this.XPBoosterActive = false;
+        this.regencooldown = 0;
         setSize(1);
         setWarpCount(1);
         setMemberCount(1);

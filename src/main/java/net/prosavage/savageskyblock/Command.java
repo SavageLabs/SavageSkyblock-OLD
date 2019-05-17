@@ -107,7 +107,7 @@ class Command implements CommandExecutor {
             Player p = (Player) cs;
             if (args[0].equalsIgnoreCase("value")) {
                 User u = User.getbyPlayer(p);
-                if(u.getIsland() != null) {
+                if (u.getIsland() != null) {
                     HashMap<String, Integer> worth = new HashMap<>();
                     for (Island island : IslandManager.getIslands()) {
                         worth.put(island.getownername(), island.getLevel());
@@ -125,7 +125,7 @@ class Command implements CommandExecutor {
                             i++;
                         }
                     }
-                }else{
+                } else {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 }
                 return true;
@@ -152,8 +152,11 @@ class Command implements CommandExecutor {
             if (args[0].equalsIgnoreCase("regen")) {
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    u.getIsland().regen();
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("RegeneratingIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                    if (u.getIsland().regen()) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("RegeneratingIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                    } else {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("Cooldown").replace("%s%", u.getIsland().getRegencooldown() + "").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                    }
                     return true;
                 }
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
