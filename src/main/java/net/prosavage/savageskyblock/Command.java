@@ -105,6 +105,31 @@ class Command implements CommandExecutor {
         }
         if (cs instanceof Player) {
             Player p = (Player) cs;
+            if (args[0].equalsIgnoreCase("value")) {
+                User u = User.getbyPlayer(p);
+                if(u.getIsland() != null) {
+                    HashMap<String, Integer> worth = new HashMap<>();
+                    for (Island island : IslandManager.getIslands()) {
+                        worth.put(island.getownername(), island.getLevel());
+                    }
+
+                    int i = 1;
+                    Map<String, Integer> sorted = worth.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+                    for (String name : sorted.keySet()) {
+                        if (!name.equals("")) {
+                            if (name.equalsIgnoreCase(u.getIsland().getownername())) {
+                                p.sendMessage("#" + i + ". " + ChatColor.GRAY + name + " - " + ChatColor.YELLOW + "$" + sorted.get(name));
+                                return true;
+                            }
+                            i++;
+                        }
+                    }
+                }else{
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoIslandSelf").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
+                }
+                return true;
+            }
             if (args[0].equalsIgnoreCase("top")) {
                 HashMap<String, Integer> worth = new HashMap<>();
                 for (Island island : IslandManager.getIslands()) {
