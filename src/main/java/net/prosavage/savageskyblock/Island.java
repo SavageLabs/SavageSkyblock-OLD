@@ -114,7 +114,7 @@ public class Island {
 
     public void regencooldown() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
-            if (regencooldown <= 0) {
+            if (regencooldown > 0) {
                 regencooldown--;
             }
         }, 0, 20);
