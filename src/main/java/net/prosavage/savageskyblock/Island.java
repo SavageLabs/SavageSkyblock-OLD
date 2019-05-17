@@ -62,6 +62,8 @@ public class Island {
 
     private Integer regencooldown = 0;
 
+    private Boolean ispublic = true;
+
     public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, Boolean schem) {
         this.owner = owner;
         this.home = home;
@@ -98,6 +100,16 @@ public class Island {
         SavageSkyBlock.getSkyblock.addMissions(this);
         Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
         regencooldown();
+    }
+
+    public Boolean setIspublic(Boolean ispublic) {
+        if (ispublic) return false;
+        this.ispublic = ispublic;
+        return true;
+    }
+
+    public Boolean Ispublic() {
+        return ispublic;
     }
 
     public void regencooldown() {
