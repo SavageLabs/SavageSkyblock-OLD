@@ -167,6 +167,7 @@ public class Events implements Listener {
                     }
                 }
             }else{
+                if (u.getBypass()) return;
                 e.setCancelled(true);
             }
         }
@@ -191,6 +192,7 @@ public class Events implements Listener {
                     }
                 }
             }else{
+                if (u.getBypass()) return;
                 e.setCancelled(true);
             }
         }
@@ -208,6 +210,7 @@ public class Events implements Listener {
                         e.setCancelled(true);
                     }
                 }else{
+                    if (u.getBypass()) return;
                     e.setCancelled(true);
                 }
             }
