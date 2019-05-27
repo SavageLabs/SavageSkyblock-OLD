@@ -435,11 +435,11 @@ class Command implements CommandExecutor {
                     if (player != null) {
                         User user = User.getbyPlayer(p);
                         User u = User.getbyPlayer(player);
-                        if (u.getIsland() != null) {
+                        if (user.getIsland() != null) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyHaveAnIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
                         }
-                        if (user.getIsland() == null) {
+                        if (u.getIsland() == null) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerDoesntHaveIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", player.getName())));
                             return true;
                         }

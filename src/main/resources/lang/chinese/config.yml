@@ -1,0 +1,77 @@
+Options:
+  Prefix: "&6&l空岛 &8»"
+  HelpGUI: false
+  SpawnerMultiplier: 4
+  XpMultiplier: 4
+  EnableIsTop: true
+  Level1Size: 25
+  Level2Size: 50
+  Level3Size: 75
+  IslandHomeMainCommand: true
+  IslandChatFormat: "&6&l %player% &8» %message% &e"
+Inventories:
+  Boosters: "&e&l空岛强化"
+  Missions: "&e&l空岛任务"
+  Upgrades: "&e&l升级空岛"
+  Warp: "&e&l空岛传送点"
+  Members: "&7&l空岛成员"
+Upgrades:
+  Members:
+    1: 9
+    2: 18
+    3: 27
+  Warps:
+    1: 1
+    2: 3
+    3: 5
+UpgradeCost:
+  Size:
+    1: 50
+    2: 75
+  Members:
+    1: 40
+    2: 60
+  Warps:
+    1: 20
+    2: 40
+BoosterCost:
+  Spawner: 30
+  Crops: 10
+  XP: 20
+  Fly: 10
+OreGen:
+  # 材料名列表 https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+  - COBBLESTONE:30
+  - IRON_ORE:30
+  - COAL_ORE:30
+  - DIAMOND_ORE:10
+IsTop:
+  Blocks:
+    HOPPER: 10
+  Spawners:
+    PIG: 1000
+    VILLAGERGOLEM: 10000
+help:
+  - '&7&m-----------------------------------------------------'
+  - '%centered%&6&l空岛帮助'
+  - '&7&m-----------------------------------------------------'
+  - '&e/is create &8- &7创建属于你的空岛.'
+  - '&e/is invite &f<玩家名> &8- &7邀请一名玩家加入你的空岛.'
+  - '&e/is list &8- &7查看你的空岛有哪些人.'
+  - '&e/is top &8- &7查看最有钱的空岛.'
+  - '&e/is sethome &8- &7设置空岛之家.'
+  - '&e/is home &8- &7前往你的空岛之家.'
+  - '&e/is leave &8- &7离开你的空岛.'
+  - '&e/is deinvite &f<玩家名> &8- &7取消邀请玩家.'
+  - '&e/is kick &f<玩家名> &8- &7踢出一名玩家.'
+  - '&e/is leader &f<玩家名> &8- &7转让岛主.'
+  - '&e/is chat &8- &7切换空岛聊天模式.'
+  - '&e/is warp &8- &7O打开传送菜单.'
+  - '&e/is setwarp &8- &7设置传送点.'
+  - '&e/is upgrades &8- &7升级你的空岛.'
+  - '&e/is missions &8- &7显示每日空岛任务.'
+  - '&e/is boosters &8- &7使用空岛水晶强化你的空岛.'
+  - '&e/is givecrystals <玩家名> <数量> &8- &7给予玩家空岛水晶.'
+  - '&e/is bypass &8- &7忽略空岛限制.'
+  - '&e/is version &8- &7显示你所使用的空岛插件版本.'
+  - '&7&m-----------------------------------------------------'
