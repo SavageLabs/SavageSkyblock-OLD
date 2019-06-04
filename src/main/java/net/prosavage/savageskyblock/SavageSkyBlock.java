@@ -14,8 +14,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -56,6 +61,19 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         System.out.print(getDescription().getName() + " Enabled!");
         System.out.print("");
         System.out.print("-------------------------------");
+
+        try {
+            URL url = new URL("https://api.spigotmc.org/legacy/update.php?resource=62480");
+            URLConnection con = url.openConnection();
+            String version = (new BufferedReader(new InputStreamReader(con.getInputStream()))).readLine();
+
+            if (ConfigManager.getInstance().getConfig().getBoolean("Options.AutoUpdate") && version != getDescription().getVersion()) {
+                System.out.println("Trying to update");
+                Updater.Update("http://ci.prosavage.net/repository/download/SavageSkyblock_Build/234:id/SavageSkyblock-"+version+".jar", version);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveint() {
@@ -162,12 +180,18 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
             if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "SUBTITLE");
             if (Version.getVersion().equals(Version.v1_9_R1)) NMS_v1_9_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
             if (Version.getVersion().equals(Version.v1_9_R2)) NMS_v1_9_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_10_R1)) NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_11_R1)) NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_12_R1)) NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_13_R1)) NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_13_R2)) NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
-            if (Version.getVersion().equals(Version.v1_14_R1)) NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_10_R1))
+                NMS_v1_10_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_11_R1))
+                NMS_v1_11_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_12_R1))
+                NMS_v1_12_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_13_R1))
+                NMS_v1_13_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_13_R2))
+                NMS_v1_13_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
+            if (Version.getVersion().equals(Version.v1_14_R1))
+                NMS_v1_14_R1.sendTitle(p, text, in, stay, out, "SUBTITLE");
         } catch (Exception ignored) {
         }
     }
