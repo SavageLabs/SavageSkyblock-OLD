@@ -452,11 +452,12 @@ class Command implements CommandExecutor {
                             u.getIsland().addUser(p.getName());
                             u.getIsland().teleporthome(p);
                             for (String pla : u.getIsland().getPlayers()) {
-                                Player i = Bukkit.getPlayer(pla);
-                                if (i != null) {
-                                    i.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerHasJoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
+                                if (!pla.equals(p.getName())) {
+                                    Player i = Bukkit.getPlayer(pla);
+                                    if (i != null) {
+                                        i.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerHasJoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
+                                    }
                                 }
-
                             }
                             return true;
                         } else {
