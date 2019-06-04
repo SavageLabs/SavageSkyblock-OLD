@@ -443,19 +443,18 @@ class Command implements CommandExecutor {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerDoesntHaveIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", player.getName())));
                             return true;
                         }
-
-                        if (u.getInvites().contains(user.getIsland().getownername())) {
-                            if (user.getIsland().getPlayers().size() >= SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members." + user.getIsland().getMemberCount())) {
+                        if (user.getInvites().contains(u.getIsland().getownername())) {
+                            if (u.getIsland().getPlayers().size() >= SavageSkyBlock.getSkyblock.getConfig().getInt("Upgrades.Members." + u.getIsland().getMemberCount())) {
                                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("MaximumPlayers").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                                 return true;
                             }
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("JoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
-                            user.getIsland().addUser(p.getName());
+                            u.getIsland().addUser(p.getName());
                             u.getIsland().teleporthome(p);
-                            for (String pla : user.getIsland().getPlayers()) {
+                            for (String pla : u.getIsland().getPlayers()) {
                                 Player i = Bukkit.getPlayer(pla);
                                 if (i != null) {
-                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerHasJoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
+                                    i.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("PlayerHasJoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName())));
                                 }
 
                             }
