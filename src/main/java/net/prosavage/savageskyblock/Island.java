@@ -20,25 +20,25 @@ public class Island {
     private Location center;
     private String owner;
     private Location home;
-    private Boolean SpawnerBoosterActive;
-    private Boolean FarmingBoosterActive;
-    private Boolean XPBoosterActive;
-    private Boolean FlyBoosterActive;
-    private Boolean MobCoinsBoosterActive;
-    private Integer spawner = 0;
-    private Integer Farming = 0;
-    private Integer Xp = 0;
-    private Integer Fly = 0;
-    private Integer SpawnerCode;
-    private Integer FarmingCode;
-    private Integer XPCode;
-    private Integer FlyCode;
-    private Integer Size = 1;
-    private Integer MemberCount = 1;
-    private Integer WarpCount = 1;
-    private Integer crystals;
+    private boolean SpawnerBoosterActive;
+    private boolean FarmingBoosterActive;
+    private boolean XPBoosterActive;
+    private boolean FlyBoosterActive;
+    private boolean MobCoinsBoosterActive;
+    private int spawner = 0;
+    private int Farming = 0;
+    private int Xp = 0;
+    private int Fly = 0;
+    private int SpawnerCode = -1;
+    private int FarmingCode = -1;
+    private int XPCode = -1;
+    private int FlyCode = -1;
+    private int Size = 1;
+    private int MemberCount = 1;
+    private int WarpCount = 1;
+    private int crystals;
 
-    private Integer id;
+    private int id;
     // What about a Set of Locations? So Owner can easily config how many warps
     private Location warp1;
     private Location warp2;
@@ -54,16 +54,16 @@ public class Island {
     private Hunter hunter;
     private Miner miner;
 
-    private Integer level = 0;
+    private int level = 0;
     private ArrayList<String> players = new ArrayList<>();
 
     private ArrayList<Chunk> chunks = new ArrayList<>();
 
-    private Integer regencooldown = 0;
+    private int regencooldown = 0;
 
-    private Boolean ispublic = true;
+    private boolean ispublic = true;
 
-    public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, Boolean schem) {
+    public Island(String owner, Location home, Location pos1, Location pos2, Location mpos1, Location mpos2, Location center, boolean schem) {
         this.owner = owner;
         this.home = home;
         this.pos1 = pos1; //-50, -50
@@ -101,11 +101,11 @@ public class Island {
         regenCooldown();
     }
 
-    public void setPublic(Boolean ispublic) {
+    public void setPublic(boolean ispublic) {
         this.ispublic = ispublic;
     }
 
-    public Boolean isPublic() {
+    public boolean isPublic() {
         return ispublic;
     }
 
@@ -274,7 +274,7 @@ public class Island {
         }
     }
 
-    public Integer getRegencooldown() {
+    public int getRegencooldown() {
         return regencooldown;
     }
 
@@ -296,71 +296,71 @@ public class Island {
         }
     }
 
-    public Integer getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
-    public Integer getCrystals() {
+    public int getCrystals() {
         return crystals;
     }
 
-    public void setCrystals(Integer crystals) {
+    public void setCrystals(int crystals) {
         this.crystals = crystals;
     }
 
-    public void addCrystals(Integer crystals) {
+    public void addCrystals(int crystals) {
         this.crystals += crystals;
     }
 
-    public void removeCrystals(Integer crystals) {
+    public void removeCrystals(int crystals) {
         this.crystals -= crystals;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return Size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(int size) {
         Size = size;
     }
 
-    public Integer getMemberCount() {
+    public int getMemberCount() {
         return MemberCount;
     }
 
-    public void setMemberCount(Integer memberCount) {
+    public void setMemberCount(int memberCount) {
         MemberCount = memberCount;
     }
 
-    public Integer getWarpCount() {
+    public int getWarpCount() {
         return WarpCount;
     }
 
-    public void setWarpCount(Integer warpCount) {
+    public void setWarpCount(int warpCount) {
         WarpCount = warpCount;
     }
 
-    public Integer getSpawner() {
+    public int getSpawner() {
         return spawner;
     }
 
-    public Integer getFarming() {
+    public int getFarming() {
         return Farming;
     }
 
-    public Integer getXp() {
+    public int getXp() {
         return Xp;
     }
 
-    public Integer getFly() {
+    public int getFly() {
         return Fly;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -495,10 +495,10 @@ public class Island {
                 User.getbyPlayer(player).setIsland(null);
             }
         }
-        if (this.FarmingCode != null) Bukkit.getScheduler().cancelTask(this.FarmingCode);
-        if (this.XPCode != null) Bukkit.getScheduler().cancelTask(this.XPCode);
-        if (this.SpawnerCode != null) Bukkit.getScheduler().cancelTask(this.SpawnerCode);
-        if (this.FlyCode != null) Bukkit.getScheduler().cancelTask(this.FlyCode);
+        if (this.FarmingCode != -1) Bukkit.getScheduler().cancelTask(this.FarmingCode);
+        if (this.XPCode != -1) Bukkit.getScheduler().cancelTask(this.XPCode);
+        if (this.SpawnerCode != -1) Bukkit.getScheduler().cancelTask(this.SpawnerCode);
+        if (this.FlyCode != -1) Bukkit.getScheduler().cancelTask(this.FlyCode);
         this.level = 0;
         this.players.clear();
         this.owner = "";
@@ -524,35 +524,35 @@ public class Island {
         return players.contains(player.getName());
     }
 
-    public Boolean getSpawnerBoosterActive() {
+    public boolean getSpawnerBoosterActive() {
         return SpawnerBoosterActive;
     }
 
-    public void setSpawnerBoosterActive(Boolean spawnerBoosterActive) {
+    public void setSpawnerBoosterActive(boolean spawnerBoosterActive) {
         SpawnerBoosterActive = spawnerBoosterActive;
     }
 
-    public Boolean getFarmingBoosterActive() {
+    public boolean getFarmingBoosterActive() {
         return FarmingBoosterActive;
     }
 
-    public void setFarmingBoosterActive(Boolean farmingBoosterActive) {
+    public void setFarmingBoosterActive(boolean farmingBoosterActive) {
         FarmingBoosterActive = farmingBoosterActive;
     }
 
-    public Boolean getXPBoosterActive() {
+    public boolean getXPBoosterActive() {
         return XPBoosterActive;
     }
 
-    public void setXPBoosterActive(Boolean XPBoosterActive) {
+    public void setXPBoosterActive(boolean XPBoosterActive) {
         this.XPBoosterActive = XPBoosterActive;
     }
 
-    public Boolean getFlyBoosterActive() {
+    public boolean getFlyBoosterActive() {
         return FlyBoosterActive;
     }
 
-    public void setFlyBoosterActive(Boolean flyBoosterActive) {
+    public void setFlyBoosterActive(boolean flyBoosterActive) {
         FlyBoosterActive = flyBoosterActive;
     }
 
