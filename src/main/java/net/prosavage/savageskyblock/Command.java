@@ -247,7 +247,7 @@ class Command implements CommandExecutor {
             if (args[0].equalsIgnoreCase("crystals")) {
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CrystalAmount").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%amount%", u.getIsland().getCrystals().toString())));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("CrystalAmount").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%amount%", String.valueOf(u.getIsland().getCrystals()))));
                     return true;
                 }
             }
