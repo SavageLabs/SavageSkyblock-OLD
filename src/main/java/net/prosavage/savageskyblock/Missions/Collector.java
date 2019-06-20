@@ -8,9 +8,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 
 public class Collector {
-    private Integer reward;
-    private Integer current;
-    private Boolean completed;
+    private int reward;
+    private int current;
+    private boolean completed;
 
     public Collector() {
         this.reward = 10;
@@ -32,27 +32,27 @@ public class Collector {
         return SavageSkyBlock.getSkyblock.makeItem(Material.DIAMOND_ORE, 1, 0, "&b&lCollector", lore);
     }
 
-    public Integer getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(Integer reward) {
+    public void setReward(int reward) {
         this.reward = reward;
     }
 
-    public Integer getCurrent() {
+    public int getCurrent() {
         return current;
     }
 
-    public void setCurrent(Integer current) {
+    public void setCurrent(int current) {
         this.current = current;
     }
 
-    public Boolean getCompleted() {
+    public boolean getCompleted() {
         return completed;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 }
