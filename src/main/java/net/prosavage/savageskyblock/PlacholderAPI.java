@@ -17,7 +17,7 @@ public class PlacholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getAuthor() {
-        return "Peaches_MLG";
+        return "ProSavage";
     }
 
     @Override
@@ -30,13 +30,13 @@ public class PlacholderAPI extends PlaceholderExpansion {
         User u = User.getbyPlayer(player);
         if (u.getIsland() != null) {
             switch (s) {
-                case "{SavageSkyblock_Leader}":
+                case "leader":
                     return u.getIsland().getownername();
-                case "{SavageSkyblock_Online}":
+                case "online":
                     return u.getIsland().getonline() + "";
-                case "{SavageSkyblock_Value}":
+                case "value":
                     return u.getIsland().getLevel() + "";
-                case "{SavageSkyblock_Crystals}":
+                case "crystals":
                     return u.getIsland().getCrystals() + "";
             }
         }
