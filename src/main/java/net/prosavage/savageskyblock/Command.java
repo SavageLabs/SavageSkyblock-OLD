@@ -21,6 +21,8 @@ class Command implements CommandExecutor {
         plugin = pl;
     }
 
+
+    //TODO: Rewrite this horror into modular classes.
     public boolean onCommand(CommandSender cs, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length == 0) {
             if (cs instanceof Player) {
