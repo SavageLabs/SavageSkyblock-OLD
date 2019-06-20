@@ -23,14 +23,14 @@ import java.util.Random;
 public class Events implements Listener {
 
     @EventHandler
-    public void onexplode(EntityExplodeEvent e){
+    public void onExplode(EntityExplodeEvent e){
         if (e.getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())){
             e.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void ontalk(AsyncPlayerChatEvent e) {
+    public void onTalk(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         if (User.getbyPlayer(p) == null) {
             User.users.put(p.getName(), new User(p.getName()));
@@ -51,7 +51,7 @@ public class Events implements Listener {
 
     @EventHandler
     public void onCropGrow(BlockGrowEvent e) {
-        Island island = IslandManager.getislandviablock(e.getBlock());
+        Island island = IslandManager.getIslandViaBlock(e.getBlock());
         if (island != null) {
             if (island.getFarmingBoosterActive()) {
                 e.getBlock().setData((byte) (e.getBlock().getData() + 1));
@@ -60,7 +60,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onkill(EntityDeathEvent e) {
+    public void onKill(EntityDeathEvent e) {
         Player p = e.getEntity().getKiller();
         if (p == null) return;
         if (User.getbyPlayer(p) == null) {
@@ -75,9 +75,9 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onspawn(SpawnerSpawnEvent e) {
-        if (IslandManager.getislandviablock(e.getSpawner().getLocation().getBlock()) == null) return;
-        if (IslandManager.getislandviablock(e.getSpawner().getLocation().getBlock()).getSpawnerBoosterActive()) {
+    public void onSpawn(SpawnerSpawnEvent e) {
+        if (IslandManager.getIslandViaBlock(e.getSpawner().getLocation().getBlock()) == null) return;
+        if (IslandManager.getIslandViaBlock(e.getSpawner().getLocation().getBlock()).getSpawnerBoosterActive()) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> e.getSpawner().setDelay(e.getSpawner().getDelay() / ConfigManager.getInstance().getConfig().getInt("Options.SpawnerMultiplier")), 0);
         }
     }
@@ -89,7 +89,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onentitykill(EntityDeathEvent e) {
+    public void onEntityKill(EntityDeathEvent e) {
         if (e.getEntity().getKiller() != null) {
             if (User.getbyPlayer(e.getEntity().getKiller()) == null) {
                     User.users.put(e.getEntity().getKiller().getName(), new User((e.getEntity().getKiller().getName())));
@@ -109,7 +109,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onfish(PlayerFishEvent e) {
+    public void onFish(PlayerFishEvent e) {
         if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             if (User.getbyPlayer(e.getPlayer()) == null) {
                 User.users.put(e.getPlayer().getName(), new User(e.getPlayer().getName()));
@@ -129,7 +129,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onbreak(BlockBreakEvent e) {
+    public void onBreak(BlockBreakEvent e) {
         if (e.getBlock().getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
@@ -174,7 +174,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onplace(BlockPlaceEvent e) {
+    public void onPlace(BlockPlaceEvent e) {
         if (e.getBlock().getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
             User u = User.getbyPlayer(e.getPlayer());
             if (u.getIsland() != null) {
@@ -199,7 +199,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void oninteract(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() != null) {
             if (e.getClickedBlock().getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
                 if (e.getClickedBlock() == null) return;
@@ -218,11 +218,11 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onteleport(PlayerTeleportEvent e) {
+    public void onTeleport(PlayerTeleportEvent e) {
         SavageSkyBlock.getSkyblock.sendIslandBoarder(e.getPlayer());
-        if (IslandManager.getislandviablock(e.getTo().getBlock()) != null) {
-            Island island = IslandManager.getislandviablock(e.getTo().getBlock());
-            if (!island.equals(IslandManager.getislandviablock(e.getFrom().getBlock()))) {
+        if (IslandManager.getIslandViaBlock(e.getTo().getBlock()) != null) {
+            Island island = IslandManager.getIslandViaBlock(e.getTo().getBlock());
+            if (!island.equals(IslandManager.getIslandViaBlock(e.getFrom().getBlock()))) {
                 SavageSkyBlock.getSkyblock.sendTitle(e.getPlayer(), "&e&l" + island.getownername() + "'s Island", 20, 40, 20);
             }
 
@@ -230,7 +230,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onmove(PlayerMoveEvent e) {
+    public void onMove(PlayerMoveEvent e) {
         if (e.getTo().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
             if (e.getTo().getY() <= 0) {
                 //Send to island home
@@ -242,7 +242,7 @@ public class Events implements Listener {
                 u.setFalldmg(true);
                 Bukkit.getScheduler().scheduleSyncDelayedTask(SavageSkyBlock.getSkyblock, () -> u.setFalldmg(false), 20);
                 if (u.getIsland() != null) {
-                    u.getIsland().teleporthome(p);
+                    u.getIsland().teleportHome(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                 }
             }
@@ -250,7 +250,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void ondmg(EntityDamageByEntityEvent e) {
+    public void onDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             Player dmg = (Player) e.getDamager();
@@ -258,7 +258,7 @@ public class Events implements Listener {
             if (u == null) {
                 User.users.put(p.getName(), new User(p.getName()));
             }
-            if (IslandManager.getislandviablock(e.getEntity().getLocation().getBlock()) != null) {
+            if (IslandManager.getIslandViaBlock(e.getEntity().getLocation().getBlock()) != null) {
                 e.setCancelled(true);
                 return;
             }
@@ -297,7 +297,7 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void ondmg(EntityDamageEvent e) {
+    public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             if (e.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
@@ -312,15 +312,15 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    public void onmission(IslandMissionCompleteEvent e) {
+    public void onMission(IslandMissionCompleteEvent e) {
         for (String player : e.getIsland().getPlayers()) {
             Player p = Bukkit.getPlayer(player);
             if (p != null) {
                 SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lCompleted Mission: " + e.getName(), 20, 40, 20);
                 if (e.getReward() > 1) {
-                    SavageSkyBlock.getSkyblock.sendsubTitle(p, "&eReward: &7" + e.getReward() + " Crystals", 20, 40, 20);
+                    SavageSkyBlock.getSkyblock.sendSubTitle(p, "&eReward: &7" + e.getReward() + " Crystals", 20, 40, 20);
                 } else {
-                    SavageSkyBlock.getSkyblock.sendsubTitle(p, "&eReward: &7" + e.getReward() + " Crystal", 20, 40, 20);
+                    SavageSkyBlock.getSkyblock.sendSubTitle(p, "&eReward: &7" + e.getReward() + " Crystal", 20, 40, 20);
                 }
             }
         }

@@ -31,7 +31,7 @@ public class WarpGUI implements Listener {
     }
 
     @EventHandler
-    public void onclick(InventoryClickEvent e) {
+    public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (island == null) return;

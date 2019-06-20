@@ -36,7 +36,7 @@ public class MissionsGUI implements Listener {
     }
 
     @EventHandler
-    public void onclick(InventoryClickEvent e) {
+    public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Missions")))) {
             e.setCancelled(true);

@@ -87,7 +87,7 @@ public class BoostersGUI implements Listener {
     }
 
     @EventHandler
-    public void onclick(InventoryClickEvent e) {
+    public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (e.getInventory() != null) {
@@ -104,7 +104,7 @@ public class BoostersGUI implements Listener {
                     }
                     //Spawner Booster
                     island.setSpawnerBoosterActive(true);
-                    island.startspawnercountdown(60 * 60);
+                    island.startSpawnerCountdown(60 * 60);
                     island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawners"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eSpawner Booster Activated"));
                 }
@@ -119,7 +119,7 @@ public class BoostersGUI implements Listener {
                     }
                     //Farming Booster
                     island.setFarmingBoosterActive(true);
-                    island.startfarmingcountdown(60 * 60);
+                    island.startFarmingCountdown(60 * 60);
                     island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFarming Booster Activated"));
                 }
@@ -134,7 +134,7 @@ public class BoostersGUI implements Listener {
                     }
                     //Xp Booster
                     island.setXPBoosterActive(true);
-                    island.startxpcountdown(60 * 60);
+                    island.startXpCountdown(60 * 60);
                     island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eXP Booster Activated"));
                 }
@@ -149,7 +149,7 @@ public class BoostersGUI implements Listener {
                     }
                     //Fly Booster
                     island.setFlyBoosterActive(true);
-                    island.startflycountdown(60 * 60);
+                    island.startFlyCountdown(60 * 60);
                     island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFlight Booster Activated"));
                 }

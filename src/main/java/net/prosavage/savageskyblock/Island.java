@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -98,19 +97,19 @@ public class Island {
             loadSchematic();
         }
         SavageSkyBlock.getSkyblock.addMissions(this);
-        Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveisland(this));
-        regencooldown();
+        Bukkit.getScheduler().runTaskAsynchronously(SavageSkyBlock.getSkyblock, () -> SavageSkyBlock.getSkyblock.saveIsland(this));
+        regenCooldown();
     }
 
     public void setPublic(Boolean ispublic) {
         this.ispublic = ispublic;
     }
 
-    public Boolean ispublic() {
+    public Boolean isPublic() {
         return ispublic;
     }
 
-    public void regencooldown() {
+    public void regenCooldown() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
             if (regencooldown > 0) {
                 regencooldown--;
@@ -118,7 +117,7 @@ public class Island {
         }, 0, 20);
     }
 
-    public int getonline() {
+    public int getOnline() {
         int i = 0;
         for (String p : players) {
             if (Bukkit.getPlayer(p) != null) {
@@ -128,20 +127,20 @@ public class Island {
         return i;
     }
 
-    public void teleporthome(Player p) {
-        if (SavageSkyBlock.getSkyblock.issafe(this.home)) {
+    public void teleportHome(Player p) {
+        if (SavageSkyBlock.getSkyblock.isSafe(this.home)) {
             p.teleport(this.home);
             SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
         } else {
             // Not safe
-            Location loc = SavageSkyBlock.getSkyblock.getnewhome(this, this.home);
+            Location loc = SavageSkyBlock.getSkyblock.getNewHome(this, this.home);
             if (loc != null) {
                 this.home = loc;
                 p.teleport(this.home);
                 SavageSkyBlock.getSkyblock.sendIslandBoarder(p);
             } else {
                 regen();
-                teleporthome(p);
+                teleportHome(p);
             }
         }
     }
@@ -265,7 +264,7 @@ public class Island {
 
     public boolean regen() {
         if (regencooldown <= 0) {
-            deleteblocks();
+            deleteBlocks();
             killEntities();
             loadSchematic();
             regencooldown = 60;
@@ -279,7 +278,7 @@ public class Island {
         return regencooldown;
     }
 
-    public void calculateworth() {
+    public void calculateWorth() {
         if (ConfigManager.getInstance().getConfig().getBoolean("Options.EnableIsTop")) {
             int level = 0;
             for (Object object : chunks) {
@@ -365,7 +364,7 @@ public class Island {
         return id;
     }
 
-    public void startspawnercountdown(int i) {
+    public void startSpawnerCountdown(int i) {
         spawner = i;
         SpawnerCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
             if (spawner <= 0) {
@@ -377,7 +376,7 @@ public class Island {
         }, 20L, 20L);
     }
 
-    public void startfarmingcountdown(int i) {
+    public void startFarmingCountdown(int i) {
         Farming = i;
         FarmingCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
             if (Farming <= 0) {
@@ -389,7 +388,7 @@ public class Island {
         }, 20L, 20L);
     }
 
-    public void startxpcountdown(int i) {
+    public void startXpCountdown(int i) {
         Xp = i;
         XPCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
             if (Xp <= 0) {
@@ -401,7 +400,7 @@ public class Island {
         }, 20L, 20L);
     }
 
-    public void startflycountdown(int i) {
+    public void startFlyCountdown(int i) {
         Fly = i;
         FlyCode = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageSkyBlock.getSkyblock, () -> {
             if (Fly <= 0) {
@@ -417,7 +416,7 @@ public class Island {
         SavageSkyBlock.getSkyblock.getSchematic().pasteSchematic(center.clone());
     }
 
-    public void deleteblocks() {
+    public void deleteBlocks() {
         //Deleting Island Blocks Using NMSs
         //1 layer at a time
         if (Version.getVersion().equals(Version.v1_8_R2)) {
@@ -490,7 +489,7 @@ public class Island {
     }
 
     public void delete() {
-        deleteblocks();
+        deleteBlocks();
         for (String player : players) {
             if (User.getbyPlayer(player) != null) {
                 User.getbyPlayer(player).setIsland(null);

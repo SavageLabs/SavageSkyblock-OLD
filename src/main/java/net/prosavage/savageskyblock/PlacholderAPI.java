@@ -33,7 +33,7 @@ public class PlacholderAPI extends PlaceholderExpansion {
                 case "leader":
                     return u.getIsland().getownername();
                 case "online":
-                    return u.getIsland().getonline() + "";
+                    return u.getIsland().getOnline() + "";
                 case "value":
                     return u.getIsland().getLevel() + "";
                 case "crystals":

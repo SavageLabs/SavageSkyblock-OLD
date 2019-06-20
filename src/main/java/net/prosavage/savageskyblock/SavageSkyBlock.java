@@ -18,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -39,13 +38,13 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         registerEvents();
         getSkyblock = this;
         ConfigManager.getInstance().setup(this);
-        makeworld();
+        makeWorld();
         getCommand("Island").setExecutor(new Command(this));
         load();
-        addmissionstoIslands();
+        addMissionsToIslands();
         startCounting();
-        saveint();
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> calculateworth(), 0, 20 * 60);
+        saveInt();
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> calculateWorth(), 0, 20 * 60);
         new Metrics(this);
         try {
             this.schematic = Schematic.loadSchematic(ConfigManager.getInstance().getSchematicFile());
@@ -76,7 +75,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         }
     }
 
-    public void saveint() {
+    public void saveInt() {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> save(), 0, 20 * 60);
     }
 
@@ -101,17 +100,17 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         pm.registerEvents(new Events(), this);
     }
 
-    public Location getnewhome(Island island, Location loc) {
+    public Location getNewHome(Island island, Location loc) {
         Block b;
         b = getWorld().getHighestBlockAt(loc);
-        if (issafe(b.getLocation())) {
+        if (isSafe(b.getLocation())) {
             return b.getLocation().add(0.5, 1, 0.5);
         }
 
         for (double X = island.getPos1().getX(); X <= island.getPos2().getX(); X++) {
             for (double Z = island.getPos1().getZ(); Z <= island.getPos2().getZ(); Z++) {
                 b = getWorld().getHighestBlockAt((int) X, (int) Z);
-                if (issafe(b.getLocation())) {
+                if (isSafe(b.getLocation())) {
                     return b.getLocation().add(0.5, 1, 0.5);
                 }
             }
@@ -119,13 +118,13 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         return null;
     }
 
-    public boolean issafe(Location loc) {
+    public boolean isSafe(Location loc) {
         return (loc.getBlock().getType().equals(Material.AIR) && (!loc.clone().add(0, -1, 0).getBlock().getType().equals(Material.AIR) && !loc.clone().add(0, -1, 0).getBlock().isLiquid()));
     }
 
     public void sendIslandBoarder(Player p) {
         if (p.getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
-            Island island = IslandManager.getislandviablock(p.getLocation().getBlock());
+            Island island = IslandManager.getIslandViaBlock(p.getLocation().getBlock());
             if (island != null) {
                 int radius = 0;
                 if (island.getSize() == 1) {
@@ -174,7 +173,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         }
     }
 
-    public void sendsubTitle(Player p, String text, int in, int stay, int out) {
+    public void sendSubTitle(Player p, String text, int in, int stay, int out) {
         try {
             if (Version.getVersion().equals(Version.v1_8_R2)) NMS_v1_8_R2.sendTitle(p, text, in, stay, out, "SUBTITLE");
             if (Version.getVersion().equals(Version.v1_8_R3)) NMS_v1_8_R3.sendTitle(p, text, in, stay, out, "SUBTITLE");
@@ -196,9 +195,9 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         }
     }
 
-    public void calculateworth() {
+    public void calculateWorth() {
         for (Island is : IslandManager.getIslands()) {
-            is.calculateworth();
+            is.calculateWorth();
         }
     }
 
@@ -230,12 +229,12 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
     private void startCounting() {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> {
             if (getTime() == 0) {
-                addmissionstoIslands();
+                addMissionsToIslands();
             }
         }, 20, 20);
     }
 
-    public void addmissionstoIslands() {
+    public void addMissionsToIslands() {
         for (Island island : IslandManager.getIslands()) {
             addMissions(island);
         }
@@ -283,7 +282,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
         return item;
     }
 
-    private void makeworld() {
+    private void makeWorld() {
         String worldname = "SavageSkyblock";
         if (Bukkit.getWorld(worldname) == null) {
             WorldCreator wc = new WorldCreator(worldname);
@@ -362,11 +361,11 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
             dir.mkdir();
         }
         for (Island island : IslandManager.getIslands()) {
-            saveisland(island);
+            saveIsland(island);
         }
     }
 
-    public void saveisland(Island island) {
+    public void saveIsland(Island island) {
         File file = new File("plugins//" + getDescription().getName() + "//Islands//" + island.getId() + ".yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         if (file.exists()) file.delete();

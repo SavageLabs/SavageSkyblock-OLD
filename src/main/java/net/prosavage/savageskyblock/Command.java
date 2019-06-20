@@ -40,7 +40,7 @@ class Command implements CommandExecutor {
                 } else {
                     u.setFalldmg(true);
                     Bukkit.getScheduler().scheduleAsyncDelayedTask(SavageSkyBlock.getSkyblock, () -> u.setFalldmg(false), 20);
-                    u.getIsland().teleporthome(p);
+                    u.getIsland().teleportHome(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
                 }
@@ -62,7 +62,7 @@ class Command implements CommandExecutor {
                     User u = User.getbyPlayer(p);
                     if (u.getIsland() != null) {
                         SavageSkyBlock.getSkyblock.sendTitle(p, "&e&lA gift from the gods", 20, 40, 20);
-                        SavageSkyBlock.getSkyblock.sendsubTitle(p, "&7&lYou have received " + args[2] + " Island Crystals.", 20, 40, 20);
+                        SavageSkyBlock.getSkyblock.sendSubTitle(p, "&7&lYou have received " + args[2] + " Island Crystals.", 20, 40, 20);
                         Island island = u.getIsland();
                         island.addCrystals(Integer.parseInt(args[2]));
                         cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("GiveCrystals").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix")).replace("%player%", p.getName()).replace("%amount%", args[2])));
@@ -83,7 +83,7 @@ class Command implements CommandExecutor {
                 Player p = Bukkit.getPlayer(args[1]);
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
-                    if (u.getIsland().ispublic()) {
+                    if (u.getIsland().isPublic()) {
                         Island island = u.getIsland();
                         ((Player) cs).teleport(island.gethome());
                         SavageSkyBlock.getSkyblock.sendIslandBoarder((Player) cs);
@@ -104,7 +104,7 @@ class Command implements CommandExecutor {
             if (cs.hasPermission("EpciSkyblock.recalculate")) {
                 cs.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + " Recalculating Island Top."));
                 long ms = System.currentTimeMillis();
-                SavageSkyBlock.getSkyblock.calculateworth();
+                SavageSkyBlock.getSkyblock.calculateWorth();
                 cs.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + " Completed took " + (System.currentTimeMillis() - ms) + "ms."));
             }
             cs.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("NoPermissions").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
@@ -141,7 +141,7 @@ class Command implements CommandExecutor {
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
                     if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
-                        if (u.getIsland().ispublic()) {
+                        if (u.getIsland().isPublic()) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPublic").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
                         } else {
@@ -159,7 +159,7 @@ class Command implements CommandExecutor {
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
                     if (u.getIsland().getownername().equalsIgnoreCase(p.getName())) {
-                        if (!u.getIsland().ispublic()) {
+                        if (!u.getIsland().isPublic()) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("AlreadyPrivate").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
                         } else {
@@ -345,7 +345,7 @@ class Command implements CommandExecutor {
                 User u = User.getbyPlayer(p);
                 if (u.getIsland() != null) {
                     if (u.getIsland().getownername().equals(p.getName())) {
-                        if (IslandManager.getislandviablock(p.getLocation().getBlock()) == u.getIsland()) {
+                        if (IslandManager.getIslandViaBlock(p.getLocation().getBlock()) == u.getIsland()) {
                             u.getIsland().setHome(p.getLocation());
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("SetHome").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             return true;
@@ -384,7 +384,7 @@ class Command implements CommandExecutor {
                 } else {
                     u.setFalldmg(true);
                     Bukkit.getScheduler().scheduleAsyncDelayedTask(SavageSkyBlock.getSkyblock, () -> u.setFalldmg(false), 20);
-                    u.getIsland().teleporthome(p);
+                    u.getIsland().teleportHome(p);
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("TeleportToIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                     return true;
                 }
@@ -452,7 +452,7 @@ class Command implements CommandExecutor {
                             }
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getInstance().getMessages().getString("JoinedIsland").replace("%prefix%", SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix"))));
                             u.getIsland().addUser(p.getName());
-                            u.getIsland().teleporthome(p);
+                            u.getIsland().teleportHome(p);
                             for (String pla : u.getIsland().getPlayers()) {
                                 if (!pla.equals(p.getName())) {
                                     Player i = Bukkit.getPlayer(pla);
