@@ -22,7 +22,7 @@ public class PlacholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return SavageSkyBlock.getSkyblock.getDescription().getVersion();
+        return SavageSkyBlock.getInstance().getDescription().getVersion();
     }
 
     @Override

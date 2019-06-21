@@ -30,7 +30,7 @@ public class Farmer {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
-        return SavageSkyBlock.getSkyblock.makeItem(Material.SUGAR_CANE, 1, 0, "&b&lFarmer", lore);
+        return SavageSkyBlock.getInstance().makeItem(Material.SUGAR_CANE, 1, 0, "&b&lFarmer", lore);
     }
 
     public int getReward() {

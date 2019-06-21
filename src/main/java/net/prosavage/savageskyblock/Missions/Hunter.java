@@ -29,7 +29,7 @@ public class Hunter {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
-        return SavageSkyBlock.getSkyblock.makeItem(Material.BLAZE_POWDER, 1, 0, "&b&lHunter", lore);
+        return SavageSkyBlock.getInstance().makeItem(Material.BLAZE_POWDER, 1, 0, "&b&lHunter", lore);
     }
 
     public int getReward() {

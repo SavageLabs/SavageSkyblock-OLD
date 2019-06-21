@@ -29,7 +29,7 @@ public class Miner {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
-        return SavageSkyBlock.getSkyblock.makeItem(Material.DIAMOND_PICKAXE, 1, 0, "&b&lMiner", lore);
+        return SavageSkyBlock.getInstance().makeItem(Material.DIAMOND_PICKAXE, 1, 0, "&b&lMiner", lore);
     }
 
     public int getReward() {

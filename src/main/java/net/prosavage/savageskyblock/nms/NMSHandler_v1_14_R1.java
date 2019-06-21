@@ -40,7 +40,7 @@ public class NMSHandler_v1_14_R1 extends NMSHandler {
                key = "IsTop.Blocks." + tileEntity.getBlock().getMaterial().toString().toUpperCase();
             }
 
-            if (SavageSkyBlock.getSkyblock.getConfig().contains(key)) level += SavageSkyBlock.getSkyblock.getConfig().getInt(key);
+            if (SavageSkyBlock.getInstance().getConfig().contains(key)) level += SavageSkyBlock.getInstance().getConfig().getInt(key);
 
          }
       }
@@ -49,7 +49,7 @@ public class NMSHandler_v1_14_R1 extends NMSHandler {
 
    @Override
    public void removeBlockSuperFast(int X, int Y, int Z, boolean applyPhysics) {
-      SavageSkyBlock.getSkyblock.getWorld().getBlockAt(X, Y, Z).setType(Material.AIR, applyPhysics);
+      SavageSkyBlock.getInstance().getWorld().getBlockAt(X, Y, Z).setType(Material.AIR, applyPhysics);
    }
 
    @Override

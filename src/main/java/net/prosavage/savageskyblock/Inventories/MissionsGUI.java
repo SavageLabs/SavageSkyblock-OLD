@@ -10,20 +10,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
 
 public class MissionsGUI implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Missions")));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Missions")));
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
-            inv.setItem(i, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i + 9, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i + 18, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
         inv.setItem(10, island.getFarmer().getItem());
         inv.setItem(11, island.getHunter().getItem());
@@ -38,7 +34,7 @@ public class MissionsGUI implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Missions")))) {
+        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Missions")))) {
             e.setCancelled(true);
         }
     }

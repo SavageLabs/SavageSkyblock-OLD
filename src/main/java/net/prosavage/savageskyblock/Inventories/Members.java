@@ -16,18 +16,18 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class Members implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Members")));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Members")));
         if (island == null) return inv;
         for (String player : island.getPlayers()) {
             if (!(player == null || player.equalsIgnoreCase(""))) {
                 if (island.getownername().equals(player)) {
-                    ItemStack head = SavageSkyBlock.getSkyblock.makeItem(Material.SKULL_ITEM, 1, 3, "&c&l" + player);
+                    ItemStack head = SavageSkyBlock.getInstance().makeItem(Material.SKULL_ITEM, 1, 3, "&c&l" + player);
                     SkullMeta m = (SkullMeta) head.getItemMeta();
                     m.setOwner(player);
                     head.setItemMeta(m);
                     inv.addItem(head);
                 } else {
-                    ItemStack head = SavageSkyBlock.getSkyblock.makeItem(Material.SKULL_ITEM, 1, 3, "&7" + player);
+                    ItemStack head = SavageSkyBlock.getInstance().makeItem(Material.SKULL_ITEM, 1, 3, "&7" + player);
                     SkullMeta m = (SkullMeta) head.getItemMeta();
                     m.setOwner(player);
                     head.setItemMeta(m);
@@ -43,7 +43,7 @@ public class Members implements Listener {
     public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if (e.getClickedInventory() != null) {
-            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Members")))) {
+            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Members")))) {
                 e.setCancelled(true);
             }
         }

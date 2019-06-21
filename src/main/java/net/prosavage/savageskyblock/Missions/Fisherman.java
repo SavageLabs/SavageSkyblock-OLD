@@ -29,7 +29,7 @@ public class Fisherman {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Reward: &b" + reward));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bComplete this mission for rewards."));
-        return SavageSkyBlock.getSkyblock.makeItem(Material.FISHING_ROD, 1, 0, "&b&lFisherman", lore);
+        return SavageSkyBlock.getInstance().makeItem(Material.FISHING_ROD, 1, 0, "&b&lFisherman", lore);
     }
 
     public int getReward() {

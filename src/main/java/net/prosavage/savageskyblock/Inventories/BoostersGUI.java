@@ -17,12 +17,12 @@ import java.util.ArrayList;
 public class BoostersGUI implements Listener {
 
     public static Inventory inv(Island island) {
-        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Boosters")));
+        Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Boosters")));
         if (island == null) return inv;
         for (int i = 0; i < 9; i++) {
-            inv.setItem(i, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 9, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
-            inv.setItem(i + 18, SavageSkyBlock.getSkyblock.makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i + 9, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
+            inv.setItem(i + 18, SavageSkyBlock.getInstance().makeItem(Material.STAINED_GLASS_PANE, 1, 15, " "));
         }
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your spawners too slow? Buy this"));
@@ -34,10 +34,10 @@ public class BoostersGUI implements Listener {
         } else {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawner") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Spawner") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
-        inv.setItem(10, SavageSkyBlock.getSkyblock.makeItem(Material.MOB_SPAWNER, 1, 0, "&b&lIncreased Mobs", lore));
+        inv.setItem(10, SavageSkyBlock.getInstance().makeItem(Material.MOB_SPAWNER, 1, 0, "&b&lIncreased Mobs", lore));
         lore.clear();
 
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Are your crops too slow? Buy this"));
@@ -49,10 +49,10 @@ public class BoostersGUI implements Listener {
         } else {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Crops") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
-        inv.setItem(12, SavageSkyBlock.getSkyblock.makeItem(Material.WHEAT, 1, 0, "&b&lIncreased Crops", lore));
+        inv.setItem(12, SavageSkyBlock.getInstance().makeItem(Material.WHEAT, 1, 0, "&b&lIncreased Crops", lore));
         lore.clear();
 
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Takes too long to get exp? Buy this"));
@@ -64,10 +64,10 @@ public class BoostersGUI implements Listener {
         } else {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.XP") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
-        inv.setItem(14, SavageSkyBlock.getSkyblock.makeItem(Material.EXP_BOTTLE, 1, 0, "&b&lIncreased Experiance", lore));
+        inv.setItem(14, SavageSkyBlock.getInstance().makeItem(Material.EXP_BOTTLE, 1, 0, "&b&lIncreased Experiance", lore));
         lore.clear();
 
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Tired of falling off your island? Buy this"));
@@ -79,10 +79,10 @@ public class BoostersGUI implements Listener {
         } else {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
         }
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly") + " Crystals"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Booster Cost: &b" + SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Fly") + " Crystals"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l[!] &bRight Click to Purchase this Booster."));
-        inv.setItem(16, SavageSkyBlock.getSkyblock.makeItem(Material.FEATHER, 1, 0, "&b&lIncreased Flight", lore));
+        inv.setItem(16, SavageSkyBlock.getInstance().makeItem(Material.FEATHER, 1, 0, "&b&lIncreased Flight", lore));
         return inv;
     }
 
@@ -91,67 +91,67 @@ public class BoostersGUI implements Listener {
         Player p = (Player) e.getWhoClicked();
         Island island = User.getbyPlayer(p).getIsland();
         if (e.getInventory() != null) {
-            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Inventories.Boosters")))) {
+            if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Inventories.Boosters")))) {
                 e.setCancelled(true);
                 if (e.getSlot() == 10) {
-                    if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawners")) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
+                    if (island.getCrystals() < SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Spawners")) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     }
                     if (island.getSpawnerBoosterActive()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
                         return;
                     }
                     //Spawner Booster
                     island.setSpawnerBoosterActive(true);
                     island.startSpawnerCountdown(60 * 60);
-                    island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Spawners"));
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eSpawner Booster Activated"));
+                    island.removeCrystals(SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Spawners"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eSpawner Booster Activated"));
                 }
                 if (e.getSlot() == 12) {
-                    if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops")) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
+                    if (island.getCrystals() < SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Crops")) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     }
                     if (island.getFarmingBoosterActive()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
                         return;
                     }
                     //Farming Booster
                     island.setFarmingBoosterActive(true);
                     island.startFarmingCountdown(60 * 60);
-                    island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Crops"));
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFarming Booster Activated"));
+                    island.removeCrystals(SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Crops"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eFarming Booster Activated"));
                 }
                 if (e.getSlot() == 14) {
-                    if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP")) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
+                    if (island.getCrystals() < SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.XP")) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     }
                     if (island.getXpBoosterActive()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
                         return;
                     }
                     //Xp Booster
                     island.setXpBoosterActive(true);
                     island.startXpCountdown(60 * 60);
-                    island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP"));
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eXP Booster Activated"));
+                    island.removeCrystals(SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.XP"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eXP Booster Activated"));
                 }
                 if (e.getSlot() == 16) {
-                    if (island.getCrystals() < SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly")) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
+                    if (island.getCrystals() < SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Fly")) {
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     }
                     if (island.getFlyBoosterActive()) {
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
                         return;
                     }
                     //Fly Booster
                     island.setFlyBoosterActive(true);
                     island.startFlyCountdown(60 * 60);
-                    island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.Fly"));
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eFlight Booster Activated"));
+                    island.removeCrystals(SavageSkyBlock.getInstance().getConfig().getInt("BoosterCost.Fly"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getInstance().getConfig().getString("Options.Prefix") + "  &eFlight Booster Activated"));
                 }
                 p.openInventory(inv(island));
             }

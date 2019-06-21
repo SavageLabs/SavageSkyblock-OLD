@@ -39,7 +39,7 @@ public class NMSHandler_v1_8_R2 extends NMSHandler {
                key = "IsTop.Blocks." + tileEntity.w().getName().toUpperCase();
             }
 
-            if (SavageSkyBlock.getSkyblock.getConfig().contains(key)) level += SavageSkyBlock.getSkyblock.getConfig().getInt(key);
+            if (SavageSkyBlock.getInstance().getConfig().contains(key)) level += SavageSkyBlock.getInstance().getConfig().getInt(key);
 
          }
       }
@@ -48,7 +48,7 @@ public class NMSHandler_v1_8_R2 extends NMSHandler {
 
    @Override
    public void removeBlockSuperFast(int X, int Y, int Z, boolean applyPhysics) {
-      net.minecraft.server.v1_8_R2.World w = ((org.bukkit.craftbukkit.v1_8_R2.CraftWorld) SavageSkyBlock.getSkyblock.getWorld()).getHandle();
+      net.minecraft.server.v1_8_R2.World w = ((org.bukkit.craftbukkit.v1_8_R2.CraftWorld) SavageSkyBlock.getInstance().getWorld()).getHandle();
       net.minecraft.server.v1_8_R2.Chunk chunk = w.getChunkAt(X >> 4, Z >> 4);
       net.minecraft.server.v1_8_R2.BlockPosition bp = new net.minecraft.server.v1_8_R2.BlockPosition(X, Y, Z);
       net.minecraft.server.v1_8_R2.IBlockData ibd = net.minecraft.server.v1_8_R2.Block.getByCombinedId(0);

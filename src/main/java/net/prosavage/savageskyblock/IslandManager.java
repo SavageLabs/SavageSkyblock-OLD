@@ -11,15 +11,15 @@ public class IslandManager {
 
     private static ArrayList<Island> Islands = new ArrayList<>();
 
-    private static Location nextloc = new Location(SavageSkyBlock.getSkyblock.getWorld(), 0, 88, 0);
+    private static Location nextloc = new Location(SavageSkyBlock.getInstance().getWorld(), 0, 88, 0);
 
     private static Integer nextid = 1;
 
     private static Direction direction = Direction.UNDIFINED;
 
-    public static Integer level1radius = SavageSkyBlock.getSkyblock.getConfig().getInt("Options.Level1Size");
-    public static Integer level2radius = SavageSkyBlock.getSkyblock.getConfig().getInt("Options.Level2Size");
-    public static Integer level3radius = SavageSkyBlock.getSkyblock.getConfig().getInt("Options.Level3Size");
+    public static Integer level1radius = SavageSkyBlock.getInstance().getConfig().getInt("Options.Level1Size");
+    public static Integer level2radius = SavageSkyBlock.getInstance().getConfig().getInt("Options.Level2Size");
+    public static Integer level3radius = SavageSkyBlock.getInstance().getConfig().getInt("Options.Level3Size");
 
     public static Location getNextloc() {
         return nextloc;
@@ -55,7 +55,7 @@ public class IslandManager {
                 island.loadSchematic();
                 island.addUser(player.getName());
                 island.teleportHome(player);
-                SavageSkyBlock.getSkyblock.sendIslandBoarder(player);
+                SavageSkyBlock.getInstance().sendIslandBoarder(player);
                 return;
             }
         }

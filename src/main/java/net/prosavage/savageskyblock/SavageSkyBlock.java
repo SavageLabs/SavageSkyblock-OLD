@@ -47,11 +47,15 @@ import net.prosavage.savageskyblock.nms.Version;
 public class SavageSkyBlock extends JavaPlugin implements Listener {
 
    private final static int CENTER_PX = 154;
-   public static SavageSkyBlock getSkyblock;
+   private static SavageSkyBlock instance;
 
    private World world;
    private Schematic schematic;
    private NMSHandler nmsHandler;
+
+   public static SavageSkyBlock getInstance() {
+      return instance;
+   }
 
    public void onEnable() {
       try {
@@ -59,7 +63,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
       } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
          e.printStackTrace();
       }
-      getSkyblock = this;
+      instance = this;
       registerEvents();
       ConfigManager.getInstance().setup(this);
       makeWorld();
@@ -68,7 +72,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
       addMissionsToIslands();
       startCounting();
       saveInt();
-      Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> calculateWorth(), 0, 20 * 60);
+      Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::calculateWorth, 0, 20 * 60);
       new Metrics(this);
       try {
          this.schematic = Schematic.loadSchematic(ConfigManager.getInstance().getSchematicFile());
@@ -152,7 +156,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
    }
 
    public void sendIslandBoarder(Player p) {
-      if (p.getLocation().getWorld().equals(SavageSkyBlock.getSkyblock.getWorld())) {
+      if (p.getLocation().getWorld().equals(SavageSkyBlock.getInstance().getWorld())) {
          Island island = IslandManager.getIslandViaBlock(p.getLocation().getBlock());
          if (island != null) {
             int radius = 0;
