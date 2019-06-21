@@ -494,7 +494,7 @@ public class Island {
       return XPBoosterActive;
    }
 
-   public void setXPBoosterActive(boolean XPBoosterActive) {
+   public void setXpBoosterActive(boolean XPBoosterActive) {
       this.XPBoosterActive = XPBoosterActive;
    }
 

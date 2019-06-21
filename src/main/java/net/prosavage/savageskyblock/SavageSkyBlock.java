@@ -278,7 +278,7 @@ public class SavageSkyBlock extends JavaPlugin implements Listener {
       boolean isBold = false;
 
       for (char c : message.toCharArray()) {
-         if (c == '§') {
+         if (c == 'ï¿½') {
             previousCode = true;
             continue;
          } else if (previousCode) {
