@@ -79,7 +79,7 @@ public class Events implements Listener {
       }
       User u = User.getbyPlayer(p);
       if (u.getIsland() != null) {
-         if (u.getIsland().getXPBoosterActive()) {
+         if (u.getIsland().getXpBoosterActive()) {
             e.setDroppedExp(e.getDroppedExp() * ConfigManager.getInstance().getConfig().getInt("Options.XpMultiplier"));
          }
       }

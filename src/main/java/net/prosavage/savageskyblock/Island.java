@@ -490,7 +490,7 @@ public class Island {
       FarmingBoosterActive = farmingBoosterActive;
    }
 
-   public boolean getXPBoosterActive() {
+   public boolean getXpBoosterActive() {
       return XPBoosterActive;
    }
 
