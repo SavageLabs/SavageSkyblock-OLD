@@ -59,7 +59,7 @@ public class BoostersGUI implements Listener {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7booster and increase exp rates x2."));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&b&lInformation:"));
-        if (island.getXPBoosterActive()) {
+        if (island.getXpBoosterActive()) {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &b" + island.getXp() + "s"));
         } else {
             lore.add(ChatColor.translateAlternateColorCodes('&', "&b&l * &7Time Remaining: &bNot Active"));
@@ -128,12 +128,12 @@ public class BoostersGUI implements Listener {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eYou do not have enough crystals to active this booster."));
                         return;
                     }
-                    if (island.getXPBoosterActive()) {
+                    if (island.getXpBoosterActive()) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eThis booster is already activated"));
                         return;
                     }
                     //Xp Booster
-                    island.setXPBoosterActive(true);
+                    island.setXpBoosterActive(true);
                     island.startXpCountdown(60 * 60);
                     island.removeCrystals(SavageSkyBlock.getSkyblock.getConfig().getInt("BoosterCost.XP"));
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', SavageSkyBlock.getSkyblock.getConfig().getString("Options.Prefix") + "  &eXP Booster Activated"));
