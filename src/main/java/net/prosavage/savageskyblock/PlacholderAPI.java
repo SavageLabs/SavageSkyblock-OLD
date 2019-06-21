@@ -28,17 +28,15 @@ public class PlacholderAPI extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String s) {
         User u = User.getbyPlayer(player);
-        if (u.getIsland() != null) {
-            switch (s) {
-                case "leader":
-                    return u.getIsland().getownername();
-                case "online":
-                    return u.getIsland().getOnline() + "";
-                case "value":
-                    return u.getIsland().getLevel() + "";
-                case "crystals":
-                    return u.getIsland().getCrystals() + "";
-            }
+        switch (s) {
+            case "leader":
+                return u.getIsland() != null ? u.getIsland().getownername() : "N/A";
+            case "online":
+                return u.getIsland() != null ? u.getIsland().getOnline() + "" : "N/A";
+            case "value":
+                return  u.getIsland() != null ? u.getIsland().getLevel() + "" : "N/A";
+            case "crystals":
+                return  u.getIsland() != null ? u.getIsland().getCrystals() + "" : "N/A";
         }
         return null;
     }
